@@ -15,19 +15,26 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.mixxit.allotment.setup.ModBlocks;
+import team.mixxit.allotment.setup.Registration;
 
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("allotment")
+@Mod(AllotmentMod.MOD_ID)
 public class AllotmentMod
 {
+    public static final String MOD_ID = "allotment";
+
+
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static Block TestBlock;
 
     public AllotmentMod() {
+        Registration.register();
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -50,6 +57,7 @@ public class AllotmentMod
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        ModBlocks.registerRenderTypes(event);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -72,6 +80,7 @@ public class AllotmentMod
         LOGGER.info("HELLO from server starting");
     }
 
+    /*
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -82,4 +91,5 @@ public class AllotmentMod
             LOGGER.info("HELLO from Register Block");
         }
     }
+    */
 }
