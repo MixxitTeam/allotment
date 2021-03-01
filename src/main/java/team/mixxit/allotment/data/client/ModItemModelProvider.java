@@ -14,14 +14,11 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected  void registerModels() {
-        block("test_block");
-        //flower("forget_me_not");
-        //flower("coral_small_peony");
-        //flower("small_peony");
+        //block("test_block");
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
-        builder(itemGenerated, "test_item");
+        //builder(itemGenerated, "test_item");
 
         builderForBlock(itemGenerated, "forget_me_not");
         builderForBlock(itemGenerated, "coral_small_peony");
@@ -33,6 +30,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         builderForBlock(itemGenerated, "violet_hyacinth");
         builderForBlock(itemGenerated, "white_hyacinth");
         builderForBlock(itemGenerated, "yellow_hyacinth");
+        builderForBlock(itemGenerated, "lantana");
+        builderForBlock(itemGenerated, "actaea_racemosa");
+        builderForBlock(itemGenerated, "marigold");
+        builderForBlock(itemGenerated, "blue_convolvulus_tricolor");
+        builderForBlock(itemGenerated, "red_convolvulus_tricolor");
+        builderForBlock(itemGenerated, "yellow_hollyhock");
+        builderForBlock(itemGenerated, "blue_agapanthus");
+        builderForBlock(itemGenerated, "pink_agapanthus");
+        builderForBlock(itemGenerated, "white_agapanthus");
     }
 
     private void block(String name) {

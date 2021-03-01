@@ -1,7 +1,6 @@
 {
   "item.allotment.test_item": "Test Item",
 
-
   "block.allotment.test_block": "Test Block",
   "block.allotment.forget_me_not": "Forget-me-not",
   "block.allotment.small_peony": "Small Peony",
@@ -12,5 +11,14 @@
   "block.allotment.red_hyacinth": "Red Hyacinth",
   "block.allotment.violet_hyacinth": "Violet Hyacinth",
   "block.allotment.white_hyacinth": "White Hyacinth",
-  "block.allotment.yellow_hyacinth": "Yellow Hyacinth"
+  "block.allotment.yellow_hyacinth": "Yellow Hyacinth",
+  "block.allotment.lantana": "Lantana",
+  "block.allotment.actaea_racemosa": "Actaea Racemosa",
+  "block.allotment.marigold": "Marigold",
+  "block.allotment.blue_convolvulus_tricolor": "Blue Convolvulus Tricolor",
+  "block.allotment.red_convolvulus_tricolor": "Red Convolvulus Tricolor",
+  "block.allotment.yellow_hollyhock": "Yellow Hollyhock",
+  "block.allotment.blue_agapanthus": "Blue Agapanthus",
+  "block.allotment.pink_agapanthus": "Pink Agapanthus",
+  "block.allotment.white_agapanthus": "White Agapanthus"
 }
