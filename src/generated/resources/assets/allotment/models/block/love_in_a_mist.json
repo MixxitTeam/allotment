@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "allotment:block/love_in_a_mist"
+  }
+}

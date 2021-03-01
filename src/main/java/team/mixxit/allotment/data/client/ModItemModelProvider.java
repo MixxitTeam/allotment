@@ -1,11 +1,14 @@
 package team.mixxit.allotment.data.client;
 
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.setup.ModBlocks;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -15,30 +18,17 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected  void registerModels() {
         //block("test_block");
+        block("lawn_block");
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
         //builder(itemGenerated, "test_item");
 
-        builderForBlock(itemGenerated, "forget_me_not");
-        builderForBlock(itemGenerated, "coral_small_peony");
-        builderForBlock(itemGenerated, "small_peony");
-        builderForBlock(itemGenerated, "blue_hyacinth");
-        builderForBlock(itemGenerated, "cream_hyacinth");
-        builderForBlock(itemGenerated, "orange_hyacinth");
-        builderForBlock(itemGenerated, "red_hyacinth");
-        builderForBlock(itemGenerated, "violet_hyacinth");
-        builderForBlock(itemGenerated, "white_hyacinth");
-        builderForBlock(itemGenerated, "yellow_hyacinth");
-        builderForBlock(itemGenerated, "lantana");
-        builderForBlock(itemGenerated, "actaea_racemosa");
-        builderForBlock(itemGenerated, "marigold");
-        builderForBlock(itemGenerated, "blue_convolvulus_tricolor");
-        builderForBlock(itemGenerated, "red_convolvulus_tricolor");
-        builderForBlock(itemGenerated, "yellow_hollyhock");
-        builderForBlock(itemGenerated, "blue_agapanthus");
-        builderForBlock(itemGenerated, "pink_agapanthus");
-        builderForBlock(itemGenerated, "white_agapanthus");
+        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+            builderForBlock(itemGenerated, _flower.getId().getPath());
+        }
+        builderForBlock(itemGenerated, "pampas_grass", "pampas_grass_top_yellow");
+        builderForBlock(itemGenerated, "pink_pampas_grass", "pampas_grass_top_pink");
     }
 
     private void block(String name) {
@@ -55,5 +45,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private ItemModelBuilder builderForBlock(ModelFile itemGenerated, String name) {
         return getBuilder(name).parent(itemGenerated).texture("layer0", "block/" + name);
+    }
+    private ItemModelBuilder builderForBlock(ModelFile itemGenerated, String name, String textureName) {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", "block/" + textureName);
     }
 }

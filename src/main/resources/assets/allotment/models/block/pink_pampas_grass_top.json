@@ -1,0 +1,7 @@
+{
+    "parent": "allotment:block/layered_tinted_cross",
+    "textures": {
+        "cross": "allotment:block/pampas_grass_top",
+        "base": "allotment:block/pampas_grass_top_pink"
+    }
+}

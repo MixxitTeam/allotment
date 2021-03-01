@@ -1,9 +1,21 @@
 package team.mixxit.allotment;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -80,16 +92,36 @@ public class AllotmentMod
         LOGGER.info("HELLO from server starting");
     }
 
-    /*
+
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-        @SubscribeEvent
+        /*@SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
+        }*/
+
+        @SubscribeEvent
+        public static void registerBlockColors(final ColorHandlerEvent.Block event) {
+            event.getBlockColors().register((IBlockColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
+            event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
+            event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
         }
+
+        @SubscribeEvent
+        public static void registerItemColors(final ColorHandlerEvent.Item event) {
+            event.getItemColors().register((IItemColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
+            event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
+            event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
+        }
+
+        /*
+        @SubscribeEvent
+        public static void blockToolInteract(final BlockEvent.BlockToolInteractEvent event) {
+            System.out.println("~~~~~[[[[ALLOTMENT---INTERACT]]]]~~~~~");
+        }
+        */
     }
-    */
 }

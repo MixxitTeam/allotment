@@ -2,6 +2,7 @@ package team.mixxit.allotment.setup;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
@@ -12,6 +13,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import team.mixxit.allotment.blocks.LawnBlock;
+import team.mixxit.allotment.blocks.TintedDoublePlantBlock;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -19,6 +22,15 @@ import java.util.function.Supplier;
 public class ModBlocks {
     //public static final RegistryObject<Block> TEST_BLOCK = register("test_block", () ->
     //        new Block(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3, 10).sound(SoundType.STONE)));
+
+    public static final RegistryObject<Block> LAWN_BLOCK = register("lawn_block", () ->
+            new LawnBlock(AbstractBlock.Properties.create(Material.EARTH).hardnessAndResistance(0.65F).sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> PAMPAS_GRASS = register("pampas_grass", () ->
+            new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> PAMPAS_GRASS_PINK = register("pink_pampas_grass", () ->
+            new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
@@ -39,7 +51,12 @@ public class ModBlocks {
             flower("yellow_hollyhock"),
             flower("blue_agapanthus"),
             flower("pink_agapanthus"),
-            flower("white_agapanthus")
+            flower("white_agapanthus"),
+            flower("anemone"),
+            flower("love_in_a_mist"),
+            flower("geranium"),
+            flower("green_carnation"),
+            flower("red_anthurium")
     };
 
     public static final RegistryObject<FlowerBlock> FLOWER_FORGET_ME_NOT = _COLLECTION_FLOWERS[0];
@@ -61,6 +78,11 @@ public class ModBlocks {
     public static final RegistryObject<FlowerBlock> FLOWER_AGAPANTHUS_BLUE = _COLLECTION_FLOWERS[16];
     public static final RegistryObject<FlowerBlock> FLOWER_AGAPANTHUS_PINK = _COLLECTION_FLOWERS[17];
     public static final RegistryObject<FlowerBlock> FLOWER_AGAPANTHUS_WHITE = _COLLECTION_FLOWERS[18];
+    public static final RegistryObject<FlowerBlock> FLOWER_ANEMONE = _COLLECTION_FLOWERS[19];
+    public static final RegistryObject<FlowerBlock> FLOWER_LOVE_IN_A_MIST = _COLLECTION_FLOWERS[20];
+    public static final RegistryObject<FlowerBlock> FLOWER_GERANIUM = _COLLECTION_FLOWERS[21];
+    public static final RegistryObject<FlowerBlock> FLOWER_GREEN_CARNATION = _COLLECTION_FLOWERS[22];
+    public static final RegistryObject<FlowerBlock> FLOWER_RED_ANTHURIUM = _COLLECTION_FLOWERS[23];
 
     public static ArrayList<FlowerPotBlock> _COLLECTION_POTTED_FLOWERS;
 
@@ -101,6 +123,9 @@ public class ModBlocks {
         for (FlowerPotBlock _flowerPotBlock : _COLLECTION_POTTED_FLOWERS) {
             RenderTypeLookup.setRenderLayer(_flowerPotBlock, RenderType.getCutout());
         }
+        RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
     }
 
     private static RegistryObject<FlowerBlock> flower(String name)

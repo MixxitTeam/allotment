@@ -4,11 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.TintedDoublePlantBlock;
 import team.mixxit.allotment.setup.ModBlocks;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -27,6 +29,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         //simpleBlock(ModBlocks.TEST_BLOCK.get());
+
+        ModelFile grassBlock = models().getExistingFile(mcLoc("block/grass_block"));
+
+        simpleBlock(ModBlocks.LAWN_BLOCK.get(),
+                models().getBuilder("lawn_block").parent(grassBlock).texture("top", modLoc("block/lawn_block"))
+        );
+
+        /*
+        ModelFile layeredTintedCross = models().getExistingFile(modLoc("block/layered_tinted_cross"));
+        ModelFile tintedCross = models().getExistingFile(mcLoc("block/tinted_cross"));
+
+        BlockModelBuilder pampasGrassUpperHalf = models().getBuilder("pampas_grass").parent(layeredTintedCross)
+                .texture("base", "block/pampas_grass_top_yellow")
+                .texture("cross", "block/pampas_grass_top");
+
+        BlockModelBuilder pampasGrassLowerHalf = models().getBuilder("pampas_grass").parent(tintedCross)
+                .texture("cross", "block/pampas_grass_bottom");
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(ModBlocks.PAMPAS_GRASS.get());
+        variantBuilder.partialState()
+                .with(TintedDoublePlantBlock.HALF, DoubleBlockHalf.LOWER).addModels(ConfiguredModel.allRotations(pampasGrassLowerHalf, false))
+                .with(TintedDoublePlantBlock.HALF, DoubleBlockHalf.UPPER).addModels(ConfiguredModel.allRotations(pampasGrassUpperHalf, false));
+         */
 
         for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             flower(_flower, _flower.getId().getPath());

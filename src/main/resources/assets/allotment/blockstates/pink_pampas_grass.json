@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "allotment:block/pampas_grass_bottom"
+    },
+    "half=upper": {
+      "model": "allotment:block/pink_pampas_grass_top"
+    }
+  }
+}
