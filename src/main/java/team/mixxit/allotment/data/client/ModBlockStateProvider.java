@@ -4,12 +4,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.tileentity.EnchantingTableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.LawnBlock;
 import team.mixxit.allotment.blocks.TintedDoublePlantBlock;
 import team.mixxit.allotment.setup.ModBlocks;
 
@@ -29,18 +33,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         //simpleBlock(ModBlocks.TEST_BLOCK.get());
-
-        ModelFile grassBlock = models().getExistingFile(mcLoc("block/grass_block"));
-
-        simpleBlock(ModBlocks.LAWN_BLOCK.get(),
-                models().getBuilder("lawn_block").parent(grassBlock).texture("top", modLoc("block/lawn_block"))
-        );
-
-        ModelFile firewoodBase = models().getExistingFile(modLoc("block/firewood_bundle"));
-        simpleBlock(ModBlocks.FIREWOOD_SPRUCE.get(), models().getBuilder("spruce_firewood_bundle").parent(firewoodBase).texture("all", modLoc("block/spruce_firewood")));
-
-        //ModelFile hoseReel = models().getExistingFile(modLoc("block/hose_reel"));
-        //simpleBlock(ModBlocks.HOSE_REEL.get(), models().getBuilder("hose_reel").parent(hoseReel));
 
         /*
         ModelFile layeredTintedCross = models().getExistingFile(modLoc("block/layered_tinted_cross"));

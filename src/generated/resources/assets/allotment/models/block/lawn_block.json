@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/grass_block",
-  "textures": {
-    "top": "allotment:block/lawn_block"
-  }
-}

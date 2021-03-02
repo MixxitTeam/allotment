@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=east,snowy=false": {
+      "model": "allotment:block/lawn_block",
+      "y": 90
+    },
+    "facing=north,snowy=false": {
+      "model": "allotment:block/lawn_block",
+      "y": 0
+    },
+    "facing=south,snowy=false": {
+      "model": "allotment:block/lawn_block",
+      "y": 180
+    },
+    "facing=west,snowy=false": {
+      "model": "allotment:block/lawn_block",
+      "y": 270
+    },
+    "facing=east,snowy=true": {
+      "model": "minecraft:block/grass_block_snow",
+      "y": 90
+    },
+    "facing=north,snowy=true": {
+      "model": "minecraft:block/grass_block_snow",
+      "y": 0
+    },
+    "facing=south,snowy=true": {
+      "model": "minecraft:block/grass_block_snow",
+      "y": 180
+    },
+    "facing=west,snowy=true": {
+      "model": "minecraft:block/grass_block_snow",
+      "y": 270
+    }
+  }
+}

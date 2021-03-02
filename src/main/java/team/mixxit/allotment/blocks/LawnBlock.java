@@ -6,8 +6,16 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.IBlockReader;
@@ -21,8 +29,38 @@ import java.util.Random;
 public class LawnBlock extends GrassBlock implements IGrowable, IBlockColor, IItemColor {
     private static final GrassBlock grass = (GrassBlock)Blocks.GRASS_BLOCK;
 
+    public static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
+    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
     public LawnBlock(Properties properties) {
         super(properties);
+
+        BlockState defaultState = stateContainer.getBaseState()
+                .with(FACING, Direction.NORTH)
+                .with(SNOWY, Boolean.FALSE)
+                ;
+        setDefaultState(defaultState);
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder
+                .add(FACING)
+                .add(SNOWY)
+        ;
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        BlockState blockstate = context.getWorld().getBlockState(context.getPos().up());
+        return getDefaultState()
+                .with(FACING, context.getPlacementHorizontalFacing().getOpposite())
+                .with(SNOWY, blockstate.isIn(Blocks.SNOW_BLOCK) || blockstate.isIn(Blocks.SNOW));
+    }
+
+    @Override
+    public StateContainer<Block, BlockState> getStateContainer() {
+        return super.getStateContainer();
     }
 
     @Override
@@ -52,5 +90,13 @@ public class LawnBlock extends GrassBlock implements IGrowable, IBlockColor, IIt
     @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
         return true;
+    }
+
+    public BlockState rotate(BlockState state, Rotation rot) {
+        return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
+
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+        return state.rotate(mirrorIn.toRotation(state.get(FACING)));
     }
 }

@@ -19,6 +19,10 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected  void registerModels() {
         //block("test_block");
         block("lawn_block");
+        block("hose_reel");
+
+        // TODO All firewood bundles in one array; iterate with for loop
+        block("spruce_firewood_bundle");
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
