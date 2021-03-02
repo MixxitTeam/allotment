@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/firewood_bundle",
+  "textures": {
+    "all": "allotment:block/spruce_firewood"
+  }
+}

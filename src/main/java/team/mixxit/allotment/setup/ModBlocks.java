@@ -13,6 +13,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import team.mixxit.allotment.blocks.FirewoodBundleBlock;
+import team.mixxit.allotment.blocks.HoseReelBlock;
 import team.mixxit.allotment.blocks.LawnBlock;
 import team.mixxit.allotment.blocks.TintedDoublePlantBlock;
 
@@ -31,6 +33,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> PAMPAS_GRASS_PINK = register("pink_pampas_grass", () ->
             new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle", () -> new FirewoodBundleBlock());
+    public static final RegistryObject<Block> HOSE_REEL = register("hose_reel", () -> new HoseReelBlock());
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),

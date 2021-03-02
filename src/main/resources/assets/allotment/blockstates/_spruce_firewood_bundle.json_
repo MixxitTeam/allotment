@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "allotment:block/spruce_firewood_bundle",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "minecraft:block/spruce_firewood_bundle",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "minecraft:block/spruce_firewood_bundle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "minecraft:block/spruce_firewood_bundle",
+      "y": 270
+    }
+  }
+}

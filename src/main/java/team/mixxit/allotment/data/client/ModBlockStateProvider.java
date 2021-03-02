@@ -36,6 +36,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 models().getBuilder("lawn_block").parent(grassBlock).texture("top", modLoc("block/lawn_block"))
         );
 
+        ModelFile firewoodBase = models().getExistingFile(modLoc("block/firewood_bundle"));
+        simpleBlock(ModBlocks.FIREWOOD_SPRUCE.get(), models().getBuilder("spruce_firewood_bundle").parent(firewoodBase).texture("all", modLoc("block/spruce_firewood")));
+
+        //ModelFile hoseReel = models().getExistingFile(modLoc("block/hose_reel"));
+        //simpleBlock(ModBlocks.HOSE_REEL.get(), models().getBuilder("hose_reel").parent(hoseReel));
+
         /*
         ModelFile layeredTintedCross = models().getExistingFile(modLoc("block/layered_tinted_cross"));
         ModelFile tintedCross = models().getExistingFile(mcLoc("block/tinted_cross"));
