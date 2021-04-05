@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "allotment:block/dried_bamboo_block_side",
+    "end": "allotment:block/dried_bamboo_block_end"
+  }
+}

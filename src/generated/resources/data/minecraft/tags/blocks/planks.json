@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "allotment:elder_planks",
+    "allotment:chipped_acacia_planks",
+    "allotment:weathered_acacia_planks",
+    "allotment:chipped_birch_planks",
+    "allotment:weathered_birch_planks",
+    "allotment:chipped_crimson_planks",
+    "allotment:weathered_crimson_planks",
+    "allotment:chipped_dark_oak_planks",
+    "allotment:weathered_dark_oak_planks",
+    "allotment:chipped_elder_planks",
+    "allotment:weathered_elder_planks",
+    "allotment:chipped_jungle_planks",
+    "allotment:weathered_jungle_planks",
+    "allotment:chipped_oak_planks",
+    "allotment:weathered_oak_planks",
+    "allotment:chipped_spruce_planks",
+    "allotment:weathered_spruce_planks",
+    "allotment:chipped_warped_planks",
+    "allotment:weathered_warped_planks"
+  ]
+}

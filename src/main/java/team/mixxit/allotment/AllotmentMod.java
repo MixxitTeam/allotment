@@ -27,6 +27,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.mixxit.allotment.itemgroups.MainItemGroup;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.Registration;
 
@@ -37,6 +38,8 @@ import java.util.stream.Collectors;
 public class AllotmentMod
 {
     public static final String MOD_ID = "allotment";
+
+    public static final MainItemGroup MAIN_GROUP = new MainItemGroup("group_allotment");
 
 
     // Directly reference a log4j logger.
@@ -55,9 +58,15 @@ public class AllotmentMod
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        // Register the commonSetup method for commonSetup
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent evt) {
+        evt.enqueueWork(() -> Registration.postRegister());
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -108,6 +117,7 @@ public class AllotmentMod
             event.getBlockColors().register((IBlockColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
             event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
             event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
+            event.getBlockColors().register((IBlockColor) ModBlocks.ELDER_LEAVES.get(), ModBlocks.ELDER_LEAVES.get());
         }
 
         @SubscribeEvent
@@ -115,6 +125,7 @@ public class AllotmentMod
             event.getItemColors().register((IItemColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
             event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
             event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
+            event.getItemColors().register((IItemColor) ModBlocks.ELDER_LEAVES.get(), ModBlocks.ELDER_LEAVES.get());
         }
 
         /*

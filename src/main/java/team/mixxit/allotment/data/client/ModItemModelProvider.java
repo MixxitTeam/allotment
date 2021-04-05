@@ -1,6 +1,9 @@
 package team.mixxit.allotment.data.client;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.MushroomBlock;
+import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -8,6 +11,8 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.ModMushroomBlock;
+import team.mixxit.allotment.blocks.SmallCactusBlock;
 import team.mixxit.allotment.setup.ModBlocks;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -20,16 +25,37 @@ public class ModItemModelProvider extends ItemModelProvider {
         //block("test_block");
         block("lawn_block");
         block("hose_reel");
+        block("zen_gravel");
+        block("zen_gravel_straight");
+        block("zen_gravel_corner");
+        block("zen_gravel_end");
+        block("elder_log");
+        block("elder_planks");
+        block("elder_leaves");
+        block("bamboo_block");
+        block("dried_bamboo_block");
 
         // TODO All firewood bundles in one array; iterate with for loop
         block("spruce_firewood_bundle");
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
-        //builder(itemGenerated, "test_item");
+        builder(itemGenerated, "dried_bamboo");
 
         for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             builderForBlock(itemGenerated, _flower.getId().getPath());
+        }
+        for (RegistryObject<ModMushroomBlock> _mushroom : ModBlocks._COLLECTION_MUSHROOMS) {
+            builderForBlock(itemGenerated, _mushroom.getId().getPath());
+        }
+        for (RegistryObject<SmallCactusBlock> _cactus : ModBlocks._COLLECTION_SMALL_CACTI) {
+            builderForBlock(itemGenerated, _cactus.getId().getPath());
+        }
+        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
+            block(_plank.getId().getPath());
+        }
+        for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS) {
+            trapdoor(_trapdoor.getId().getPath());
         }
         builderForBlock(itemGenerated, "pampas_grass", "pampas_grass_top_yellow");
         builderForBlock(itemGenerated, "pink_pampas_grass", "pampas_grass_top_pink");
@@ -37,6 +63,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private void block(String name) {
         withExistingParent(name, modLoc("block/" + name));
+    }
+
+    private void trapdoor(String name) {
+        withExistingParent(name, modLoc("block/" + name + "_bottom"));
     }
 
     private void flower(String name) {

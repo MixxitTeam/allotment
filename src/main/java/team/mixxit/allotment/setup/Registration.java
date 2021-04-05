@@ -2,8 +2,8 @@ package team.mixxit.allotment.setup;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.registry.Bootstrap;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,5 +20,9 @@ public class Registration {
 
         ModBlocks.register();
         ModItems.register();
+    }
+
+    public static void postRegister() {
+        ModBlocks.postRegister();
     }
 }

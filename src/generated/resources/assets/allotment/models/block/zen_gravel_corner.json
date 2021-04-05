@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "front": "allotment:block/zen_gravel",
+    "side": "allotment:block/zen_gravel",
+    "bottom": "allotment:block/zen_gravel",
+    "top": "allotment:block/zen_gravel_corner"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "allotment:block/zen_gravel_straight"
+    },
+    "facing=south": {
+      "model": "allotment:block/zen_gravel_straight",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "allotment:block/zen_gravel_straight",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "allotment:block/zen_gravel_straight",
+      "y": 90
+    }
+  }
+}
