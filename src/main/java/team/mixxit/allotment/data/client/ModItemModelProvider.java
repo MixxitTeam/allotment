@@ -39,6 +39,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("spruce_firewood_bundle");
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
+        ModelFile layeredTinted = getExistingFile(modLoc("item/layered_tinted"));
 
         builder(itemGenerated, "dried_bamboo");
 
@@ -57,8 +58,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS) {
             trapdoor(_trapdoor.getId().getPath());
         }
-        builderForBlock(itemGenerated, "pampas_grass", "pampas_grass_top_yellow");
-        builderForBlock(itemGenerated, "pink_pampas_grass", "pampas_grass_top_pink");
+        builder(itemGenerated, "pink_pampas_grass");
+        builder(itemGenerated, "pampas_grass");
     }
 
     private void block(String name) {

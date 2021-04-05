@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "allotment:block/pampas_grass_top_yellow"
+    "layer0": "allotment:item/pampas_grass"
   }
 }

@@ -72,12 +72,12 @@ public class AllotmentMod
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-        LOGGER.info("team.mixxit.allotment::AllotmentMod.setup");
+        //LOGGER.info("team.mixxit.allotment::AllotmentMod.setup");
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
         ModBlocks.registerRenderTypes(event);
     }
 
@@ -90,15 +90,13 @@ public class AllotmentMod
     private void processIMC(final InterModProcessEvent event)
     {
         // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
+        //LOGGER.info("Got IMC {}", event.getIMCStream().map(m->m.getMessageSupplier().get()).collect(Collectors.toList()));
     }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        //LOGGER.info("HELLO from server starting");
     }
 
 
@@ -123,8 +121,6 @@ public class AllotmentMod
         @SubscribeEvent
         public static void registerItemColors(final ColorHandlerEvent.Item event) {
             event.getItemColors().register((IItemColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
-            event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
-            event.getItemColors().register((IItemColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
             event.getItemColors().register((IItemColor) ModBlocks.ELDER_LEAVES.get(), ModBlocks.ELDER_LEAVES.get());
         }
 

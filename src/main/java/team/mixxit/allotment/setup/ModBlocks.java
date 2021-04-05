@@ -37,10 +37,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> LAWN_BLOCK = register("lawn_block", () ->
             new LawnBlock(AbstractBlock.Properties.create(Material.EARTH).hardnessAndResistance(0.65F).sound(SoundType.PLANT)));
 
-    public static final RegistryObject<Block> PAMPAS_GRASS = register("pampas_grass", () ->
+    public static final RegistryObject<Block> PAMPAS_GRASS = registerNoItem("pampas_grass", () ->
             new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
 
-    public static final RegistryObject<Block> PAMPAS_GRASS_PINK = register("pink_pampas_grass", () ->
+    public static final RegistryObject<Block> PAMPAS_GRASS_PINK = registerNoItem("pink_pampas_grass", () ->
             new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> ZEN_GRAVEL_NORMAL = register("zen_gravel", () ->

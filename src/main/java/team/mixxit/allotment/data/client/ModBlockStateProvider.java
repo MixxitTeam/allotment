@@ -95,10 +95,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         logBlock(ModBlocks.ELDER_LOG.get());
         simpleBlock(ModBlocks.ELDER_PLANKS.get());
-        leaves(ModBlocks.ELDER_LEAVES.get());
+        floweringLeaves(ModBlocks.ELDER_LEAVES.get());
 
         axisBlock(ModBlocks.BAMBOO_BLOCK.get(), modLoc("block/bamboo_block"));
         axisBlock(ModBlocks.DRIED_BAMBOO_BLOCK.get(), modLoc("block/dried_bamboo_block"));
+    }
+
+    private void floweringLeaves(Block block) {
+        ModelFile base = models().getExistingFile(modLoc("block/flowering_leaves"));
+        BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
+                .texture("all", modLoc("block/" + block.getRegistryName().getPath()))
+                .texture("overlay", modLoc("block/" + block.getRegistryName().getPath() + "_overlay"));
+        simpleBlock(block, builder);
     }
 
     private void leaves(Block block) {

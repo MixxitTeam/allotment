@@ -60,8 +60,6 @@
   "block.allotment.boletus_edulis": "Boletus Edulis",
   "block.allotment.button_mushroom": "Button Mushroom",
   "block.allotment.chanterelle": "Chanterelle",
-  "block.allotment.pampas_grass": "Pampas Grass",
-  "block.allotment.pink:pampas_grass": "Pink Pampas Grass",
   "block.allotment.anigozanthos_manglesii": "Anigozanthos Manglesii",
   "block.allotment.cookeina": "Cookeina",
   "block.allotment.guzmania": "Guzmania",
@@ -83,6 +81,8 @@
   "block.allotment.elder_trapdoor": "Elder Trapdoor",
 
   "item.allotment.dried_bamboo": "Dried Bamboo",
+  "item.allotment.pampas_grass": "Pampas Grass",
+  "item.allotment.pink_pampas_grass": "Pink Pampas Grass",
 
   "itemGroup.group_allotment": "Allotment"
 }
