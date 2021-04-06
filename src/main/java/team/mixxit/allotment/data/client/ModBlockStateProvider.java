@@ -1,20 +1,18 @@
 package team.mixxit.allotment.data.client;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.TrapDoorBlock;
+import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
-import team.mixxit.allotment.blocks.ModMushroomBlock;
-import team.mixxit.allotment.blocks.RotatableBlock;
-import team.mixxit.allotment.blocks.SmallCactusBlock;
+import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
+
+import javax.sound.midi.MidiChannel;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
@@ -67,6 +65,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
             plank(_plank);
         }
+        ModelFile cross = models().getExistingFile(mcLoc("block/cross"));
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : ModBlocks._COLLECTION_TALL_FLOWERS) {
+            tallFlower(cross, _tallflower);
+        }
 
         ModelFile flowerPotCross = models().getExistingFile(mcLoc("block/flower_pot_cross"));
 
@@ -88,6 +90,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
             trapdoorBlock(_trapdoor.get(), bottom, top, open, false);
         }
 
+        for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
+            fenceBlock(_fence.get(), modLoc("block/" + _fence.get().ForBlock));
+        }
+
+        for (RegistryObject<ModFenceGateBlock> _fencegate : ModBlocks._COLLECTION_FENCEGATES) {
+            fenceGateBlock(_fencegate.get(), modLoc("block/" + _fencegate.get().ForBlock));
+        }
+
         rotatable(ModBlocks.ZEN_GRAVEL_NORMAL, zenGravelModel("zen_gravel", modLoc("block/zen_gravel")));
         rotatable(ModBlocks.ZEN_GRAVEL_STRAIGHT, zenGravelModel("zen_gravel_straight", modLoc("block/zen_gravel_straight")));
         rotatable(ModBlocks.ZEN_GRAVEL_CORNER, zenGravelModel("zen_gravel_corner", modLoc("block/zen_gravel_corner")), 180);
@@ -99,6 +109,42 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         axisBlock(ModBlocks.BAMBOO_BLOCK.get(), modLoc("block/bamboo_block"));
         axisBlock(ModBlocks.DRIED_BAMBOO_BLOCK.get(), modLoc("block/dried_bamboo_block"));
+
+        simpleBlock(ModBlocks.STRAW_BLOCK.get());
+
+        ModelFile chainLinkFencePost = models().getExistingFile(modLoc("block/chain_link_fence_post"));
+        ModelFile chainLinkFenceSide = models().getExistingFile(modLoc("block/chain_link_fence_side"));
+        fourWayBlock(ModBlocks.CHAIN_LINK_FENCE.get(), chainLinkFencePost, chainLinkFenceSide);
+
+        simpleBlock(ModBlocks.CRACKED_CLAY.get());
+        simpleBlock(ModBlocks.HUMUS.get());
+        simpleBlock(ModBlocks.TURF.get());
+        simpleBlock(ModBlocks.FERRALSOL.get());
+        simpleBlock(ModBlocks.MULCH.get());
+        simpleBlock(ModBlocks.TERRA_PRETA.get());
+
+        transparentBlock(ModBlocks.SPANISH_MOSS.get());
+
+        //simpleBlock(ModBlocks.ELDER_STAIRS.get());
+        stairsBlock(ModBlocks.ELDER_STAIRS.get(), modLoc("block/elder_planks"));
+
+        slabBlock(ModBlocks.ELDER_SLAB.get(), modLoc("block/elder_planks"), modLoc("block/elder_planks"));
+    }
+
+    private void tallFlower(ModelFile cross, RegistryObject<? extends TallFlowerBlock> block) {
+        BlockModelBuilder lowerHalf = models().getBuilder(block.getId().getPath() + "_bottom").parent(cross)
+                .texture("cross", "block/" + block.getId().getPath() + "_bottom");
+
+        BlockModelBuilder upperHalf = models().getBuilder(block.getId().getPath() + "_top").parent(cross)
+                .texture("cross", "block/" + block.getId().getPath() + "_top");
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(block.get());
+        variantBuilder.partialState()
+                .with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER)
+                .modelForState().modelFile(lowerHalf).addModel();
+        variantBuilder.partialState()
+                .with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER)
+                .modelForState().modelFile(upperHalf).addModel();
     }
 
     private void floweringLeaves(Block block) {
@@ -111,6 +157,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void leaves(Block block) {
         ModelFile base = models().getExistingFile(mcLoc("block/leaves"));
+        BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
+                .texture("all", modLoc("block/" + block.getRegistryName().getPath()));
+        simpleBlock(block, builder);
+    }
+
+    private void transparentBlock(Block block) {
+        ModelFile base = models().getExistingFile(modLoc("block/transparent_block"));
         BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
                 .texture("all", modLoc("block/" + block.getRegistryName().getPath()));
         simpleBlock(block, builder);

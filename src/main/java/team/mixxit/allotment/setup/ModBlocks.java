@@ -57,7 +57,7 @@ public class ModBlocks {
 
     public static final RegistryObject<RotatedPillarBlock> ELDER_LOG = register("elder_log", () -> createLogBlock(MaterialColor.SAND, MaterialColor.LIGHT_GRAY));
     public static final RegistryObject<Block> ELDER_PLANKS = register("elder_planks", () ->
-            new Block(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+            new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves", () -> createLeavesBlock());
 
     public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle", () -> new FirewoodBundleBlock());
@@ -65,6 +65,35 @@ public class ModBlocks {
 
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_BLOCK = register("bamboo_block", () -> createRotatableBlock(MaterialColor.GREEN, MaterialColor.GREEN, 1.0f, 1.0f, Material.BAMBOO, SoundType.BAMBOO));
     public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block", () -> createRotatableBlock(MaterialColor.SAND, MaterialColor.SAND, 0.8f, 0.8f, Material.EARTH, SoundType.PLANT));
+
+    public static final RegistryObject<HayBlock> STRAW_BLOCK = register("straw", () ->
+            new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.PLANT)));
+
+    public static final RegistryObject<FenceBlock> CHAIN_LINK_FENCE = fence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F));
+
+    public static final RegistryObject<Block> CRACKED_CLAY = register("cracked_clay", () ->
+            new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
+
+    public static final RegistryObject<SoilBlock> HUMUS = register("humus", () ->
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+
+    public static final RegistryObject<SoilBlock> TURF = register("turf", () ->
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.9F).sound(SoundType.GROUND)));
+
+    public static final RegistryObject<SoilBlock> FERRALSOL = register("ferralsol", () ->
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.ADOBE).hardnessAndResistance(0.6F).sound(SoundType.GROUND)));
+
+    public static final RegistryObject<SoilBlock> MULCH = register("mulch", () ->
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.3F).sound(SoundType.GROUND)));
+
+    public static final RegistryObject<SoilBlock> TERRA_PRETA = register("terra_preta", () ->
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BLACK).hardnessAndResistance(0.45F).sound(SoundType.GROUND)));
+
+    public static final RegistryObject<TransparentBlock> SPANISH_MOSS = register("spanish_moss", () ->
+            new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
+
+    public static RegistryObject<StairsBlock> ELDER_STAIRS;
+    public static RegistryObject<SlabBlock> ELDER_SLAB;
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
@@ -120,6 +149,28 @@ public class ModBlocks {
             trapdoor("bamboo_trapdoor", MaterialColor.GREEN, SoundType.BAMBOO),
             trapdoor("dried_bamboo_trapdoor", MaterialColor.SAND, SoundType.BAMBOO),
             trapdoor("elder_trapdoor", MaterialColor.SAND, SoundType.WOOD)
+    };
+
+    public static final RegistryObject<? extends TallFlowerBlock>[] _COLLECTION_TALL_FLOWERS = new RegistryObject[]{
+            doublePlant("crown_imperial"),
+            doublePlant("orange_gladioli"),
+            doublePlant("purple_fountain_grass"),
+            doublePlant("purple_loosestrife"),
+            doublePlant("reed"),
+            doublePlant("tall_desert_rose"),
+            tallPhistle("tall_phistle")
+    };
+
+    public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
+            modFence("elder_fence", "elder_planks", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
+            modFence("dried_bamboo_fence", "dried_bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
+            modFence("bamboo_fence", "bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.BAMBOO))
+    };
+
+    public static final RegistryObject<ModFenceGateBlock>[] _COLLECTION_FENCEGATES = new RegistryObject[]{
+            modFenceGate("elder_fence_gate", "elder_planks", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
+            modFenceGate("dried_bamboo_fence_gate", "dried_bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
+            modFenceGate("bamboo_fence_gate", "bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.BAMBOO))
     };
 
     //region Plants Index Constants
@@ -225,6 +276,12 @@ public class ModBlocks {
 
             _COLLECTION_POTTED_PLANTS.add(potted);
         }
+
+        ELDER_STAIRS = register("elder_stairs", () ->
+                new StairsBlock(ELDER_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(ELDER_PLANKS.get())));
+
+        ELDER_SLAB = register("elder_slab", () ->
+                new SlabBlock(AbstractBlock.Properties.from(ELDER_PLANKS.get())));
     }
 
     static void postRegister() {
@@ -234,6 +291,11 @@ public class ModBlocks {
         for (RegistryObject<ModMushroomBlock> _mushroom : _COLLECTION_MUSHROOMS) {
             registerCompostable(0.65F, _mushroom);
         }
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
+            registerCompostable(0.65F, _tallflower);
+        }
+        registerCompostable(0.65F, PAMPAS_GRASS);
+        registerCompostable(0.65F, PAMPAS_GRASS_PINK);
     }
 
     private static void registerCompostable(float chance, RegistryObject<? extends Block> itemIn) {
@@ -273,12 +335,29 @@ public class ModBlocks {
         for (RegistryObject<TrapDoorBlock> _trapdoor : _COLLECTION_TRAPDOORS) {
             RenderTypeLookup.setRenderLayer(_trapdoor.get(), RenderType.getCutout());
         }
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
+            RenderTypeLookup.setRenderLayer(_tallflower.get(), RenderType.getCutout());
+        }
         RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_1.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(CHAIN_LINK_FENCE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
+    }
+
+    private static RegistryObject<ModFenceGateBlock> modFenceGate(String name, String forBlock, AbstractBlock.Properties properties) {
+        return register(name, () -> new ModFenceGateBlock(properties, forBlock));
+    }
+
+    private static RegistryObject<ModFenceBlock> modFence(String name, String forBlock, AbstractBlock.Properties properties) {
+        return register(name, () -> new ModFenceBlock(properties, forBlock));
+    }
+
+    private static RegistryObject<FenceBlock> fence(String name, AbstractBlock.Properties properties) {
+        return register(name, () -> new FenceBlock(properties));
     }
 
     private static RegistryObject<TrapDoorBlock> trapdoor(String name, MaterialColor color, SoundType sound) {
@@ -303,6 +382,14 @@ public class ModBlocks {
     private static RegistryObject<ModMushroomBlock> mushroom(String name)
     {
         return register(name, () -> new ModMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT).setLightLevel((state) -> 1).setNeedsPostProcessing(ModBlocks::needsPostProcessing)));
+    }
+
+    private static RegistryObject<TallFlowerBlock> tallPhistle(String name) {
+        return register(name, () -> new TallPhistleBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+    }
+
+    private static RegistryObject<TallFlowerBlock> doublePlant(String name) {
+        return register(name, () -> new TallFlowerBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
     }
 
     private static RotatedPillarBlock createRotatableBlock(MaterialColor topColor, MaterialColor barkColor, float hardness, float resistance, Material material, SoundType soundType) {

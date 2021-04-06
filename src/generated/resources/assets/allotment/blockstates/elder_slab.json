@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "allotment:block/elder_slab_top"
+    },
+    "type=bottom": {
+      "model": "allotment:block/elder_slab"
+    },
+    "type=double": {
+      "model": "allotment:block/elder_planks"
+    }
+  }
+}

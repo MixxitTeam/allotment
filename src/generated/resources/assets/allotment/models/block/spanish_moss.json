@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/transparent_block",
+  "textures": {
+    "all": "allotment:block/spanish_moss"
+  }
+}

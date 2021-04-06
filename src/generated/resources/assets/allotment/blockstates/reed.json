@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "allotment:block/reed_top"
+    },
+    "half=lower": {
+      "model": "allotment:block/reed_bottom"
+    }
+  }
+}

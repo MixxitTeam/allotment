@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "allotment:block/tall_phistle_top"
+    },
+    "half=lower": {
+      "model": "allotment:block/tall_phistle_bottom"
+    }
+  }
+}

@@ -1,16 +1,16 @@
 package team.mixxit.allotment.data.client;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.MushroomBlock;
-import net.minecraft.block.TrapDoorBlock;
+import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.ModFenceBlock;
+import team.mixxit.allotment.blocks.ModFenceGateBlock;
 import team.mixxit.allotment.blocks.ModMushroomBlock;
 import team.mixxit.allotment.blocks.SmallCactusBlock;
 import team.mixxit.allotment.setup.ModBlocks;
@@ -58,8 +58,38 @@ public class ModItemModelProvider extends ItemModelProvider {
         for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS) {
             trapdoor(_trapdoor.getId().getPath());
         }
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : ModBlocks._COLLECTION_TALL_FLOWERS) {
+            builderTallFlower(itemGenerated, _tallflower.getId().getPath());
+        }
         builder(itemGenerated, "pink_pampas_grass");
         builder(itemGenerated, "pampas_grass");
+
+        //fenceInventory("chain_link_fence", modLoc("block/chain_link_fence"));
+        withExistingParent("chain_link_fence", modLoc("block/chain_link_fence_inventory"));
+
+        block("straw");
+
+        for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
+            fenceInventory(_fence.getId().getPath(), modLoc("block/" + _fence.get().ForBlock));
+        }
+        for (RegistryObject<ModFenceGateBlock> _fencegate : ModBlocks._COLLECTION_FENCEGATES) {
+            fenceGate(_fencegate.getId().getPath(), modLoc("block/" + _fencegate.get().ForBlock));
+        }
+
+        block("cracked_clay");
+        block("humus");
+        block("turf");
+        block("ferralsol");
+        block("mulch");
+        block("terra_preta");
+        block("spanish_moss");
+        block("elder_stairs");
+
+        slabAll("elder_slab", modLoc("block/elder_planks"));
+    }
+
+    private void slabAll(String name, ResourceLocation texture) {
+        slab("elder_slab", texture, texture, texture);
     }
 
     private void block(String name) {
@@ -76,6 +106,14 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {
         return getBuilder(name).parent(itemGenerated).texture("layer0", "item/" + name);
+    }
+
+    private ItemModelBuilder builderWithTexture(ModelFile itemGenerated, String name, String texture) {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", "item/" + texture);
+    }
+
+    private ItemModelBuilder builderTallFlower(ModelFile itemGenerated, String name) {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", "block/" + name + "_top");
     }
 
     private ItemModelBuilder builderForBlock(ModelFile itemGenerated, String name) {

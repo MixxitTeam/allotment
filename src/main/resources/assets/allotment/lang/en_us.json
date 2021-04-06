@@ -32,6 +32,14 @@
   "block.allotment.elder_leaves": "Elder Leaves",
   "block.allotment.bamboo_block": "Block of Bamboo",
   "block.allotment.dried_bamboo_block": "Block of Dried Bamboo",
+  "block.allotment.straw": "Straw",
+  "block.allotment.cracked_clay": "Cracked Clay",
+  "block.allotment.humus": "Humus",
+  "block.allotment.turf": "Turf",
+  "block.allotment.ferralsol": "Ferralsol",
+  "block.allotment.mulch": "Mulch",
+  "block.allotment.terra_preta": "Terra Preta",
+  "block.allotment.spanish_moss": "Spanish Moss",
 
   "block.allotment.forget_me_not": "Forget-me-not",
   "block.allotment.small_peony": "Small Peony",
@@ -79,6 +87,23 @@
   "block.allotment.bamboo_trapdoor": "Bamboo Trapdoor",
   "block.allotment.dried_bamboo_trapdoor": "Dried Bamboo Trapdoor",
   "block.allotment.elder_trapdoor": "Elder Trapdoor",
+
+  "block.allotment.crown_imperial": "Crown Imperial",
+  "block.allotment.orange_gladioli": "Orange Gladioli",
+  "block.allotment.purple_fountain_grass": "Purple Fountain Grass",
+  "block.allotment.purple_loosestrife": "Purple Loosestrife",
+  "block.allotment.reed": "Reed",
+  "block.allotment.tall_desert_rose": "Tall Desert Rose",
+  "block.allotment.tall_phistle": "Tall Phistle",
+
+  "block.allotment.chain_link_fence": "Chain Link Fence",
+  "block.allotment.bamboo_fence": "Bamboo Fence",
+  "block.allotment.dried_bamboo_fence": "Dried Bamboo Fence",
+  "block.allotment.elder_fence": "Elder Fence",
+
+  "block.allotment.elder_fence_gate": "Elder Fence Gate",
+  "block.allotment.bamboo_fence_gate": "Bamboo Fence Gate",
+  "block.allotment.dried_bamboo_fence_gate": "Dried Bamboo Fence Gate",
 
   "item.allotment.dried_bamboo": "Dried Bamboo",
   "item.allotment.pampas_grass": "Pampas Grass",

@@ -1,15 +1,13 @@
 package team.mixxit.allotment.data;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.ModFenceBlock;
 import team.mixxit.allotment.blocks.SmallCactusBlock;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.ModTags;
@@ -58,5 +56,15 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         getOrCreateBuilder(BlockTags.LOGS_THAT_BURN)
                 .add(ModBlocks.ELDER_LOG.get());
+
+        Builder<Block> fenceBuilder = getOrCreateBuilder(BlockTags.FENCES);
+        Builder<Block> woodenFenceBuilder = getOrCreateBuilder(BlockTags.WOODEN_FENCES);
+        fenceBuilder.add(ModBlocks.CHAIN_LINK_FENCE.get());
+        woodenFenceBuilder.add(ModBlocks.CHAIN_LINK_FENCE.get());
+
+        for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
+            fenceBuilder.add(_fence.get());
+            woodenFenceBuilder.add(_fence.get());
+        }
     }
 }

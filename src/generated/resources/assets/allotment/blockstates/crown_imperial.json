@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "allotment:block/crown_imperial_top"
+    },
+    "half=lower": {
+      "model": "allotment:block/crown_imperial_bottom"
+    }
+  }
+}

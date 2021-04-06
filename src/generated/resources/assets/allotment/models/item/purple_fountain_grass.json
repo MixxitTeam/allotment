@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "allotment:block/purple_fountain_grass_top"
+  }
+}

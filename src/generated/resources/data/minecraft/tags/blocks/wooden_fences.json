@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "allotment:chain_link_fence",
+    "allotment:elder_fence",
+    "allotment:dried_bamboo_fence",
+    "allotment:bamboo_fence"
+  ]
+}

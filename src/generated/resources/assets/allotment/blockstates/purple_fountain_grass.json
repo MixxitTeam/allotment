@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "allotment:block/purple_fountain_grass_top"
+    },
+    "half=lower": {
+      "model": "allotment:block/purple_fountain_grass_bottom"
+    }
+  }
+}

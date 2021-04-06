@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "allotment:block/orange_gladioli_top"
+    },
+    "half=lower": {
+      "model": "allotment:block/orange_gladioli_bottom"
+    }
+  }
+}

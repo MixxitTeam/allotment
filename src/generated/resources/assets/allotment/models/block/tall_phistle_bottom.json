@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "allotment:block/tall_phistle_bottom"
+  }
+}

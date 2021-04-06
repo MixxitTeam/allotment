@@ -20,6 +20,7 @@ public class Registration {
 
         ModBlocks.register();
         ModItems.register();
+        ModDamageSources.register();
     }
 
     public static void postRegister() {

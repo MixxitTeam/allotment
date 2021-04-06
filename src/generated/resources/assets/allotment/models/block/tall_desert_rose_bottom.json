@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "allotment:block/tall_desert_rose_bottom"
+  }
+}
