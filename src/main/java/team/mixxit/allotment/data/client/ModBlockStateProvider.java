@@ -126,9 +126,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
 
         //simpleBlock(ModBlocks.ELDER_STAIRS.get());
-        stairsBlock(ModBlocks.ELDER_STAIRS.get(), modLoc("block/elder_planks"));
 
-        slabBlock(ModBlocks.ELDER_SLAB.get(), modLoc("block/elder_planks"), modLoc("block/elder_planks"));
+        for (RegistryObject<ModStairsBlock> _stair : ModBlocks._COLLECTION_STAIRS) {
+            stairsBlock(_stair.get(), modLoc("block/" + _stair.get().ForBlock));
+        }
+
+        for (RegistryObject<ModSlabBlock> _slab : ModBlocks._COLLECTION_SLABS) {
+            ResourceLocation resLoc = modLoc("block/" + _slab.get().ForBlock);
+            slabBlock(_slab.get(), resLoc, resLoc);
+        }
     }
 
     private void tallFlower(ModelFile cross, RegistryObject<? extends TallFlowerBlock> block) {

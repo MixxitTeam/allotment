@@ -9,10 +9,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
-import team.mixxit.allotment.blocks.ModFenceBlock;
-import team.mixxit.allotment.blocks.ModFenceGateBlock;
-import team.mixxit.allotment.blocks.ModMushroomBlock;
-import team.mixxit.allotment.blocks.SmallCactusBlock;
+import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -83,9 +80,14 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("mulch");
         block("terra_preta");
         block("spanish_moss");
-        block("elder_stairs");
 
-        slabAll("elder_slab", modLoc("block/elder_planks"));
+        for (RegistryObject<ModStairsBlock> _stairs : ModBlocks._COLLECTION_STAIRS) {
+            block(_stairs.getId().getPath());
+        }
+
+        for (RegistryObject<ModSlabBlock> _slab : ModBlocks._COLLECTION_SLABS) {
+            slabAll(_slab.getId().getPath(), modLoc("block/" + _slab.get().ForBlock));
+        }
     }
 
     private void slabAll(String name, ResourceLocation texture) {

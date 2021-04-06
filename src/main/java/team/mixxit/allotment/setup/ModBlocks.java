@@ -92,8 +92,8 @@ public class ModBlocks {
     public static final RegistryObject<TransparentBlock> SPANISH_MOSS = register("spanish_moss", () ->
             new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
 
-    public static RegistryObject<StairsBlock> ELDER_STAIRS;
-    public static RegistryObject<SlabBlock> ELDER_SLAB;
+    //public static RegistryObject<StairsBlock> ELDER_STAIRS;
+    //public static RegistryObject<SlabBlock> ELDER_SLAB;
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
@@ -219,8 +219,10 @@ public class ModBlocks {
     public static final int MUSHROOM_COOKEINA = 3;
 //endregion
 
-    public static ArrayList<FlowerPotBlock> _COLLECTION_POTTED_PLANTS;
-    public static ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
+    public static final ArrayList<FlowerPotBlock> _COLLECTION_POTTED_PLANTS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModStairsBlock>> _COLLECTION_STAIRS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
 
     static void register() {
         final String[] plankNames = new String[]{
@@ -239,8 +241,6 @@ public class ModBlocks {
             _COLLECTION_PLANKS.add(plank("chipped", _plank));
             _COLLECTION_PLANKS.add(plank("weathered", _plank));
         }
-
-        _COLLECTION_POTTED_PLANTS = new ArrayList<>();
 
         Block flowerPot = Blocks.FLOWER_POT;
 
@@ -277,11 +277,25 @@ public class ModBlocks {
             _COLLECTION_POTTED_PLANTS.add(potted);
         }
 
-        ELDER_STAIRS = register("elder_stairs", () ->
-                new StairsBlock(ELDER_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(ELDER_PLANKS.get())));
+        _COLLECTION_STAIRS.add(register("elder_stairs", () ->
+                new ModStairsBlock(ELDER_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(ELDER_PLANKS.get()),
+        "elder_planks")));
+        /*_COLLECTION_STAIRS.add(register("bamboo_stairs", () ->
+                new ModStairsBlock(BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
+        "bamboo_block")));*/
+        /*_COLLECTION_STAIRS.add(register("dried_bamboo_stairs", () ->
+                new ModStairsBlock(DRIED_BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
+        "dried_bamboo_block")));*/
 
-        ELDER_SLAB = register("elder_slab", () ->
-                new SlabBlock(AbstractBlock.Properties.from(ELDER_PLANKS.get())));
+        _COLLECTION_SLABS.add(register("elder_slab", () ->
+                new ModSlabBlock(AbstractBlock.Properties.from(ELDER_PLANKS.get()),
+        "elder_planks")));
+        /*_COLLECTION_SLABS.add(register("bamboo_slab", () ->
+                new ModSlabBlock(AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
+        "bamboo_block")));*/
+        /*_COLLECTION_SLABS.add(register("dried_bamboo_slab", () ->
+                new ModSlabBlock(AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
+        "dried_bamboo_block")));*/
     }
 
     static void postRegister() {
