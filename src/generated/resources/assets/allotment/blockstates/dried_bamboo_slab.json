@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "allotment:block/dried_bamboo_slab_top"
+    },
+    "type=bottom": {
+      "model": "allotment:block/dried_bamboo_slab"
+    },
+    "type=double": {
+      "model": "allotment:block/dried_bamboo_block"
+    }
+  }
+}

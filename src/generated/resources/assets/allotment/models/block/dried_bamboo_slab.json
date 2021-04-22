@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "allotment:block/dried_bamboo_block_side",
+    "bottom": "allotment:block/dried_bamboo_block_end",
+    "top": "allotment:block/dried_bamboo_block_end"
+  }
+}

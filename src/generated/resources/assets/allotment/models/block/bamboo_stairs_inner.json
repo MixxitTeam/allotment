@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "allotment:block/bamboo_block_side",
+    "bottom": "allotment:block/bamboo_block_side",
+    "top": "allotment:block/bamboo_block_side"
+  }
+}

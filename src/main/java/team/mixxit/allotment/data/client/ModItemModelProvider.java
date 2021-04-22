@@ -27,6 +27,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("zen_gravel_corner");
         block("zen_gravel_end");
         block("elder_log");
+        block("stripped_elder_log");
+        block("elder_wood");
+        block("stripped_elder_wood");
         block("elder_planks");
         block("elder_leaves");
         block("bamboo_block");
@@ -86,12 +89,17 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
 
         for (RegistryObject<ModSlabBlock> _slab : ModBlocks._COLLECTION_SLABS) {
-            slabAll(_slab.getId().getPath(), modLoc("block/" + _slab.get().ForBlock));
+            slab(
+                    _slab.getId().getPath(),
+                    modLoc("block/" + _slab.get().WithTextureSides),
+                    modLoc("block/" + _slab.get().WithTextureBottom),
+                    modLoc("block/" + _slab.get().WithTextureTop)
+            );
         }
     }
 
     private void slabAll(String name, ResourceLocation texture) {
-        slab("elder_slab", texture, texture, texture);
+        slab(name, texture, texture, texture);
     }
 
     private void block(String name) {

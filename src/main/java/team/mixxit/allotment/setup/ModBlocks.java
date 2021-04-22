@@ -55,16 +55,32 @@ public class ModBlocks {
     public static final RegistryObject<Block> ZEN_GRAVEL_END = register("zen_gravel_end", () ->
             new RotatableFallingBlock(AbstractBlock.Properties.create(Material.SAND).hardnessAndResistance(0.5F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
-    public static final RegistryObject<RotatedPillarBlock> ELDER_LOG = register("elder_log", () -> createLogBlock(MaterialColor.SAND, MaterialColor.LIGHT_GRAY));
+    public static final RegistryObject<RotatedPillarBlock> ELDER_LOG = register("elder_log", () ->
+            createLogBlock(MaterialColor.SAND, MaterialColor.LIGHT_GRAY));
+
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_ELDER_LOG = register("stripped_elder_log", () ->
+            createLogBlock(MaterialColor.SAND, MaterialColor.SAND));
+
+    public static final RegistryObject<RotatedPillarBlock> ELDER_WOOD = register("elder_wood", () ->
+            createLogBlock(MaterialColor.LIGHT_GRAY, MaterialColor.LIGHT_GRAY));
+
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_ELDER_WOOD = register("stripped_elder_wood", () ->
+            createLogBlock(MaterialColor.SAND, MaterialColor.SAND));
+
     public static final RegistryObject<Block> ELDER_PLANKS = register("elder_planks", () ->
             new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves", () -> createLeavesBlock());
+
+    public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves", () ->
+            createLeavesBlock());
 
     public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle", () -> new FirewoodBundleBlock());
     public static final RegistryObject<Block> HOSE_REEL = register("hose_reel", () -> new HoseReelBlock());
 
-    public static final RegistryObject<RotatedPillarBlock> BAMBOO_BLOCK = register("bamboo_block", () -> createRotatableBlock(MaterialColor.GREEN, MaterialColor.GREEN, 1.0f, 1.0f, Material.BAMBOO, SoundType.BAMBOO));
-    public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block", () -> createRotatableBlock(MaterialColor.SAND, MaterialColor.SAND, 0.8f, 0.8f, Material.EARTH, SoundType.PLANT));
+    public static final RegistryObject<RotatedPillarBlock> BAMBOO_BLOCK = register("bamboo_block",
+            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).sound(SoundType.BAMBOO)));
+
+    public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block",
+            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.PLANT)));
 
     public static final RegistryObject<HayBlock> STRAW_BLOCK = register("straw", () ->
             new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.PLANT)));
@@ -278,24 +294,24 @@ public class ModBlocks {
         }
 
         _COLLECTION_STAIRS.add(register("elder_stairs", () ->
-                new ModStairsBlock(ELDER_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(ELDER_PLANKS.get()),
+                new ModStairsBlock(() -> ELDER_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(ELDER_PLANKS.get()),
         "elder_planks")));
-        /*_COLLECTION_STAIRS.add(register("bamboo_stairs", () ->
-                new ModStairsBlock(BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
-        "bamboo_block")));*/
+        _COLLECTION_STAIRS.add(register("bamboo_stairs", () ->
+                new ModStairsBlock(() -> BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
+        "bamboo_block", "bamboo_block_side")));
         /*_COLLECTION_STAIRS.add(register("dried_bamboo_stairs", () ->
-                new ModStairsBlock(DRIED_BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
+                new ModStairsBlock(() -> DRIED_BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
         "dried_bamboo_block")));*/
 
         _COLLECTION_SLABS.add(register("elder_slab", () ->
                 new ModSlabBlock(AbstractBlock.Properties.from(ELDER_PLANKS.get()),
         "elder_planks")));
-        /*_COLLECTION_SLABS.add(register("bamboo_slab", () ->
-                new ModSlabBlock(AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
-        "bamboo_block")));*/
-        /*_COLLECTION_SLABS.add(register("dried_bamboo_slab", () ->
-                new ModSlabBlock(AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
-        "dried_bamboo_block")));*/
+        _COLLECTION_SLABS.add(register("bamboo_slab", () ->
+                new ModSlabBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).sound(SoundType.BAMBOO),
+        "bamboo_block", "bamboo_block_end", "bamboo_block_side")));
+        _COLLECTION_SLABS.add(register("dried_bamboo_slab", () ->
+                new ModSlabBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.PLANT),
+        "dried_bamboo_block", "dried_bamboo_block_end", "dried_bamboo_block_side")));
     }
 
     static void postRegister() {
@@ -404,6 +420,10 @@ public class ModBlocks {
 
     private static RegistryObject<TallFlowerBlock> doublePlant(String name) {
         return register(name, () -> new TallFlowerBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+    }
+
+    private static RotatedPillarBlock createRotatableBlock(AbstractBlock.Properties properties) {
+        return new RotatedPillarBlock(properties);
     }
 
     private static RotatedPillarBlock createRotatableBlock(MaterialColor topColor, MaterialColor barkColor, float hardness, float resistance, Material material, SoundType soundType) {

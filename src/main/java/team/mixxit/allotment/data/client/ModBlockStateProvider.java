@@ -104,6 +104,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         rotatable(ModBlocks.ZEN_GRAVEL_END, zenGravelModel("zen_gravel_end", modLoc("block/zen_gravel_end")), 90);
 
         logBlock(ModBlocks.ELDER_LOG.get());
+        logBlock(ModBlocks.STRIPPED_ELDER_LOG.get());
+        woodBlock(ModBlocks.ELDER_WOOD.get(), ModBlocks.ELDER_LOG.get());
+        woodBlock(ModBlocks.STRIPPED_ELDER_WOOD.get(), ModBlocks.STRIPPED_ELDER_LOG.get());
         simpleBlock(ModBlocks.ELDER_PLANKS.get());
         floweringLeaves(ModBlocks.ELDER_LEAVES.get());
 
@@ -128,13 +131,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //simpleBlock(ModBlocks.ELDER_STAIRS.get());
 
         for (RegistryObject<ModStairsBlock> _stair : ModBlocks._COLLECTION_STAIRS) {
-            stairsBlock(_stair.get(), modLoc("block/" + _stair.get().ForBlock));
+            stairsBlock(_stair.get(), modLoc("block/" + _stair.get().WithTexture));
         }
 
         for (RegistryObject<ModSlabBlock> _slab : ModBlocks._COLLECTION_SLABS) {
-            ResourceLocation resLoc = modLoc("block/" + _slab.get().ForBlock);
-            slabBlock(_slab.get(), resLoc, resLoc);
+            ModSlabBlock modSlabBlock = _slab.get();
+            ResourceLocation model = modLoc("block/" + modSlabBlock.ForBlock);
+            ResourceLocation textureTop = modLoc("block/" + modSlabBlock.WithTextureTop);
+            ResourceLocation textureBottom = modLoc("block/" + modSlabBlock.WithTextureBottom);
+            ResourceLocation textureSides = modLoc("block/" + modSlabBlock.WithTextureSides);
+            slabBlock(modSlabBlock, model, textureSides, textureBottom, textureTop);
         }
+    }
+
+    public void woodBlock(RotatedPillarBlock block, RotatedPillarBlock log) {
+        axisBlock(block, blockTexture(log), blockTexture(log));
     }
 
     private void tallFlower(ModelFile cross, RegistryObject<? extends TallFlowerBlock> block) {
