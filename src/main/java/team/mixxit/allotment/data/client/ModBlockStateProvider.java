@@ -115,7 +115,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         simpleBlock(ModBlocks.STRAW_BLOCK.get());
 
-        for (RegistryObject<FenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
+        for (RegistryObject<ThinFenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
             ModelFile _post = models().withExistingParent(_thinFence.getId().getPath() + "_post", modLoc("block/thin_fence_post"))
                     .texture("all", modLoc("block/" + _thinFence.getId().getPath()));
             ModelFile _side = models().withExistingParent(_thinFence.getId().getPath() + "_side", modLoc("block/thin_fence_side"))

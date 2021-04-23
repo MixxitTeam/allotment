@@ -64,7 +64,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "pink_pampas_grass");
         builder(itemGenerated, "pampas_grass");
 
-        for (RegistryObject<FenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
+        for (RegistryObject<ThinFenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
             withExistingParent(_thinFence.getId().getPath(), modLoc("block/thin_fence_inventory")).texture("all", modLoc("block/" + _thinFence.getId().getPath()));
         }
 

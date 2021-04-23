@@ -175,9 +175,9 @@ public class ModBlocks {
             tallPhistle("tall_phistle")
     };
 
-    public static final RegistryObject<FenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
-            fence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
-            fence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
+    public static final RegistryObject<ThinFenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
+            thinFence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
+            thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
     };
 
     public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
@@ -380,7 +380,7 @@ public class ModBlocks {
         for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
             RenderTypeLookup.setRenderLayer(_tallflower.get(), RenderType.getCutout());
         }
-        for (RegistryObject<FenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
+        for (RegistryObject<ThinFenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
             RenderTypeLookup.setRenderLayer(_thinFence.get(), RenderType.getCutout());
         }
         RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
@@ -413,6 +413,10 @@ public class ModBlocks {
 
     private static RegistryObject<FenceBlock> fence(String name, AbstractBlock.Properties properties) {
         return register(name, () -> new FenceBlock(properties));
+    }
+
+    private static RegistryObject<ThinFenceBlock> thinFence(String name, AbstractBlock.Properties properties) {
+        return register(name, () -> new ThinFenceBlock(properties));
     }
 
     private static RegistryObject<TrapDoorBlock> trapdoor(String name, MaterialColor color, SoundType sound) {
