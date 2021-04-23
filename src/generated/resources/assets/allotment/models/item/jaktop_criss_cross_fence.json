@@ -1,6 +1,6 @@
 {
   "parent": "allotment:block/thin_fence_inventory",
   "textures": {
-    "all": "allotment:block/chain_link_fence"
+    "all": "allotment:block/jaktop_criss_cross_fence"
   }
 }

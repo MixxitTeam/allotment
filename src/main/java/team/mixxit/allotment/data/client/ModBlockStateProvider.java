@@ -115,9 +115,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         simpleBlock(ModBlocks.STRAW_BLOCK.get());
 
-        ModelFile chainLinkFencePost = models().getExistingFile(modLoc("block/chain_link_fence_post"));
-        ModelFile chainLinkFenceSide = models().getExistingFile(modLoc("block/chain_link_fence_side"));
-        fourWayBlock(ModBlocks.CHAIN_LINK_FENCE.get(), chainLinkFencePost, chainLinkFenceSide);
+        for (RegistryObject<FenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
+            ModelFile _post = models().withExistingParent(_thinFence.getId().getPath() + "_post", modLoc("block/thin_fence_post"))
+                    .texture("all", modLoc("block/" + _thinFence.getId().getPath()));
+            ModelFile _side = models().withExistingParent(_thinFence.getId().getPath() + "_side", modLoc("block/thin_fence_side"))
+                    .texture("all", modLoc("block/" + _thinFence.getId().getPath()));
+            fourWayBlock(_thinFence.get(), _post, _side);
+        }
 
         simpleBlock(ModBlocks.CRACKED_CLAY.get());
         simpleBlock(ModBlocks.HUMUS.get());
@@ -127,8 +131,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.TERRA_PRETA.get());
 
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
-
-        //simpleBlock(ModBlocks.ELDER_STAIRS.get());
 
         for (RegistryObject<ModStairsBlock> _stair : ModBlocks._COLLECTION_STAIRS) {
             stairsBlock(_stair.get(), modLoc("block/" + _stair.get().WithTexture));

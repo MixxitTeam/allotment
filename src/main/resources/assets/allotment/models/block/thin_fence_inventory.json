@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "all": "allotment:block/chain_link_fence",
     "particle": "#all"
   },
   "display": {

@@ -1,5 +1,5 @@
 {
-  "parent": "allotment:block/thin_fence_inventory",
+  "parent": "allotment:block/thin_fence_post",
   "textures": {
     "all": "allotment:block/chain_link_fence"
   }

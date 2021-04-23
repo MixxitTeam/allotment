@@ -1,6 +1,5 @@
 {
   "textures": {
-    "all": "allotment:block/chain_link_fence",
     "particle": "#all"
   },
   "elements": [

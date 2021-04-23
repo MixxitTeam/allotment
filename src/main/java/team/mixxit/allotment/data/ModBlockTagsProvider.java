@@ -59,8 +59,11 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         Builder<Block> fenceBuilder = getOrCreateBuilder(BlockTags.FENCES);
         Builder<Block> woodenFenceBuilder = getOrCreateBuilder(BlockTags.WOODEN_FENCES);
-        fenceBuilder.add(ModBlocks.CHAIN_LINK_FENCE.get());
-        woodenFenceBuilder.add(ModBlocks.CHAIN_LINK_FENCE.get());
+
+        for (RegistryObject<FenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
+            fenceBuilder.add(_thinFence.get());
+            woodenFenceBuilder.add(_thinFence.get());
+        }
 
         for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
             fenceBuilder.add(_fence.get());

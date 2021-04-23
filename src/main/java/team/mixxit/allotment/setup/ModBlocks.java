@@ -85,8 +85,6 @@ public class ModBlocks {
     public static final RegistryObject<HayBlock> STRAW_BLOCK = register("straw", () ->
             new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.PLANT)));
 
-    public static final RegistryObject<FenceBlock> CHAIN_LINK_FENCE = fence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F));
-
     public static final RegistryObject<Block> CRACKED_CLAY = register("cracked_clay", () ->
             new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
 
@@ -175,6 +173,11 @@ public class ModBlocks {
             doublePlant("reed"),
             doublePlant("tall_desert_rose"),
             tallPhistle("tall_phistle")
+    };
+
+    public static final RegistryObject<FenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
+            fence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
+            fence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
     };
 
     public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
@@ -377,13 +380,15 @@ public class ModBlocks {
         for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
             RenderTypeLookup.setRenderLayer(_tallflower.get(), RenderType.getCutout());
         }
+        for (RegistryObject<FenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
+            RenderTypeLookup.setRenderLayer(_thinFence.get(), RenderType.getCutout());
+        }
         RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_1.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(CHAIN_LINK_FENCE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
     }
 
