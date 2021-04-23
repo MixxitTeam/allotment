@@ -20,14 +20,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
+import team.mixxit.allotment.interf.IBlockColorProvider;
+import team.mixxit.allotment.interf.IItemColorProvider;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class LawnBlock extends GrassBlock implements IGrowable, IBlockColor, IItemColor {
-    private static final GrassBlock grass = (GrassBlock)Blocks.GRASS_BLOCK;
+public class LawnBlock extends GrassBlock implements IGrowable, IBlockColorProvider, IItemColorProvider {
+    private static final Block grass = Blocks.GRASS_BLOCK;
 
     public static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -64,20 +68,6 @@ public class LawnBlock extends GrassBlock implements IGrowable, IBlockColor, IIt
     }
 
     @Override
-    public int getColor(BlockState p_getColor_1_, @Nullable IBlockDisplayReader p_getColor_2_, @Nullable BlockPos p_getColor_3_, int p_getColor_4_) {
-        final BlockColors colors = Minecraft.getInstance().getBlockColors();
-        final BlockState grassState = grass.getDefaultState();
-        return colors.getColor(grassState, p_getColor_2_, p_getColor_3_, p_getColor_4_);
-    }
-
-    @Override
-    public int getColor(ItemStack p_getColor_1_, int p_getColor_2_) {
-        final ItemColors colors = Minecraft.getInstance().getItemColors();
-        final ItemStack grassStack = new ItemStack(grass);
-        return colors.getColor(grassStack, p_getColor_2_);
-    }
-
-    @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
         return facing == Direction.UP && plantable.getPlantType(world, pos) == PlantType.PLAINS;
     }
@@ -98,5 +88,27 @@ public class LawnBlock extends GrassBlock implements IGrowable, IBlockColor, IIt
 
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public IBlockColor getBlockColor(BlockColors colors) {
+        final BlockState grassState = grass.getDefaultState();
+
+        if (colors == null)
+            System.err.println("colors was null");
+        if (grass == null)
+            System.err.println("grass was null");
+        if (grassState == null)
+            System.err.println("grassState was null");
+
+        return (state, world, pos, tintIndex) -> colors.getColor(grassState, world, pos, tintIndex);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public IItemColor getItemColor(ItemColors colors) {
+        final ItemStack grassStack = new ItemStack(grass);
+        return (stack, tintIndex) -> colors.getColor(grassStack, tintIndex);
     }
 }

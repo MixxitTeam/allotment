@@ -1,38 +1,34 @@
 package team.mixxit.allotment.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DoublePlantBlock;
-import net.minecraft.block.GrassBlock;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockDisplayReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import team.mixxit.allotment.interf.IBlockColorProvider;
+import team.mixxit.allotment.interf.IItemColorProvider;
 
-import javax.annotation.Nullable;
-
-public class TintedDoublePlantBlock extends DoublePlantBlock implements IBlockColor, IItemColor {
-    private static final DoublePlantBlock grass = (DoublePlantBlock) Blocks.TALL_GRASS;
+public class TintedDoublePlantBlock extends DoublePlantBlock implements IBlockColorProvider, IItemColorProvider {
+    private static final Block grass = Blocks.TALL_GRASS;
 
     public TintedDoublePlantBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public int getColor(BlockState p_getColor_1_, @Nullable IBlockDisplayReader p_getColor_2_, @Nullable BlockPos p_getColor_3_, int p_getColor_4_) {
-        final BlockColors colors = Minecraft.getInstance().getBlockColors();
+    @OnlyIn(Dist.CLIENT)
+    public IBlockColor getBlockColor(BlockColors colors) {
         final BlockState grassState = grass.getDefaultState();
-        return colors.getColor(grassState, p_getColor_2_, p_getColor_3_, p_getColor_4_);
+        return (state, world, pos, tintIndex) -> colors.getColor(grassState, world, pos, tintIndex);
     }
 
     @Override
-    public int getColor(ItemStack p_getColor_1_, int p_getColor_2_) {
-        final ItemColors colors = Minecraft.getInstance().getItemColors();
+    @OnlyIn(Dist.CLIENT)
+    public IItemColor getItemColor(ItemColors colors) {
         final ItemStack grassStack = new ItemStack(grass);
-        return colors.getColor(grassStack, p_getColor_2_);
+        return (stack, tintIndex) -> colors.getColor(grassStack, tintIndex);
     }
 }

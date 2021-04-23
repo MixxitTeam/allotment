@@ -7,11 +7,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -27,6 +30,8 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.mixxit.allotment.interf.IBlockColorProvider;
+import team.mixxit.allotment.interf.IItemColorProvider;
 import team.mixxit.allotment.itemgroups.MainItemGroup;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.Registration;
@@ -78,6 +83,7 @@ public class AllotmentMod
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         //LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+
         ModBlocks.registerRenderTypes(event);
     }
 
@@ -99,7 +105,6 @@ public class AllotmentMod
         //LOGGER.info("HELLO from server starting");
     }
 
-
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -111,17 +116,39 @@ public class AllotmentMod
         }*/
 
         @SubscribeEvent
+        @OnlyIn(Dist.CLIENT)
         public static void registerBlockColors(final ColorHandlerEvent.Block event) {
-            event.getBlockColors().register((IBlockColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
-            event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS.get(), ModBlocks.PAMPAS_GRASS.get());
-            event.getBlockColors().register((IBlockColor) ModBlocks.PAMPAS_GRASS_PINK.get(), ModBlocks.PAMPAS_GRASS_PINK.get());
-            event.getBlockColors().register((IBlockColor) ModBlocks.ELDER_LEAVES.get(), ModBlocks.ELDER_LEAVES.get());
+            final Block[] blocks = {
+                    ModBlocks.LAWN_BLOCK.get(),
+                    ModBlocks.PAMPAS_GRASS.get(),
+                    ModBlocks.PAMPAS_GRASS_PINK.get(),
+                    ModBlocks.ELDER_LEAVES.get(),
+            };
+
+            for (Block block : blocks) {
+                if (!(block instanceof IBlockColorProvider))
+                    continue;
+
+                IBlockColor color = ((IBlockColorProvider)block).getBlockColor(event.getBlockColors());
+                event.getBlockColors().register(color, block);
+            }
         }
 
         @SubscribeEvent
+        @OnlyIn(Dist.CLIENT)
         public static void registerItemColors(final ColorHandlerEvent.Item event) {
-            event.getItemColors().register((IItemColor) ModBlocks.LAWN_BLOCK.get(), ModBlocks.LAWN_BLOCK.get());
-            event.getItemColors().register((IItemColor) ModBlocks.ELDER_LEAVES.get(), ModBlocks.ELDER_LEAVES.get());
+            final Block[] blocks = {
+                    ModBlocks.LAWN_BLOCK.get(),
+                    ModBlocks.ELDER_LEAVES.get(),
+            };
+
+            for (Block block : blocks) {
+                if (!(block instanceof IItemColorProvider))
+                    continue;
+
+                IItemColor color = ((IItemColorProvider)block).getItemColor(event.getItemColors());
+                event.getItemColors().register(color, block);
+            }
         }
 
         /*

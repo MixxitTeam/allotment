@@ -239,6 +239,10 @@ public class ModBlocks {
     public static final ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModStairsBlock>> _COLLECTION_STAIRS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModWallSignBlock>> _COLLECTION_WALL_SIGNS = new ArrayList<>();
+
+    public static final int SIGN_ELDER = 0;
 
     static void register() {
         final String[] plankNames = new String[]{
@@ -299,9 +303,9 @@ public class ModBlocks {
         _COLLECTION_STAIRS.add(register("bamboo_stairs", () ->
                 new ModStairsBlock(() -> BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(BAMBOO_BLOCK.get()),
         "bamboo_block", "bamboo_block_side")));
-        /*_COLLECTION_STAIRS.add(register("dried_bamboo_stairs", () ->
+        _COLLECTION_STAIRS.add(register("dried_bamboo_stairs", () ->
                 new ModStairsBlock(() -> DRIED_BAMBOO_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(DRIED_BAMBOO_BLOCK.get()),
-        "dried_bamboo_block")));*/
+                        "dried_bamboo_block", "dried_bamboo_block_side")));
 
         _COLLECTION_SLABS.add(register("elder_slab", () ->
                 new ModSlabBlock(AbstractBlock.Properties.from(ELDER_PLANKS.get()),
@@ -312,6 +316,11 @@ public class ModBlocks {
         _COLLECTION_SLABS.add(register("dried_bamboo_slab", () ->
                 new ModSlabBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.PLANT),
         "dried_bamboo_block", "dried_bamboo_block_end", "dried_bamboo_block_side")));
+
+        for (ModWoodType _woodType : ModWoodType.VALUES) {
+            // FIXME
+            //modSign(_woodType);
+        }
     }
 
     static void postRegister() {
@@ -376,6 +385,17 @@ public class ModBlocks {
         RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(CHAIN_LINK_FENCE.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
+    }
+
+    private static void modSign(ModWoodType woodTypeIn) {
+        RegistryObject<ModStandingSignBlock> standingSign = register(woodTypeIn.getName() + "_sign", () ->
+                new ModStandingSignBlock(AbstractBlock.Properties.create(Material.WOOD).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), woodTypeIn));
+
+        RegistryObject<ModWallSignBlock> wallSign = registerNoItem(woodTypeIn.getName() + "_wall_sign", () ->
+                new ModWallSignBlock(AbstractBlock.Properties.create(Material.WOOD).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), woodTypeIn));
+
+        _COLLECTION_STANDING_SIGNS.add(standingSign);
+        _COLLECTION_WALL_SIGNS.add(wallSign);
     }
 
     private static RegistryObject<ModFenceGateBlock> modFenceGate(String name, String forBlock, AbstractBlock.Properties properties) {
