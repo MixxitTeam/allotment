@@ -15,6 +15,7 @@ public class TransparentBlock extends Block {
         super(properties);
     }
 
+    /*
     public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.empty();
     }
@@ -27,4 +28,5 @@ public class TransparentBlock extends Block {
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return true;
     }
+    */
 }

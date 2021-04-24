@@ -17,6 +17,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraftforge.common.ToolType;
 
 public class FirewoodBundleBlock extends Block implements IWaterLoggable {
     private static final VoxelShape SHAPE_NORTH_SOUTH = Block.makeCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 9.0D, 14.0D);
@@ -26,7 +27,7 @@ public class FirewoodBundleBlock extends Block implements IWaterLoggable {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
     public FirewoodBundleBlock() {
-        super(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(0.6F).sound(SoundType.WOOD).notSolid());
+        super(AbstractBlock.Properties.create(Material.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(0.6F).sound(SoundType.WOOD).notSolid());
 
         BlockState defaultState = stateContainer.getBaseState()
                 .with(WATERLOGGED, false)

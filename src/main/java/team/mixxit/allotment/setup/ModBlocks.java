@@ -35,7 +35,7 @@ public class ModBlocks {
             new Block(AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 
     public static final RegistryObject<Block> LAWN_BLOCK = register("lawn_block", () ->
-            new LawnBlock(AbstractBlock.Properties.create(Material.EARTH).hardnessAndResistance(0.65F).sound(SoundType.PLANT)));
+            new LawnBlock(AbstractBlock.Properties.create(Material.EARTH).hardnessAndResistance(0.65F).harvestTool(ToolType.SHOVEL).sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> PAMPAS_GRASS = registerNoItem("pampas_grass", () ->
             new TintedDoublePlantBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
@@ -77,37 +77,39 @@ public class ModBlocks {
     public static final RegistryObject<Block> HOSE_REEL = register("hose_reel", () -> new HoseReelBlock());
 
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_BLOCK = register("bamboo_block",
-            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).sound(SoundType.BAMBOO)));
+            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO)));
 
     public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block",
-            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.PLANT)));
+            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).harvestTool(ToolType.HOE).hardnessAndResistance(0.8F).sound(SoundType.PLANT)));
 
     public static final RegistryObject<HayBlock> STRAW_BLOCK = register("straw", () ->
-            new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).sound(SoundType.PLANT)));
+            new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> CRACKED_CLAY = register("cracked_clay", () ->
-            new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
+            new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)));
 
     public static final RegistryObject<SoilBlock> HUMUS = register("humus", () ->
-            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.5F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
     public static final RegistryObject<SoilBlock> TURF = register("turf", () ->
-            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.9F).sound(SoundType.GROUND)));
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.9F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
     public static final RegistryObject<SoilBlock> FERRALSOL = register("ferralsol", () ->
-            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.ADOBE).hardnessAndResistance(0.6F).sound(SoundType.GROUND)));
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.ADOBE).hardnessAndResistance(0.6F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
     public static final RegistryObject<SoilBlock> MULCH = register("mulch", () ->
-            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.3F).sound(SoundType.GROUND)));
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.3F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
     public static final RegistryObject<SoilBlock> TERRA_PRETA = register("terra_preta", () ->
-            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BLACK).hardnessAndResistance(0.45F).sound(SoundType.GROUND)));
+            new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BLACK).hardnessAndResistance(0.45F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
     public static final RegistryObject<TransparentBlock> SPANISH_MOSS = register("spanish_moss", () ->
-            new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
+            new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).harvestTool(ToolType.HOE).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
 
     //public static RegistryObject<StairsBlock> ELDER_STAIRS;
     //public static RegistryObject<SlabBlock> ELDER_SLAB;
+
+    //public static final RegistryObject<FlowerBlock> TEST_PLANT = flower("test_plant");
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
@@ -176,8 +178,8 @@ public class ModBlocks {
     };
 
     public static final RegistryObject<ThinFenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
-            thinFence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
-            thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
+            thinFence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
+            thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).harvestTool(ToolType.AXE).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
     };
 
     public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
@@ -390,6 +392,8 @@ public class ModBlocks {
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
+
+        //RenderTypeLookup.setRenderLayer(TEST_PLANT.get(), RenderType.getCutout());
     }
 
     private static void modSign(ModWoodType woodTypeIn) {
@@ -420,7 +424,7 @@ public class ModBlocks {
     }
 
     private static RegistryObject<TrapDoorBlock> trapdoor(String name, MaterialColor color, SoundType sound) {
-        return register(name, () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD, color).hardnessAndResistance(3.0F).sound(sound).notSolid().setAllowsSpawn(ModBlocks::neverAllowSpawn)));
+        return register(name, () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD, color).hardnessAndResistance(3.0F).harvestTool(ToolType.AXE).sound(sound).notSolid().setAllowsSpawn(ModBlocks::neverAllowSpawn)));
     }
 
     private static RegistryObject<FlowerBlock> flower(String name)
@@ -460,7 +464,7 @@ public class ModBlocks {
     }
 
     private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
-        return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+        return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
     }
 
     private static ModLeavesBlock createLeavesBlock() {

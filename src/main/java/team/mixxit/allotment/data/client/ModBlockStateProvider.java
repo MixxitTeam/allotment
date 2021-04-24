@@ -144,6 +144,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
             ResourceLocation textureSides = modLoc("block/" + modSlabBlock.WithTextureSides);
             slabBlock(modSlabBlock, model, textureSides, textureBottom, textureTop);
         }
+
+        /*
+        BlockModelBuilder testPlant = models().withExistingParent("test_plant", modLoc("block/bushy_plant"))
+                .texture("fan", modLoc("block/test_plant_base"))
+                .texture("cross", modLoc("block/test_plant_flower"));
+        simpleBlock(ModBlocks.TEST_PLANT.get(), testPlant);
+        */
     }
 
     public void woodBlock(RotatedPillarBlock block, RotatedPillarBlock log) {
