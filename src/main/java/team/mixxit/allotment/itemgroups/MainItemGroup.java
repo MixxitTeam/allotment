@@ -13,6 +13,6 @@ public class MainItemGroup extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks._COLLECTION_FLOWERS[ModBlocks.FLOWER_HYACINTH_VIOLET].get().asItem());
+        return new ItemStack(ModBlocks._COLLECTION_FLOWERS[ModBlocks.FLOWER_MARIGOLD].get().asItem());
     }
 }
