@@ -86,7 +86,7 @@ public class ModLootTableProvider extends LootTableProvider {
             for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS)
                 registerDropSelfLootTable(_trapdoor.get());
 
-            for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS)
+            for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS)
                 registerDropSelfLootTable(_wall.get());
 
             registerDropSelfLootTable(ModBlocks.BAMBOO_BLOCK.get());

@@ -100,7 +100,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             );
         }
 
-        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+        for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
             tallWall(
                     _wall.getId().getPath(),
                     mcLoc("block/" + _wall.get().ForBlock)

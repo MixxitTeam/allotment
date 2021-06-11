@@ -7,10 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
-import team.mixxit.allotment.blocks.ModFenceBlock;
-import team.mixxit.allotment.blocks.ModWallBlock;
-import team.mixxit.allotment.blocks.SmallCactusBlock;
-import team.mixxit.allotment.blocks.ThinFenceBlock;
+import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.ModTags;
 
@@ -74,7 +71,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         Builder<Block> wallBuilder = getOrCreateBuilder(BlockTags.WALLS);
 
-        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+        for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
             wallBuilder.add(_wall.get());
         }
     }

@@ -153,7 +153,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         */
 
 
-        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+        for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
             final ModWallBlock block = _wall.get();
             final String forBlock = block.ForBlock;
             final ResourceLocation texture = mcLoc("block/" + forBlock);

@@ -247,7 +247,7 @@ public class ModBlocks {
     public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModWallSignBlock>> _COLLECTION_WALL_SIGNS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<ModWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<TallWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
 
     public static final int SIGN_ELDER = 0;
 
@@ -413,9 +413,13 @@ public class ModBlocks {
         _COLLECTION_WALL_SIGNS.add(wallSign);
     }
 
-    private static RegistryObject<ModWallBlock> concreteWall(DyeColor color) {
+    private static RegistryObject<TallWallBlock> concreteWall(DyeColor color) {
         String colorName = color.getTranslationKey();
-        return modWallBlock(colorName + "_concrete_wall", colorName + "_concrete", AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+        return tallWallBlock(colorName + "_concrete_wall", colorName + "_concrete", AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+    }
+
+    private static RegistryObject<TallWallBlock> tallWallBlock(String name, String forBlock, AbstractBlock.Properties properties) {
+        return register(name, () -> new TallWallBlock(properties, forBlock));
     }
 
     private static RegistryObject<ModWallBlock> modWallBlock(String name, String forBlock, AbstractBlock.Properties properties) {
