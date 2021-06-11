@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
@@ -246,6 +247,7 @@ public class ModBlocks {
     public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModWallSignBlock>> _COLLECTION_WALL_SIGNS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
 
     public static final int SIGN_ELDER = 0;
 
@@ -326,6 +328,10 @@ public class ModBlocks {
             // FIXME
             //modSign(_woodType);
         }
+
+        for (DyeColor _color : DyeColor.values()) {
+            _COLLECTION_TALL_WALLS.add(concreteWall(_color));
+        }
     }
 
     static void postRegister() {
@@ -405,6 +411,15 @@ public class ModBlocks {
 
         _COLLECTION_STANDING_SIGNS.add(standingSign);
         _COLLECTION_WALL_SIGNS.add(wallSign);
+    }
+
+    private static RegistryObject<ModWallBlock> concreteWall(DyeColor color) {
+        String colorName = color.getTranslationKey();
+        return modWallBlock(colorName + "_concrete_wall", colorName + "_concrete", AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+    }
+
+    private static RegistryObject<ModWallBlock> modWallBlock(String name, String forBlock, AbstractBlock.Properties properties) {
+        return register(name, () -> new ModWallBlock(properties, forBlock));
     }
 
     private static RegistryObject<ModFenceGateBlock> modFenceGate(String name, String forBlock, AbstractBlock.Properties properties) {

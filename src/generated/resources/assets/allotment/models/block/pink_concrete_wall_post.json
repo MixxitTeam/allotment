@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/tall_wall_post",
+  "textures": {
+    "wall": "minecraft:block/pink_concrete"
+  }
+}

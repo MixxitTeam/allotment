@@ -8,6 +8,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.ModFenceBlock;
+import team.mixxit.allotment.blocks.ModWallBlock;
 import team.mixxit.allotment.blocks.SmallCactusBlock;
 import team.mixxit.allotment.blocks.ThinFenceBlock;
 import team.mixxit.allotment.setup.ModBlocks;
@@ -69,6 +70,12 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
             fenceBuilder.add(_fence.get());
             woodenFenceBuilder.add(_fence.get());
+        }
+
+        Builder<Block> wallBuilder = getOrCreateBuilder(BlockTags.WALLS);
+
+        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+            wallBuilder.add(_wall.get());
         }
     }
 }

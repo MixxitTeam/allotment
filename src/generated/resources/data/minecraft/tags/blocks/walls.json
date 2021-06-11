@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "allotment:white_concrete_wall",
+    "allotment:orange_concrete_wall",
+    "allotment:magenta_concrete_wall",
+    "allotment:light_blue_concrete_wall",
+    "allotment:yellow_concrete_wall",
+    "allotment:lime_concrete_wall",
+    "allotment:pink_concrete_wall",
+    "allotment:gray_concrete_wall",
+    "allotment:light_gray_concrete_wall",
+    "allotment:cyan_concrete_wall",
+    "allotment:purple_concrete_wall",
+    "allotment:blue_concrete_wall",
+    "allotment:brown_concrete_wall",
+    "allotment:green_concrete_wall",
+    "allotment:red_concrete_wall",
+    "allotment:black_concrete_wall"
+  ]
+}

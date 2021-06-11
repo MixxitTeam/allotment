@@ -99,6 +99,18 @@ public class ModItemModelProvider extends ItemModelProvider {
                     modLoc("block/" + _slab.get().WithTextureTop)
             );
         }
+
+        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+            tallWall(
+                    _wall.getId().getPath(),
+                    mcLoc("block/" + _wall.get().ForBlock)
+            );
+        }
+    }
+
+
+    public void tallWall(String name, ResourceLocation texture) {
+        singleTexture(name, modLoc( "block/tall_wall_inventory"), "wall", texture);
     }
 
     private void slabAll(String name, ResourceLocation texture) {

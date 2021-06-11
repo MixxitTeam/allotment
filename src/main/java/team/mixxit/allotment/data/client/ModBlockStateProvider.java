@@ -151,6 +151,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .texture("cross", modLoc("block/test_plant_flower"));
         simpleBlock(ModBlocks.TEST_PLANT.get(), testPlant);
         */
+
+
+        for (RegistryObject<ModWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
+            final ModWallBlock block = _wall.get();
+            final String forBlock = block.ForBlock;
+            final ResourceLocation texture = mcLoc("block/" + forBlock);
+            ModelFile _post = models().withExistingParent(_wall.getId().getPath() + "_post", modLoc("block/tall_wall_post"))
+                    .texture("wall", texture);
+            ModelFile _side = models().withExistingParent(_wall.getId().getPath() + "_side", modLoc("block/tall_wall_side"))
+                    .texture("wall", texture);
+            ModelFile _sideTall = models().withExistingParent(_wall.getId().getPath() + "_side", modLoc("block/tall_wall_side_tall"))
+                    .texture("wall", texture);
+            wallBlock(block, _post, _side, _sideTall);
+        }
     }
 
     public void woodBlock(RotatedPillarBlock block, RotatedPillarBlock log) {

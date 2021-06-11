@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/tall_wall_inventory",
+  "textures": {
+    "wall": "minecraft:block/light_gray_concrete"
+  }
+}
