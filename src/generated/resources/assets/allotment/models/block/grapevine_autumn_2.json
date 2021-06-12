@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/vines_2",
+  "textures": {
+    "vine": "allotment:block/grapevine_autumn"
+  }
+}

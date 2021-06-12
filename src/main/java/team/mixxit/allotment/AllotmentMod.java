@@ -21,6 +21,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.mixxit.allotment.blocks.ModVineBlock;
 import team.mixxit.allotment.interf.IBlockColorProvider;
 import team.mixxit.allotment.interf.IItemColorProvider;
 import team.mixxit.allotment.itemgroups.MainItemGroup;
@@ -132,6 +134,17 @@ public class AllotmentMod
                 IBlockColor color = ((IBlockColorProvider)block).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, block);
             }
+
+            for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
+                ModVineBlock _vineBlock = _vine.get();
+                if (_vineBlock.getIsTinted()) {
+                    if (!(_vineBlock instanceof IBlockColorProvider))
+                        continue;
+
+                    IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
+                    event.getBlockColors().register(color, _vineBlock);
+                }
+            }
         }
 
         @SubscribeEvent
@@ -148,6 +161,17 @@ public class AllotmentMod
 
                 IItemColor color = ((IItemColorProvider)block).getItemColor(event.getItemColors());
                 event.getItemColors().register(color, block);
+            }
+
+            for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
+                ModVineBlock _vineBlock = _vine.get();
+                if (_vineBlock.getIsTinted()) {
+                    if (!(_vineBlock instanceof IBlockColorProvider))
+                        continue;
+
+                    IItemColor color = ((IItemColorProvider)_vineBlock).getItemColor(event.getItemColors());
+                    event.getItemColors().register(color, _vineBlock);
+                }
             }
         }
 

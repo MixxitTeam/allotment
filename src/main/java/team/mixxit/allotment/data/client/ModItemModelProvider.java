@@ -86,6 +86,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("mulch");
         block("terra_preta");
         block("spanish_moss");
+        block("pincussion_moss");
 
         for (RegistryObject<ModStairsBlock> _stairs : ModBlocks._COLLECTION_STAIRS) {
             block(_stairs.getId().getPath());
@@ -105,6 +106,10 @@ public class ModItemModelProvider extends ItemModelProvider {
                     _wall.getId().getPath(),
                     mcLoc("block/" + _wall.get().ForBlock)
             );
+        }
+
+        for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
+            builderForBlock(itemGenerated, _vine.getId().getPath());
         }
     }
 

@@ -89,6 +89,11 @@ public class ModLootTableProvider extends LootTableProvider {
             for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS)
                 registerDropSelfLootTable(_wall.get());
 
+            for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
+                ModVineBlock _block = _vine.get();
+                registerLootTable(_block, droppingSheared(_block));
+            }
+
             registerDropSelfLootTable(ModBlocks.BAMBOO_BLOCK.get());
             registerDropSelfLootTable(ModBlocks.DRIED_BAMBOO_BLOCK.get());
             registerDropSelfLootTable(ModBlocks.STRAW_BLOCK.get());
@@ -110,6 +115,7 @@ public class ModLootTableProvider extends LootTableProvider {
             registerDropSelfLootTable(ModBlocks.ZEN_GRAVEL_END.get());
             registerDropSelfLootTable(ModBlocks.ZEN_GRAVEL_CORNER.get());
             registerDropSelfLootTable(ModBlocks.FIREWOOD_SPRUCE.get());
+            registerDropSelfLootTable(ModBlocks.PINCUSSION_MOSS.get());
 
             registerLootTable(ModBlocks.PAMPAS_GRASS.get(), droppingSheared(ModBlocks.PAMPAS_GRASS.get()));
             registerLootTable(ModBlocks.PAMPAS_GRASS_PINK.get(), droppingSheared(ModBlocks.PAMPAS_GRASS_PINK.get()));

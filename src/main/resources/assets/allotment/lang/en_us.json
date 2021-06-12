@@ -43,6 +43,7 @@
   "block.allotment.mulch": "Mulch",
   "block.allotment.terra_preta": "Terra Preta",
   "block.allotment.spanish_moss": "Spanish Moss",
+  "block.allotment.pincussion_moss": "Pincussion Moss",
 
   "block.allotment.forget_me_not": "Forget-me-not",
   "block.allotment.small_peony": "Small Peony",
@@ -118,6 +119,9 @@
   "block.allotment.elder_slab": "Elder Slab",
   "block.allotment.bamboo_slab": "Bamboo Slab",
   "block.allotment.dried_bamboo_slab": "Dried Bamboo Slab",
+
+  "block.allotment.grapevine_green": "Green Grapevine",
+  "block.allotment.grapevine_autumn": "Autumn Grapevine",
 
   "block.allotment.white_concrete_wall": "White Concrete Wall",
   "block.allotment.orange_concrete_wall": "Orange Concrete Wall",

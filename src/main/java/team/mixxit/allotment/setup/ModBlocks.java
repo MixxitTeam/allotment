@@ -107,6 +107,9 @@ public class ModBlocks {
     public static final RegistryObject<TransparentBlock> SPANISH_MOSS = register("spanish_moss", () ->
             new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).harvestTool(ToolType.HOE).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
 
+    public static final RegistryObject<TransparentBlock> PINCUSSION_MOSS = register("pincussion_moss", () ->
+            new TransparentBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.GREEN).hardnessAndResistance(0.7F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
+
     //public static RegistryObject<StairsBlock> ELDER_STAIRS;
     //public static RegistryObject<SlabBlock> ELDER_SLAB;
 
@@ -195,6 +198,11 @@ public class ModBlocks {
             modFenceGate("elder_fence_gate", "elder_planks", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
             modFenceGate("dried_bamboo_fence_gate", "dried_bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)),
             modFenceGate("bamboo_fence_gate", "bamboo_block_side", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.GREEN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.BAMBOO))
+    };
+
+    public static final RegistryObject<ModVineBlock>[] _COLLECTION_VINES = new RegistryObject[]{
+            modVine("grapevine_green", false),
+            modVine("grapevine_autumn", false)
     };
 
     //region Plants Index Constants
@@ -394,6 +402,9 @@ public class ModBlocks {
         for (RegistryObject<ThinFenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
             RenderTypeLookup.setRenderLayer(_thinFence.get(), RenderType.getCutout());
         }
+        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_VINES) {
+            RenderTypeLookup.setRenderLayer(_vine.get(), RenderType.getCutout());
+        }
         RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
@@ -414,6 +425,10 @@ public class ModBlocks {
 
         _COLLECTION_STANDING_SIGNS.add(standingSign);
         _COLLECTION_WALL_SIGNS.add(wallSign);
+    }
+
+    private static RegistryObject<ModVineBlock> modVine(String name, Boolean isTinted) {
+        return register(name, () -> new ModVineBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.2F).sound(SoundType.VINE), isTinted));
     }
 
     private static RegistryObject<TallWallBlock> concreteWall(DyeColor color) {

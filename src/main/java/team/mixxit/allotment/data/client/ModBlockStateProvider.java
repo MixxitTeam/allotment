@@ -1,6 +1,7 @@
 package team.mixxit.allotment.data.client;
 
 import net.minecraft.block.*;
+import net.minecraft.data.BlockStateVariantBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
@@ -129,6 +130,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.FERRALSOL.get());
         simpleBlock(ModBlocks.MULCH.get());
         simpleBlock(ModBlocks.TERRA_PRETA.get());
+        simpleBlock(ModBlocks.PINCUSSION_MOSS.get());
 
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
 
@@ -165,6 +167,282 @@ public class ModBlockStateProvider extends BlockStateProvider {
                     .texture("wall", texture);
             wallBlock(block, _post, _side, _sideTall);
         }
+
+        for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
+            String _id = _vine.getId().getPath();
+            modVine(_vine.get(), _id);
+        }
+    }
+
+    public void modVine(ModVineBlock block, String name) {
+        ModelFile vines_1 = models().withExistingParent(name + "_1", modLoc("block/vines_1")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_1u = models().withExistingParent(name + "_1u", modLoc("block/vines_1u")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_2 = models().withExistingParent(name + "_2", modLoc("block/vines_2")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_2u = models().withExistingParent(name + "_2u", modLoc("block/vines_2u")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_2u_opposite = models().withExistingParent(name + "_2u_opposite", modLoc("block/vines_2u_opposite")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_2_opposite = models().withExistingParent(name + "_2_opposite", modLoc("block/vines_2_opposite")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_3 = models().withExistingParent(name + "_3", modLoc("block/vines_3")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_3u = models().withExistingParent(name + "_3u", modLoc("block/vines_3u")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_4 = models().withExistingParent(name + "_4", modLoc("block/vines_4")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_4u = models().withExistingParent(name + "_4u", modLoc("block/vines_4u")).texture("vine", modLoc("block/" + name));
+        ModelFile vines_u = models().withExistingParent(name + "_u", modLoc("block/vines_u")).texture("vine", modLoc("block/" + name));
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(block);
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_1).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_u).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_1u).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1u).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2u).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1u).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2u).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2_opposite).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2u_opposite).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, false)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3u).rotationY(180).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2_opposite).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_1u).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_2u_opposite).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2u).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, false)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3u).rotationY(90).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_2u).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, false)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_3u).rotationY(270).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_3).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, false)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_4).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, false)
+                .modelForState().modelFile(vines_3u).addModel();
+
+        variantBuilder.partialState()
+                .with(VineBlock.EAST, true)
+                .with(VineBlock.NORTH, true)
+                .with(VineBlock.SOUTH, true)
+                .with(VineBlock.UP, true)
+                .with(VineBlock.WEST, true)
+                .modelForState().modelFile(vines_4u).addModel();
     }
 
     public void woodBlock(RotatedPillarBlock block, RotatedPillarBlock log) {
