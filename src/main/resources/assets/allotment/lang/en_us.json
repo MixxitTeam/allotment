@@ -81,6 +81,7 @@
   "block.allotment.white_anthurium": "White Anthurium",
   "block.allotment.white_narcissus": "White Narcissus",
   "block.allotment.yellow_narcissus": "Yellow Narcissus",
+  "block.allotment.false_shamrock": "False Shamrock",
 
   "block.allotment.bunny_ears": "Bunny Ears",
   "block.allotment.geohintonia": "Geohintonia",
@@ -101,6 +102,7 @@
 
   "block.allotment.chain_link_fence": "Chain Link Fence",
   "block.allotment.jaktop_criss_cross_fence": "Jaktop Criss Cross Fence",
+  "block.allotment.bar_mat_fence": "Bar Mat Fence",
   "block.allotment.bamboo_fence": "Bamboo Fence",
   "block.allotment.dried_bamboo_fence": "Dried Bamboo Fence",
   "block.allotment.elder_fence": "Elder Fence",

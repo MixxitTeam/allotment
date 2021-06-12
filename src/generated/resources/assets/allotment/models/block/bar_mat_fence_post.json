@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/thin_fence_post",
+  "textures": {
+    "all": "allotment:block/bar_mat_fence"
+  }
+}

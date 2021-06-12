@@ -145,7 +145,8 @@ public class ModBlocks {
             flower("westringia"),
             flower("white_anthurium"),
             flower("white_narcissus"),
-            flower("yellow_narcissus")
+            flower("yellow_narcissus"),
+            flower("false_shamrock")
     };
 
     public static final RegistryObject<SmallCactusBlock>[] _COLLECTION_SMALL_CACTI = new RegistryObject[]{
@@ -180,7 +181,8 @@ public class ModBlocks {
 
     public static final RegistryObject<ThinFenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
             thinFence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
-            thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).harvestTool(ToolType.AXE).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F))
+            thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).harvestTool(ToolType.AXE).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F)),
+            thinFence("bar_mat_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).hardnessAndResistance(2.5F, 4.0F))
     };
 
     public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
@@ -229,6 +231,7 @@ public class ModBlocks {
     public static final int FLOWER_WHITE_ANTHURIUM = 30;
     public static final int FLOWER_WHITE_NARCISSUS = 31;
     public static final int FLOWER_YELLOW_NARCISSUS = 32;
+    public static final int FLOWER_FALSE_SHAMROCK = 33;
 
     public static final int SMALL_CACTUS_BUNNY_EARS = 0;
     public static final int SMALL_CACTUS_GEOHINTONIA = 1;
