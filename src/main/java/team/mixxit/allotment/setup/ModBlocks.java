@@ -205,6 +205,10 @@ public class ModBlocks {
             modVine("grapevine_autumn", false)
     };
 
+    public static final RegistryObject<ModVineBlock>[] _COLLECTION_TINTED_OVERLAY_VINES = new RegistryObject[]{
+            modVine("ivy", true)
+    };
+
     //region Plants Index Constants
     public static final int FLOWER_FORGET_ME_NOT = 0;
     public static final int FLOWER_SMALL_PEONY_CORAL = 1;
@@ -403,6 +407,9 @@ public class ModBlocks {
             RenderTypeLookup.setRenderLayer(_thinFence.get(), RenderType.getCutout());
         }
         for (RegistryObject<ModVineBlock> _vine : _COLLECTION_VINES) {
+            RenderTypeLookup.setRenderLayer(_vine.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_TINTED_OVERLAY_VINES) {
             RenderTypeLookup.setRenderLayer(_vine.get(), RenderType.getCutout());
         }
         RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());

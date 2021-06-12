@@ -94,6 +94,11 @@ public class ModLootTableProvider extends LootTableProvider {
                 registerLootTable(_block, droppingSheared(_block));
             }
 
+            for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
+                ModVineBlock _block = _vine.get();
+                registerLootTable(_block, droppingSheared(_block));
+            }
+
             registerDropSelfLootTable(ModBlocks.BAMBOO_BLOCK.get());
             registerDropSelfLootTable(ModBlocks.DRIED_BAMBOO_BLOCK.get());
             registerDropSelfLootTable(ModBlocks.STRAW_BLOCK.get());

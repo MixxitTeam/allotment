@@ -172,6 +172,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
             String _id = _vine.getId().getPath();
             modVine(_vine.get(), _id);
         }
+
+        for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
+            String _id = _vine.getId().getPath();
+            modLayeredVine(_vine.get(), _id);
+        }
     }
 
     public void modVine(ModVineBlock block, String name) {
@@ -187,6 +192,26 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ModelFile vines_4u = models().withExistingParent(name + "_4u", modLoc("block/vines_4u")).texture("vine", modLoc("block/" + name));
         ModelFile vines_u = models().withExistingParent(name + "_u", modLoc("block/vines_u")).texture("vine", modLoc("block/" + name));
 
+        modVineBlockState(block, vines_1, vines_1u, vines_2, vines_2u, vines_2u_opposite, vines_2_opposite, vines_3, vines_3u, vines_4, vines_4u, vines_u);
+    }
+
+    public void modLayeredVine(ModVineBlock block, String name) {
+        ModelFile vines_1 = models().withExistingParent(name + "_1", modLoc("block/layered_tinted_vines_1")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_1u = models().withExistingParent(name + "_1u", modLoc("block/layered_tinted_vines_1u")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_2 = models().withExistingParent(name + "_2", modLoc("block/layered_tinted_vines_2")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_2u = models().withExistingParent(name + "_2u", modLoc("block/layered_tinted_vines_2u")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_2u_opposite = models().withExistingParent(name + "_2u_opposite", modLoc("block/layered_tinted_vines_2u_opposite")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_2_opposite = models().withExistingParent(name + "_2_opposite", modLoc("block/layered_tinted_vines_2_opposite")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_3 = models().withExistingParent(name + "_3", modLoc("block/layered_tinted_vines_3")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_3u = models().withExistingParent(name + "_3u", modLoc("block/layered_tinted_vines_3u")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_4 = models().withExistingParent(name + "_4", modLoc("block/layered_tinted_vines_4")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_4u = models().withExistingParent(name + "_4u", modLoc("block/layered_tinted_vines_4u")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+        ModelFile vines_u = models().withExistingParent(name + "_u", modLoc("block/layered_tinted_vines_u")).texture("vine", modLoc("block/" + name + "_base")).texture("overlay", modLoc("block/" + name + "_overlay"));
+
+        modVineBlockState(block, vines_1, vines_1u, vines_2, vines_2u, vines_2u_opposite, vines_2_opposite, vines_3, vines_3u, vines_4, vines_4u, vines_u);
+    }
+
+    private void modVineBlockState(Block block, ModelFile vines_1, ModelFile vines_1u, ModelFile vines_2, ModelFile vines_2u, ModelFile vines_2u_opposite, ModelFile vines_2_opposite, ModelFile vines_3, ModelFile vines_3u, ModelFile vines_4, ModelFile vines_4u, ModelFile vines_u) {
         VariantBlockStateBuilder variantBuilder = getVariantBuilder(block);
         variantBuilder.partialState()
                 .with(VineBlock.EAST, false)
