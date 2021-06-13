@@ -35,6 +35,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("bamboo_block");
         block("dried_bamboo_block");
 
+        block("debug_tint_block");
+
         // TODO All firewood bundles in one array; iterate with for loop
         block("spruce_firewood_bundle");
 
@@ -63,6 +65,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
         builder(itemGenerated, "pink_pampas_grass");
         builder(itemGenerated, "pampas_grass");
+        builder(itemGenerated, "ivy");
 
         //builderForBlock(itemGenerated, ModBlocks.TEST_PLANT.getId().getPath());
 
@@ -87,6 +90,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("terra_preta");
         block("spanish_moss");
         block("pincussion_moss");
+        block("corrugated_iron");
 
         for (RegistryObject<ModStairsBlock> _stairs : ModBlocks._COLLECTION_STAIRS) {
             block(_stairs.getId().getPath());

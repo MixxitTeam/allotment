@@ -154,6 +154,9 @@ public class AllotmentMod
                 IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, _vineBlock);
             }
+
+            IBlockColor color = ((IBlockColorProvider)ModBlocks.DEBUG_TINT_BLOCK.get()).getBlockColor(event.getBlockColors());
+            event.getBlockColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
         }
 
         @SubscribeEvent
@@ -183,14 +186,17 @@ public class AllotmentMod
                 }
             }
 
-            for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
+            /*for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
                 ModVineBlock _vineBlock = _vine.get();
                 if (!(_vineBlock instanceof IBlockColorProvider))
                     continue;
 
                 IItemColor color = ((IItemColorProvider)_vineBlock).getItemColor(event.getItemColors());
                 event.getItemColors().register(color, _vineBlock);
-            }
+            }*/
+
+            IItemColor color = ((IBlockColorProvider)ModBlocks.DEBUG_TINT_BLOCK.get()).getItemColor(event.getItemColors());
+            event.getItemColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
         }
 
         /*

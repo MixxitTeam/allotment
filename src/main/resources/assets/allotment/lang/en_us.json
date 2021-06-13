@@ -44,6 +44,7 @@
   "block.allotment.terra_preta": "Terra Preta",
   "block.allotment.spanish_moss": "Spanish Moss",
   "block.allotment.pincussion_moss": "Pincussion Moss",
+  "block.allotment.corrugated_iron": "Corrugated Iron",
 
   "block.allotment.forget_me_not": "Forget-me-not",
   "block.allotment.small_peony": "Small Peony",
@@ -122,6 +123,7 @@
 
   "block.allotment.grapevine_green": "Green Grapevine",
   "block.allotment.grapevine_autumn": "Autumn Grapevine",
+  "block.allotment.ivy": "Ivy",
 
   "block.allotment.white_concrete_wall": "White Concrete Wall",
   "block.allotment.orange_concrete_wall": "Orange Concrete Wall",
@@ -143,6 +145,7 @@
   "item.allotment.dried_bamboo": "Dried Bamboo",
   "item.allotment.pampas_grass": "Pampas Grass",
   "item.allotment.pink_pampas_grass": "Pink Pampas Grass",
+  "item.allotment.ivy": "Ivy",
 
   "itemGroup.group_allotment": "Allotment"
 }

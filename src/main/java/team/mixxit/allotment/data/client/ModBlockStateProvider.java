@@ -131,6 +131,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.MULCH.get());
         simpleBlock(ModBlocks.TERRA_PRETA.get());
         simpleBlock(ModBlocks.PINCUSSION_MOSS.get());
+        simpleBlock(ModBlocks.CORRUGATED_IRON.get());
+        tintedBlock(ModBlocks.DEBUG_TINT_BLOCK.get());
 
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
 
@@ -177,6 +179,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
             String _id = _vine.getId().getPath();
             modLayeredVine(_vine.get(), _id);
         }
+    }
+
+    public void tintedBlock(TintedBlock block) {
+        String name = block.getRegistryName().getPath();
+
+        ModelFile base = models().getExistingFile(modLoc("block/tinted_cube_all"));
+        BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
+                .texture("all", modLoc("block/" + name));
+        simpleBlock(block, builder);
     }
 
     public void modVine(ModVineBlock block, String name) {

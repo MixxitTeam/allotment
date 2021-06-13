@@ -107,13 +107,14 @@ public class ModBlocks {
     public static final RegistryObject<TransparentBlock> SPANISH_MOSS = register("spanish_moss", () ->
             new TransparentBlock(AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.CYAN).hardnessAndResistance(0.2F).harvestTool(ToolType.HOE).sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid)));
 
-    public static final RegistryObject<TransparentBlock> PINCUSSION_MOSS = register("pincussion_moss", () ->
-            new TransparentBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.GREEN).hardnessAndResistance(0.7F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> PINCUSSION_MOSS = register("pincussion_moss", () ->
+            new Block(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.GREEN).hardnessAndResistance(0.7F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
-    //public static RegistryObject<StairsBlock> ELDER_STAIRS;
-    //public static RegistryObject<SlabBlock> ELDER_SLAB;
+    public static final RegistryObject<Block> CORRUGATED_IRON = register("corrugated_iron", () ->
+            new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
-    //public static final RegistryObject<FlowerBlock> TEST_PLANT = flower("test_plant");
+    public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
+            new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
 
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
@@ -206,10 +207,10 @@ public class ModBlocks {
     };
 
     public static final RegistryObject<ModVineBlock>[] _COLLECTION_TINTED_OVERLAY_VINES = new RegistryObject[]{
-            modVine("ivy", true)
+            modVineNoItem("ivy", true)
     };
 
-    //region Plants Index Constants
+//region Plants Index Constants
     public static final int FLOWER_FORGET_ME_NOT = 0;
     public static final int FLOWER_SMALL_PEONY_CORAL = 1;
     public static final int FLOWER_SMALL_PEONY = 2;
@@ -265,6 +266,8 @@ public class ModBlocks {
     public static final ArrayList<RegistryObject<TallWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
 
     public static final int SIGN_ELDER = 0;
+
+    public static final int OVERLAY_VINES_IVY = 0;
 
     static void register() {
         final String[] plankNames = new String[]{
@@ -432,6 +435,10 @@ public class ModBlocks {
 
         _COLLECTION_STANDING_SIGNS.add(standingSign);
         _COLLECTION_WALL_SIGNS.add(wallSign);
+    }
+
+    private static RegistryObject<ModVineBlock> modVineNoItem(String name, Boolean isTinted) {
+        return registerNoItem(name, () -> new ModVineBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.2F).sound(SoundType.VINE), isTinted));
     }
 
     private static RegistryObject<ModVineBlock> modVine(String name, Boolean isTinted) {
