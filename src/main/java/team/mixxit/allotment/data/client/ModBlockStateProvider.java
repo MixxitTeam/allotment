@@ -1,6 +1,7 @@
 package team.mixxit.allotment.data.client;
 
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.model.Model;
 import net.minecraft.data.BlockStateVariantBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.DoubleBlockHalf;
@@ -131,8 +132,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.MULCH.get());
         simpleBlock(ModBlocks.TERRA_PRETA.get());
         simpleBlock(ModBlocks.PINCUSSION_MOSS.get());
-        simpleBlock(ModBlocks.CORRUGATED_IRON.get());
+        //simpleBlock(ModBlocks.CORRUGATED_IRON.get());
         tintedBlock(ModBlocks.DEBUG_TINT_BLOCK.get());
+
+        rotatableBlock(ModBlocks.CORRUGATED_IRON.get());
 
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
 
@@ -188,6 +191,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
         BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
                 .texture("all", modLoc("block/" + name));
         simpleBlock(block, builder);
+    }
+
+    public void rotatableBlock(RotatableBlock block) {
+        String name = block.getRegistryName().getPath();
+        ModelFile model = models().cubeAll(name, modLoc("block/" + name));
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(block);
+        variantBuilder.partialState()
+                .with(RotatableBlock.FACING, Direction.NORTH)
+                .modelForState().modelFile(model).rotationY(0).addModel();
+        variantBuilder.partialState()
+                .with(RotatableBlock.FACING, Direction.EAST)
+                .modelForState().modelFile(model).rotationY(90).addModel();
+        variantBuilder.partialState()
+                .with(RotatableBlock.FACING, Direction.SOUTH)
+                .modelForState().modelFile(model).rotationY(180).addModel();
+        variantBuilder.partialState()
+                .with(RotatableBlock.FACING, Direction.WEST)
+                .modelForState().modelFile(model).rotationY(270).addModel();
     }
 
     public void modVine(ModVineBlock block, String name) {

@@ -2,6 +2,7 @@ package team.mixxit.allotment.data.client;
 
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
+import team.mixxit.allotment.setup.ModItems;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -65,7 +67,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
         builder(itemGenerated, "pink_pampas_grass");
         builder(itemGenerated, "pampas_grass");
-        builder(itemGenerated, "ivy");
+        for (RegistryObject<Item> _item : ModItems._COLLECTION_TINTED_OVERLAY_VINES) {
+            System.out.println("[[DEBUG] TintedOverlayVines]: " + _item.getId().getPath());
+            builder(itemGenerated, _item.getId().getPath());
+        }
 
         //builderForBlock(itemGenerated, ModBlocks.TEST_PLANT.getId().getPath());
 

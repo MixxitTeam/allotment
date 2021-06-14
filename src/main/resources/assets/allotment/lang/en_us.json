@@ -146,6 +146,10 @@
   "item.allotment.pampas_grass": "Pampas Grass",
   "item.allotment.pink_pampas_grass": "Pink Pampas Grass",
   "item.allotment.ivy": "Ivy",
+  "item.allotment.mandevilla": "Mandevilla",
 
-  "itemGroup.group_allotment": "Allotment"
+  "itemGroup.group_allotment": "Allotment",
+
+  "death.attack.tallPhistle": "%1$s was poked to death by a tall phistle",
+  "death.attack.tallPhistle.player": "%1$s was poked to death by a tall phistle whilst trying to escape %2$s"
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "allotment:block/layered_tinted_vines_4u",
+  "textures": {
+    "vine": "allotment:block/mandevilla_base",
+    "overlay": "allotment:block/mandevilla_overlay"
+  }
+}

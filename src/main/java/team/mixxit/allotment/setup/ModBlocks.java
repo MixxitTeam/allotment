@@ -110,8 +110,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> PINCUSSION_MOSS = register("pincussion_moss", () ->
             new Block(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.GREEN).hardnessAndResistance(0.7F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
-    public static final RegistryObject<Block> CORRUGATED_IRON = register("corrugated_iron", () ->
-            new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+    public static final RegistryObject<RotatableBlock> CORRUGATED_IRON = register("corrugated_iron", () ->
+            new RotatableBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
     public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
             new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
@@ -207,7 +207,8 @@ public class ModBlocks {
     };
 
     public static final RegistryObject<ModVineBlock>[] _COLLECTION_TINTED_OVERLAY_VINES = new RegistryObject[]{
-            modVineNoItem("ivy", true)
+            modVineNoItem("ivy", true),
+            modVineNoItem("mandevilla", true)
     };
 
 //region Plants Index Constants
