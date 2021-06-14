@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=top": {
+      "model": "allotment:block/gutter_top"
+    },
+    "half=bottom": {
+      "model": "allotment:block/gutter_bottom"
+    }
+  }
+}

@@ -122,6 +122,7 @@ public class ModLootTableProvider extends LootTableProvider {
             registerDropSelfLootTable(ModBlocks.FIREWOOD_SPRUCE.get());
             registerDropSelfLootTable(ModBlocks.PINCUSSION_MOSS.get());
             registerDropSelfLootTable(ModBlocks.CORRUGATED_IRON.get());
+            registerDropSelfLootTable(ModBlocks.GUTTER.get());
             registerDropSelfLootTable(ModBlocks.DEBUG_TINT_BLOCK.get());
 
             registerLootTable(ModBlocks.PAMPAS_GRASS.get(), droppingSheared(ModBlocks.PAMPAS_GRASS.get()));

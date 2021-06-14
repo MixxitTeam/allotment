@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.model.Model;
 import net.minecraft.data.BlockStateVariantBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
@@ -91,6 +92,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
             ModelFile open = models().trapdoorOpen(baseName + "_open", texture);
             trapdoorBlock(_trapdoor.get(), bottom, top, open, false);
         }
+
+        ResourceLocation gutterTexture = modLoc("block/gutter");
+
+        ModelFile gutterBottom = models().getExistingFile(modLoc("block/gutter_bottom"));
+        ModelFile gutterTop = models().getExistingFile(modLoc("block/gutter_top"));
+        gutterBlock(ModBlocks.GUTTER.get(), gutterBottom, gutterTop);
 
         for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
             fenceBlock(_fence.get(), modLoc("block/" + _fence.get().ForBlock));
@@ -182,6 +189,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
             String _id = _vine.getId().getPath();
             modLayeredVine(_vine.get(), _id);
         }
+    }
+
+    public void gutterBlock(GutterBlock block, ModelFile bottom, ModelFile top) {
+        getVariantBuilder(block).forAllStatesExcept(state ->
+                ConfiguredModel.builder().modelFile(state.get(TrapDoorBlock.HALF) == Half.TOP ? top : bottom)                    .build(), TrapDoorBlock.POWERED, TrapDoorBlock.WATERLOGGED);
     }
 
     public void tintedBlock(TintedBlock block) {

@@ -71,6 +71,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             System.out.println("[[DEBUG] TintedOverlayVines]: " + _item.getId().getPath());
             builder(itemGenerated, _item.getId().getPath());
         }
+        trapdoor("gutter");
 
         //builderForBlock(itemGenerated, ModBlocks.TEST_PLANT.getId().getPath());
 

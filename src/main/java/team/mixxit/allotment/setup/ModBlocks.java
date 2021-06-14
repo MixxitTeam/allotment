@@ -20,7 +20,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
-import team.mixxit.allotment.itemgroups.MainItemGroup;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -113,6 +112,9 @@ public class ModBlocks {
     public static final RegistryObject<RotatableBlock> CORRUGATED_IRON = register("corrugated_iron", () ->
             new RotatableBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
+    public static final RegistryObject<GutterBlock> GUTTER = register("gutter", () ->
+            new GutterBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().notSolid().setAllowsSpawn((a, b, c, d) -> Boolean.FALSE).hardnessAndResistance(1.5F, 2.0F)));
+
     public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
             new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
 
@@ -180,7 +182,7 @@ public class ModBlocks {
             doublePlant("purple_loosestrife"),
             doublePlant("reed"),
             doublePlant("tall_desert_rose"),
-            tallPhistle("tall_phistle")
+            tallThistle("tall_thistle")
     };
 
     public static final RegistryObject<ThinFenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
@@ -423,6 +425,7 @@ public class ModBlocks {
         RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(GUTTER.get(), RenderType.getCutout());
 
         //RenderTypeLookup.setRenderLayer(TEST_PLANT.get(), RenderType.getCutout());
     }
@@ -499,8 +502,8 @@ public class ModBlocks {
         return register(name, () -> new ModMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT).setLightLevel((state) -> 1).setNeedsPostProcessing(ModBlocks::needsPostProcessing)));
     }
 
-    private static RegistryObject<TallFlowerBlock> tallPhistle(String name) {
-        return register(name, () -> new TallPhistleBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+    private static RegistryObject<TallFlowerBlock> tallThistle(String name) {
+        return register(name, () -> new TallThistleBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
     }
 
     private static RegistryObject<TallFlowerBlock> doublePlant(String name) {

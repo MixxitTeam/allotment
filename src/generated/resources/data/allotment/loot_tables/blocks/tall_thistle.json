@@ -9,13 +9,13 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "allotment:tall_phistle",
+              "block": "allotment:tall_thistle",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "allotment:tall_phistle"
+          "name": "allotment:tall_thistle"
         }
       ],
       "conditions": [

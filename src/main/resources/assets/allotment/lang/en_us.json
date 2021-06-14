@@ -45,6 +45,7 @@
   "block.allotment.spanish_moss": "Spanish Moss",
   "block.allotment.pincussion_moss": "Pincussion Moss",
   "block.allotment.corrugated_iron": "Corrugated Iron",
+  "block.allotment.gutter": "Gutter",
 
   "block.allotment.forget_me_not": "Forget-me-not",
   "block.allotment.small_peony": "Small Peony",
@@ -100,7 +101,7 @@
   "block.allotment.purple_loosestrife": "Purple Loosestrife",
   "block.allotment.reed": "Reed",
   "block.allotment.tall_desert_rose": "Tall Desert Rose",
-  "block.allotment.tall_phistle": "Tall Phistle",
+  "block.allotment.tall_thistle": "Tall Thistle",
 
   "block.allotment.chain_link_fence": "Chain Link Fence",
   "block.allotment.jaktop_criss_cross_fence": "Jaktop Criss Cross Fence",
@@ -150,6 +151,6 @@
 
   "itemGroup.group_allotment": "Allotment",
 
-  "death.attack.tallPhistle": "%1$s was poked to death by a tall phistle",
-  "death.attack.tallPhistle.player": "%1$s was poked to death by a tall phistle whilst trying to escape %2$s"
+  "death.attack.tallThistle": "%1$s was poked to death by a tall thistle",
+  "death.attack.tallThistle.player": "%1$s was poked to death by a tall thistle whilst trying to escape %2$s"
 }
