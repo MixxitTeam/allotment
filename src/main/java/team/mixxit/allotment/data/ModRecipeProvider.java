@@ -1,6 +1,7 @@
 package team.mixxit.allotment.data;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -10,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.ModFlowerBlock;
@@ -91,6 +93,24 @@ public class ModRecipeProvider extends RecipeProvider {
                 .addCriterion("has_iron_ingot", hasItem(Items.IRON_INGOT))
                 .addCriterion("has_chain", hasItem(Items.IRON_BARS))
                 .build(consumer);
+
+        // FIXME
+        /*
+        Ingredient axeIngredients = Ingredient.fromItems(
+                () -> Items.WOODEN_AXE,
+                () -> Items.STONE_AXE,
+                () -> Items.GOLDEN_AXE,
+                () -> Items.IRON_AXE,
+                () -> Items.DIAMOND_AXE,
+                () -> Items.NETHERITE_AXE
+        );
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks._COLLECTION_PLANKS.get(0).get())
+                .addIngredient(Blocks.ACACIA_PLANKS)
+                .addIngredient(axeIngredients)
+                .addCriterion("has_plank", hasItem(Blocks.ACACIA_PLANKS))
+                .build(consumer);
+        */
     }
 
     private ResourceLocation modLoc(String name) {
