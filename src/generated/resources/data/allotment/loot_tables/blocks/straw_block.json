@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "allotment:straw"
+          "name": "allotment:straw_block"
         }
       ],
       "conditions": [

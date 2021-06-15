@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "allotment:block/straw"
+    "all": "allotment:block/straw_block"
   }
 }

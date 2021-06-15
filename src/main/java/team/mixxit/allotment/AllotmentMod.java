@@ -1,26 +1,13 @@
 package team.mixxit.allotment;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -38,21 +25,26 @@ import team.mixxit.allotment.itemgroups.MainItemGroup;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.Registration;
 
-import java.util.stream.Collectors;
-
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(AllotmentMod.MOD_ID)
 public class AllotmentMod
 {
+//region TODO List
+    // TODO Crafting recipes!
+    // TODO World generation
+    // TODO Elder sign & button
+    // TODO Other firewood bundles
+    // TODO Gutter placeable on walls
+//endregion
+
     public static final String MOD_ID = "allotment";
 
     public static final MainItemGroup MAIN_GROUP = new MainItemGroup("group_allotment");
 
-
-    // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static Block TestBlock;
+    public static Logger getLogger() {
+        return LOGGER;
+    }
 
     public AllotmentMod() {
         Registration.register();
@@ -100,26 +92,19 @@ public class AllotmentMod
         // some example code to receive and process InterModComms from other mods
         //LOGGER.info("Got IMC {}", event.getIMCStream().map(m->m.getMessageSupplier().get()).collect(Collectors.toList()));
     }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
-        // do something when the server starts
-        //LOGGER.info("HELLO from server starting");
+
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-        /*@SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }*/
-
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void registerBlockColors(final ColorHandlerEvent.Block event) {
+            LOGGER.info("Registering tinted blocks");
+
             final Block[] blocks = {
                     ModBlocks.LAWN_BLOCK.get(),
                     ModBlocks.PAMPAS_GRASS.get(),
@@ -128,8 +113,12 @@ public class AllotmentMod
             };
 
             for (Block block : blocks) {
-                if (!(block instanceof IBlockColorProvider))
+                if (!(block instanceof IBlockColorProvider)) {
+                    LOGGER.warn(block.getRegistryName().toString() + " does not implement IBlockColorProvider");
                     continue;
+                }
+
+                LOGGER.info("Registering tinted block: " + block.getRegistryName().toString());
 
                 IBlockColor color = ((IBlockColorProvider)block).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, block);
@@ -138,8 +127,12 @@ public class AllotmentMod
             for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
                 ModVineBlock _vineBlock = _vine.get();
                 if (_vineBlock.getIsTinted()) {
-                    if (!(_vineBlock instanceof IBlockColorProvider))
+                    if (!(_vineBlock instanceof IBlockColorProvider)) {
+                        LOGGER.warn(_vineBlock.getRegistryName().toString() + " does not implement IBlockColorProvider");
                         continue;
+                    }
+
+                    LOGGER.info("Registering tinted block: " + _vineBlock.getRegistryName().toString());
 
                     IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
                     event.getBlockColors().register(color, _vineBlock);
@@ -148,8 +141,12 @@ public class AllotmentMod
 
             for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
                 ModVineBlock _vineBlock = _vine.get();
-                if (!(_vineBlock instanceof IBlockColorProvider))
+                if (!(_vineBlock instanceof IBlockColorProvider)) {
+                    LOGGER.warn(_vineBlock.getRegistryName().toString() + " does not implement IBlockColorProvider");
                     continue;
+                }
+
+                LOGGER.info("Registering tinted block: " + _vineBlock.getRegistryName().toString());
 
                 IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, _vineBlock);
@@ -162,14 +159,20 @@ public class AllotmentMod
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void registerItemColors(final ColorHandlerEvent.Item event) {
+            LOGGER.info("Registering tinted items");
+
             final Block[] blocks = {
                     ModBlocks.LAWN_BLOCK.get(),
                     ModBlocks.ELDER_LEAVES.get(),
             };
 
             for (Block block : blocks) {
-                if (!(block instanceof IItemColorProvider))
+                if (!(block instanceof IItemColorProvider)) {
+                    LOGGER.warn(block.getRegistryName().toString() + " does not implement IItemColorProvider");
                     continue;
+                }
+
+                LOGGER.info("Registering tinted item: " + block.getRegistryName().toString());
 
                 IItemColor color = ((IItemColorProvider)block).getItemColor(event.getItemColors());
                 event.getItemColors().register(color, block);
@@ -178,32 +181,19 @@ public class AllotmentMod
             for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
                 ModVineBlock _vineBlock = _vine.get();
                 if (_vineBlock.getIsTinted()) {
-                    if (!(_vineBlock instanceof IBlockColorProvider))
+                    if (!(_vineBlock instanceof IBlockColorProvider)){
+                        LOGGER.warn(_vineBlock.getRegistryName().toString() + " does not implement IItemColorProvider");
                         continue;
+                    }
+
+                    LOGGER.info("Registering tinted item: " + _vineBlock.getRegistryName().toString());
 
                     IItemColor color = ((IItemColorProvider)_vineBlock).getItemColor(event.getItemColors());
                     event.getItemColors().register(color, _vineBlock);
                 }
             }
-
-            /*for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_TINTED_OVERLAY_VINES) {
-                ModVineBlock _vineBlock = _vine.get();
-                if (!(_vineBlock instanceof IBlockColorProvider))
-                    continue;
-
-                IItemColor color = ((IItemColorProvider)_vineBlock).getItemColor(event.getItemColors());
-                event.getItemColors().register(color, _vineBlock);
-            }*/
-
             IItemColor color = ((IBlockColorProvider)ModBlocks.DEBUG_TINT_BLOCK.get()).getItemColor(event.getItemColors());
             event.getItemColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
         }
-
-        /*
-        @SubscribeEvent
-        public static void blockToolInteract(final BlockEvent.BlockToolInteractEvent event) {
-            System.out.println("~~~~~[[[[ALLOTMENT---INTERACT]]]]~~~~~");
-        }
-        */
     }
 }

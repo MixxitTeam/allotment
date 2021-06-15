@@ -35,7 +35,7 @@
   "block.allotment.elder_leaves": "Elder Leaves",
   "block.allotment.bamboo_block": "Block of Bamboo",
   "block.allotment.dried_bamboo_block": "Block of Dried Bamboo",
-  "block.allotment.straw": "Straw",
+  "block.allotment.straw_block": "Block of Straw",
   "block.allotment.cracked_clay": "Cracked Clay",
   "block.allotment.humus": "Humus",
   "block.allotment.turf": "Turf",
@@ -146,6 +146,7 @@
   "item.allotment.dried_bamboo": "Dried Bamboo",
   "item.allotment.pampas_grass": "Pampas Grass",
   "item.allotment.pink_pampas_grass": "Pink Pampas Grass",
+  "item.allotment.straw": "Straw",
   "item.allotment.ivy": "Ivy",
   "item.allotment.mandevilla": "Mandevilla",
 

@@ -1,3 +1,6 @@
 {
-  "parent": "allotment:block/straw"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "allotment:item/straw"
+  }
 }

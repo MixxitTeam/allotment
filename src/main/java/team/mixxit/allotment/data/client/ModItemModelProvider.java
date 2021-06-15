@@ -21,7 +21,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected  void registerModels() {
-        //block("test_block");
+        ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
+
         block("lawn_block");
         block("hose_reel");
         block("zen_gravel");
@@ -36,58 +37,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("elder_leaves");
         block("bamboo_block");
         block("dried_bamboo_block");
-
-        block("debug_tint_block");
-
-        // TODO All firewood bundles in one array; iterate with for loop
-        block("spruce_firewood_bundle");
-
-        ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
-        ModelFile layeredTinted = getExistingFile(modLoc("item/layered_tinted"));
-
-        builder(itemGenerated, "dried_bamboo");
-
-        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
-            builderForBlock(itemGenerated, _flower.getId().getPath());
-        }
-        for (RegistryObject<ModMushroomBlock> _mushroom : ModBlocks._COLLECTION_MUSHROOMS) {
-            builderForBlock(itemGenerated, _mushroom.getId().getPath());
-        }
-        for (RegistryObject<SmallCactusBlock> _cactus : ModBlocks._COLLECTION_SMALL_CACTI) {
-            builderForBlock(itemGenerated, _cactus.getId().getPath());
-        }
-        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
-            block(_plank.getId().getPath());
-        }
-        for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS) {
-            trapdoor(_trapdoor.getId().getPath());
-        }
-        for (RegistryObject<? extends TallFlowerBlock> _tallflower : ModBlocks._COLLECTION_TALL_FLOWERS) {
-            builderTallFlower(itemGenerated, _tallflower.getId().getPath());
-        }
-        builder(itemGenerated, "pink_pampas_grass");
-        builder(itemGenerated, "pampas_grass");
-        for (RegistryObject<Item> _item : ModItems._COLLECTION_TINTED_OVERLAY_VINES) {
-            System.out.println("[[DEBUG] TintedOverlayVines]: " + _item.getId().getPath());
-            builder(itemGenerated, _item.getId().getPath());
-        }
-        trapdoor("gutter");
-
-        //builderForBlock(itemGenerated, ModBlocks.TEST_PLANT.getId().getPath());
-
-        for (RegistryObject<ThinFenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
-            withExistingParent(_thinFence.getId().getPath(), modLoc("block/thin_fence_inventory")).texture("all", modLoc("block/" + _thinFence.getId().getPath()));
-        }
-
-        block("straw");
-
-        for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
-            fenceInventory(_fence.getId().getPath(), modLoc("block/" + _fence.get().ForBlock));
-        }
-        for (RegistryObject<ModFenceGateBlock> _fencegate : ModBlocks._COLLECTION_FENCEGATES) {
-            fenceGate(_fencegate.getId().getPath(), modLoc("block/" + _fencegate.get().ForBlock));
-        }
-
+        block("straw_block");
         block("cracked_clay");
         block("humus");
         block("turf");
@@ -97,6 +47,55 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("spanish_moss");
         block("pincussion_moss");
         block("corrugated_iron");
+
+        block("debug_tint_block");
+
+        // TODO All firewood bundles in one array; iterate with for loop
+        block("spruce_firewood_bundle");
+
+        builder(itemGenerated, "dried_bamboo");
+        builder(itemGenerated, "pink_pampas_grass");
+        builder(itemGenerated, "pampas_grass");
+        builder(itemGenerated, "straw");
+
+        trapdoor("gutter");
+
+        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+            builderForBlock(itemGenerated, _flower.getId().getPath());
+        }
+
+        for (RegistryObject<ModMushroomBlock> _mushroom : ModBlocks._COLLECTION_MUSHROOMS) {
+            builderForBlock(itemGenerated, _mushroom.getId().getPath());
+        }
+
+        for (RegistryObject<SmallCactusBlock> _cactus : ModBlocks._COLLECTION_SMALL_CACTI) {
+            builderForBlock(itemGenerated, _cactus.getId().getPath());
+        }
+
+        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
+            block(_plank.getId().getPath());
+        }
+
+        for (RegistryObject<TrapDoorBlock> _trapdoor : ModBlocks._COLLECTION_TRAPDOORS) {
+            trapdoor(_trapdoor.getId().getPath());
+        }
+
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : ModBlocks._COLLECTION_TALL_FLOWERS) {
+            builderTallFlower(itemGenerated, _tallflower.getId().getPath());
+        }
+
+        for (RegistryObject<ThinFenceBlock> _thinFence : ModBlocks._COLLECTION_THIN_FENCES) {
+            withExistingParent(_thinFence.getId().getPath(), modLoc("block/thin_fence_inventory"))
+                    .texture("all", modLoc("block/" + _thinFence.getId().getPath()));
+        }
+
+        for (RegistryObject<ModFenceBlock> _fence : ModBlocks._COLLECTION_FENCES) {
+            fenceInventory(_fence.getId().getPath(), modLoc("block/" + _fence.get().ForBlock));
+        }
+
+        for (RegistryObject<ModFenceGateBlock> _fencegate : ModBlocks._COLLECTION_FENCEGATES) {
+            fenceGate(_fencegate.getId().getPath(), modLoc("block/" + _fencegate.get().ForBlock));
+        }
 
         for (RegistryObject<ModStairsBlock> _stairs : ModBlocks._COLLECTION_STAIRS) {
             block(_stairs.getId().getPath());
@@ -112,17 +111,18 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
 
         for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
-            tallWall(
-                    _wall.getId().getPath(),
-                    mcLoc("block/" + _wall.get().ForBlock)
-            );
+            tallWall(_wall.getId().getPath(), mcLoc("block/" + _wall.get().ForBlock));
         }
 
         for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
             builderForBlock(itemGenerated, _vine.getId().getPath());
         }
-    }
 
+        for (RegistryObject<Item> _item : ModItems._COLLECTION_TINTED_OVERLAY_VINES) {
+            System.out.println("[[DEBUG] TintedOverlayVines]: " + _item.getId().getPath());
+            builder(itemGenerated, _item.getId().getPath());
+        }
+    }
 
     public void tallWall(String name, ResourceLocation texture) {
         singleTexture(name, modLoc( "block/tall_wall_inventory"), "wall", texture);

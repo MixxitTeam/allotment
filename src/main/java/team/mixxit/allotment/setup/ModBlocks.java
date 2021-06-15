@@ -25,9 +25,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    //public static final RegistryObject<Block> TEST_BLOCK = register("test_block", () ->
-    //        new Block(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(3, 10).sound(SoundType.STONE)));
-
+//region Block fields
     public static final RegistryObject<Block> ALLOTMENT_LOGO_1 = registerNoCreative("allotment_logo_1", () ->
             new Block(AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 
@@ -70,11 +68,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> ELDER_PLANKS = register("elder_planks", () ->
             new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves", () ->
-            createLeavesBlock());
+    public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves",
+            ModBlocks::createLeavesBlock);
 
-    public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle", () -> new FirewoodBundleBlock());
-    public static final RegistryObject<Block> HOSE_REEL = register("hose_reel", () -> new HoseReelBlock());
+    public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle",
+            FirewoodBundleBlock::new);
+
+    public static final RegistryObject<Block> HOSE_REEL = register("hose_reel",
+            HoseReelBlock::new);
 
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_BLOCK = register("bamboo_block",
             () -> createRotatableBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO)));
@@ -82,8 +83,8 @@ public class ModBlocks {
     public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block",
             () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).harvestTool(ToolType.HOE).hardnessAndResistance(0.8F).sound(SoundType.PLANT)));
 
-    public static final RegistryObject<HayBlock> STRAW_BLOCK = register("straw", () ->
-            new HayBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
+    public static final RegistryObject<StrawBlock> STRAW_BLOCK = register("straw_block", () ->
+            new StrawBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> CRACKED_CLAY = register("cracked_clay", () ->
             new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)));
@@ -117,7 +118,9 @@ public class ModBlocks {
 
     public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
             new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
+//endregion
 
+//region Lists (arrays)
     public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
             flower("forget_me_not"),
             flower("coral_small_peony"),
@@ -212,6 +215,17 @@ public class ModBlocks {
             modVineNoItem("ivy", true),
             modVineNoItem("mandevilla", true)
     };
+//endregion
+
+//region Dynamic lists (ArrayLists)
+    public static final ArrayList<FlowerPotBlock> _COLLECTION_POTTED_PLANTS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModStairsBlock>> _COLLECTION_STAIRS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<ModWallSignBlock>> _COLLECTION_WALL_SIGNS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<TallWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
+//endregion
 
 //region Plants Index Constants
     public static final int FLOWER_FORGET_ME_NOT = 0;
@@ -258,19 +272,12 @@ public class ModBlocks {
     public static final int MUSHROOM_BUTTON_MUSHROOM = 1;
     public static final int MUSHROOM_CHANTERELLE = 2;
     public static final int MUSHROOM_COOKEINA = 3;
-//endregion
-
-    public static final ArrayList<FlowerPotBlock> _COLLECTION_POTTED_PLANTS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<ModStairsBlock>> _COLLECTION_STAIRS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<ModWallSignBlock>> _COLLECTION_WALL_SIGNS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<TallWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
-
-    public static final int SIGN_ELDER = 0;
 
     public static final int OVERLAY_VINES_IVY = 0;
+    public static final int OVERLAY_VINES_MANDEVILLA = 1;
+
+    public static final int SIGN_ELDER = 0;
+//endregion
 
     static void register() {
         final String[] plankNames = new String[]{
@@ -369,6 +376,48 @@ public class ModBlocks {
         registerCompostable(0.65F, PAMPAS_GRASS_PINK);
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public static void registerRenderTypes(FMLClientSetupEvent event) {
+
+
+        for (RegistryObject<FlowerBlock> _flower : _COLLECTION_FLOWERS) {
+            setRenderLayer(_flower.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<ModMushroomBlock> _mushroom : _COLLECTION_MUSHROOMS) {
+            setRenderLayer(_mushroom.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<SmallCactusBlock> _cactus : _COLLECTION_SMALL_CACTI) {
+            setRenderLayer(_cactus.get(), RenderType.getCutout());
+        }
+        for (FlowerPotBlock _flowerPotBlock : _COLLECTION_POTTED_PLANTS) {
+            setRenderLayer(_flowerPotBlock, RenderType.getCutout());
+        }
+        for (RegistryObject<TrapDoorBlock> _trapdoor : _COLLECTION_TRAPDOORS) {
+            setRenderLayer(_trapdoor.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
+            setRenderLayer(_tallflower.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<ThinFenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
+            setRenderLayer(_thinFence.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_VINES) {
+            setRenderLayer(_vine.get(), RenderType.getCutout());
+        }
+        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_TINTED_OVERLAY_VINES) {
+            setRenderLayer(_vine.get(), RenderType.getCutout());
+        }
+        setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
+        setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
+        setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
+        setRenderLayer(ALLOTMENT_LOGO_1.get(), RenderType.getCutout());
+        setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
+        setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
+        setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
+        setRenderLayer(GUTTER.get(), RenderType.getCutout());
+    }
+
+//region Helper methods
     private static void registerCompostable(float chance, RegistryObject<? extends Block> itemIn) {
         ComposterBlock.CHANCES.put(itemIn.get().asItem(), chance);
     }
@@ -382,52 +431,15 @@ public class ModBlocks {
         Registration.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties().group(AllotmentMod.MAIN_GROUP)));
         return ret;
     }
-
     private static <T extends Block> RegistryObject<T> registerNoCreative(String name, Supplier<T> block) {
         RegistryObject<T> ret = registerNoItem(name, block);
         Registration.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties()));
         return ret;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void registerRenderTypes(FMLClientSetupEvent event) {
-        for (RegistryObject<FlowerBlock> _flower : _COLLECTION_FLOWERS) {
-            RenderTypeLookup.setRenderLayer(_flower.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<ModMushroomBlock> _mushroom : _COLLECTION_MUSHROOMS) {
-            RenderTypeLookup.setRenderLayer(_mushroom.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<SmallCactusBlock> _cactus : _COLLECTION_SMALL_CACTI) {
-            RenderTypeLookup.setRenderLayer(_cactus.get(), RenderType.getCutout());
-        }
-        for (FlowerPotBlock _flowerPotBlock : _COLLECTION_POTTED_PLANTS) {
-            RenderTypeLookup.setRenderLayer(_flowerPotBlock, RenderType.getCutout());
-        }
-        for (RegistryObject<TrapDoorBlock> _trapdoor : _COLLECTION_TRAPDOORS) {
-            RenderTypeLookup.setRenderLayer(_trapdoor.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<? extends TallFlowerBlock> _tallflower : _COLLECTION_TALL_FLOWERS) {
-            RenderTypeLookup.setRenderLayer(_tallflower.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<ThinFenceBlock> _thinFence : _COLLECTION_THIN_FENCES) {
-            RenderTypeLookup.setRenderLayer(_thinFence.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_VINES) {
-            RenderTypeLookup.setRenderLayer(_vine.get(), RenderType.getCutout());
-        }
-        for (RegistryObject<ModVineBlock> _vine : _COLLECTION_TINTED_OVERLAY_VINES) {
-            RenderTypeLookup.setRenderLayer(_vine.get(), RenderType.getCutout());
-        }
-        RenderTypeLookup.setRenderLayer(LAWN_BLOCK.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(PAMPAS_GRASS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(PAMPAS_GRASS_PINK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_1.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ALLOTMENT_LOGO_2.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(GUTTER.get(), RenderType.getCutout());
-
-        //RenderTypeLookup.setRenderLayer(TEST_PLANT.get(), RenderType.getCutout());
+    private static void setRenderLayer(Block block, RenderType renderType) {
+        AllotmentMod.getLogger().info("Registering render type " + renderType.toString() + " for " + block.getRegistryName().toString());
+        RenderTypeLookup.setRenderLayer(block, renderType);
     }
 
     private static void modSign(ModWoodType woodTypeIn) {
@@ -545,4 +557,5 @@ public class ModBlocks {
     private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
         return true;
     }
+//endregion
 }

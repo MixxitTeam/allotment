@@ -15,7 +15,6 @@ import net.minecraft.loot.functions.SetCount;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
 import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.Registration;
