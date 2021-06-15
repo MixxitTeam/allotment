@@ -15,7 +15,7 @@ import java.util.Map;
 public class TallWallBlock extends ModWallBlock {
     private final Map<BlockState, VoxelShape> stateToShapeMap;
     private final Map<BlockState, VoxelShape> stateToCollisionShapeMap;
-    public TallWallBlock(Properties properties, String forBlock) {
+    public TallWallBlock(Properties properties, Block forBlock) {
         super(properties, forBlock);
         this.setDefaultState(this.stateContainer.getBaseState().with(UP, Boolean.valueOf(true)).with(WALL_HEIGHT_NORTH, WallHeight.NONE).with(WALL_HEIGHT_EAST, WallHeight.NONE).with(WALL_HEIGHT_SOUTH, WallHeight.NONE).with(WALL_HEIGHT_WEST, WallHeight.NONE).with(WATERLOGGED, Boolean.valueOf(false)));
         this.stateToShapeMap = this.makeShapes(3.0F, 3.0F, 16.0F, 0.0F, 16.0F, 16.0F);

@@ -49,7 +49,7 @@ public class ModLootTableProvider extends LootTableProvider {
 
         @Override
         protected void addTables() {
-            for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS)
+            for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS)
                 registerDropSelfLootTable(_flower.get());
 
             for (RegistryObject<ModMushroomBlock> _mushroom : ModBlocks._COLLECTION_MUSHROOMS)

@@ -118,7 +118,7 @@ public class AllotmentMod
                     continue;
                 }
 
-                LOGGER.info("Registering tinted block: " + block.getRegistryName().toString());
+                LOGGER.debug("Registering tinted block: " + block.getRegistryName().toString());
 
                 IBlockColor color = ((IBlockColorProvider)block).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, block);
@@ -132,7 +132,7 @@ public class AllotmentMod
                         continue;
                     }
 
-                    LOGGER.info("Registering tinted block: " + _vineBlock.getRegistryName().toString());
+                    LOGGER.debug("Registering tinted block: " + _vineBlock.getRegistryName().toString());
 
                     IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
                     event.getBlockColors().register(color, _vineBlock);
@@ -146,7 +146,7 @@ public class AllotmentMod
                     continue;
                 }
 
-                LOGGER.info("Registering tinted block: " + _vineBlock.getRegistryName().toString());
+                LOGGER.debug("Registering tinted block: " + _vineBlock.getRegistryName().toString());
 
                 IBlockColor color = ((IBlockColorProvider)_vineBlock).getBlockColor(event.getBlockColors());
                 event.getBlockColors().register(color, _vineBlock);
@@ -172,7 +172,7 @@ public class AllotmentMod
                     continue;
                 }
 
-                LOGGER.info("Registering tinted item: " + block.getRegistryName().toString());
+                LOGGER.debug("Registering tinted item: " + block.getRegistryName().toString());
 
                 IItemColor color = ((IItemColorProvider)block).getItemColor(event.getItemColors());
                 event.getItemColors().register(color, block);
@@ -186,7 +186,7 @@ public class AllotmentMod
                         continue;
                     }
 
-                    LOGGER.info("Registering tinted item: " + _vineBlock.getRegistryName().toString());
+                    LOGGER.debug("Registering tinted item: " + _vineBlock.getRegistryName().toString());
 
                     IItemColor color = ((IItemColorProvider)_vineBlock).getItemColor(event.getItemColors());
                     event.getItemColors().register(color, _vineBlock);

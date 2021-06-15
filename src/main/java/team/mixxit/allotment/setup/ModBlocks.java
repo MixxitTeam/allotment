@@ -1,14 +1,14 @@
 package team.mixxit.allotment.setup;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +22,7 @@ import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -121,48 +122,48 @@ public class ModBlocks {
 //endregion
 
 //region Lists (arrays)
-    public static final RegistryObject<FlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
-            flower("forget_me_not"),
-            flower("coral_small_peony"),
-            flower("small_peony"),
-            flower("blue_hyacinth"),
-            flower("cream_hyacinth"),
-            flower("orange_hyacinth"),
-            flower("red_hyacinth"),
-            flower("violet_hyacinth"),
-            flower("white_hyacinth"),
-            flower("yellow_hyacinth"),
-            flower("lantana"),
-            flower("actaea_racemosa"),
-            flower("marigold"),
-            flower("blue_convolvulus_tricolor"),
-            flower("red_convolvulus_tricolor"),
-            flower("yellow_hollyhock"),
-            flower("blue_agapanthus"),
-            flower("pink_agapanthus"),
-            flower("white_agapanthus"),
-            flower("anemone"),
-            flower("love_in_a_mist"),
-            flower("geranium"),
-            flower("green_carnation"),
-            flower("red_anthurium"),
-            flower("anigozanthos_manglesii"),
-            flower("guzmania"),
-            flower("tillandsia_cyanea"),
-            flower("tropical_orchid"),
-            flower("violet"),
-            flower("westringia"),
-            flower("white_anthurium"),
-            flower("white_narcissus"),
-            flower("yellow_narcissus"),
-            flower("false_shamrock")
+    public static final RegistryObject<ModFlowerBlock>[] _COLLECTION_FLOWERS = new RegistryObject[]{
+            flower("forget_me_not", Effects.POISON, 5, (DyeItem) Items.CYAN_DYE),
+            flower("small_peony", Effects.POISON, 5, (DyeItem) Items.PINK_DYE),
+            flower("coral_small_peony", Effects.POISON, 5, (DyeItem) Items.PINK_DYE),
+            flower("blue_hyacinth", Effects.POISON, 5, (DyeItem) Items.LIGHT_BLUE_DYE),
+            flower("cream_hyacinth", Effects.POISON, 5, (DyeItem) Items.LIGHT_GRAY_DYE),
+            flower("orange_hyacinth", Effects.POISON, 5, (DyeItem) Items.ORANGE_DYE),
+            flower("red_hyacinth", Effects.POISON, 5, (DyeItem) Items.RED_DYE),
+            flower("violet_hyacinth", Effects.POISON, 5, (DyeItem) Items.PURPLE_DYE),
+            flower("white_hyacinth", Effects.POISON, 5, (DyeItem) Items.WHITE_DYE),
+            flower("yellow_hyacinth", Effects.POISON, 5, (DyeItem) Items.YELLOW_DYE),
+            flower("lantana", Effects.POISON, 5, (DyeItem) Items.RED_DYE),
+            flower("actaea_racemosa", Effects.POISON, 5, (DyeItem) Items.PINK_DYE),
+            flower("marigold", Effects.POISON, 5, (DyeItem) Items.ORANGE_DYE),
+            flower("blue_convolvulus_tricolor", Effects.POISON, 5, (DyeItem) Items.BLUE_DYE),
+            flower("red_convolvulus_tricolor", Effects.POISON, 5, (DyeItem) Items.RED_DYE),
+            flower("yellow_hollyhock", Effects.POISON, 5, (DyeItem) Items.YELLOW_DYE),
+            flower("blue_agapanthus", Effects.POISON, 5, (DyeItem) Items.LIGHT_BLUE_DYE),
+            flower("pink_agapanthus", Effects.POISON, 5, (DyeItem) Items.PINK_DYE),
+            flower("white_agapanthus", Effects.POISON, 5, (DyeItem) Items.WHITE_DYE),
+            flower("anemone", Effects.POISON, 5, (DyeItem) Items.BLUE_DYE),
+            flower("love_in_a_mist", Effects.POISON, 5, (DyeItem) Items.LIGHT_BLUE_DYE),
+            flower("geranium", Effects.POISON, 5, (DyeItem) Items.PURPLE_DYE),
+            flower("green_carnation", Effects.POISON, 5, (DyeItem) Items.LIME_DYE),
+            flower("red_anthurium", Effects.POISON, 5, (DyeItem) Items.RED_DYE),
+            flower("anigozanthos_manglesii", Effects.POISON, 5, (DyeItem) Items.RED_DYE), // TODO
+            flower("guzmania", Effects.POISON, 5, (DyeItem) Items.RED_DYE),
+            flower("tillandsia_cyanea", Effects.POISON, 5, (DyeItem) Items.PINK_DYE),
+            flower("tropical_orchid", Effects.POISON, 5, (DyeItem) Items.MAGENTA_DYE),
+            flower("violet", Effects.POISON, 5, (DyeItem) Items.BLUE_DYE),
+            flower("westringia", Effects.POISON, 5, (DyeItem) Items.LIGHT_GRAY_DYE),
+            flower("white_anthurium", Effects.POISON, 5, (DyeItem) Items.WHITE_DYE),
+            flower("white_narcissus", Effects.POISON, 5, (DyeItem) Items.WHITE_DYE),
+            flower("yellow_narcissus", Effects.POISON, 5, (DyeItem) Items.YELLOW_DYE),
+            flower("false_shamrock", Effects.POISON, 5, (DyeItem) Items.BLACK_DYE)
     };
 
     public static final RegistryObject<SmallCactusBlock>[] _COLLECTION_SMALL_CACTI = new RegistryObject[]{
-            smallCactus("bunny_ears"),
-            smallCactus("geohintonia"),
-            smallCactus("obregonia"),
-            smallCactus("small_desert_rose")
+            smallCactus("bunny_ears", (DyeItem) Items.GREEN_DYE),
+            smallCactus("geohintonia", (DyeItem) Items.MAGENTA_DYE),
+            smallCactus("obregonia", (DyeItem) Items.LIGHT_GRAY_DYE),
+            smallCactus("small_desert_rose", (DyeItem) Items.RED_DYE)
     };
 
     public static final RegistryObject<ModMushroomBlock>[] _COLLECTION_MUSHROOMS = new RegistryObject[]{
@@ -227,7 +228,7 @@ public class ModBlocks {
     public static final ArrayList<RegistryObject<TallWallBlock>> _COLLECTION_TALL_WALLS = new ArrayList<>();
 //endregion
 
-//region Plants Index Constants
+//region Collection Index Constants
     public static final int FLOWER_FORGET_ME_NOT = 0;
     public static final int FLOWER_SMALL_PEONY_CORAL = 1;
     public static final int FLOWER_SMALL_PEONY = 2;
@@ -277,7 +278,30 @@ public class ModBlocks {
     public static final int OVERLAY_VINES_MANDEVILLA = 1;
 
     public static final int SIGN_ELDER = 0;
+
+    public static final int CHAIN_LINK_FENCE = 0;
+    public static final int JAKTOP_CRISS_CROSS_FENCE = 1;
+    public static final int BAR_MAT_FENCE = 2;
 //endregion
+
+    private static final Map<DyeColor, Block> _MAPPING_CONCRETE = ImmutableMap.<DyeColor, Block>builder()
+            .put(DyeColor.WHITE, Blocks.WHITE_CONCRETE)
+            .put(DyeColor.ORANGE, Blocks.ORANGE_CONCRETE)
+            .put(DyeColor.MAGENTA, Blocks.MAGENTA_CONCRETE)
+            .put(DyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CONCRETE)
+            .put(DyeColor.YELLOW, Blocks.YELLOW_CONCRETE)
+            .put(DyeColor.LIME, Blocks.LIME_CONCRETE)
+            .put(DyeColor.PINK, Blocks.PINK_CONCRETE)
+            .put(DyeColor.GRAY, Blocks.GRAY_CONCRETE)
+            .put(DyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CONCRETE)
+            .put(DyeColor.CYAN, Blocks.CYAN_CONCRETE)
+            .put(DyeColor.PURPLE, Blocks.PURPLE_CONCRETE)
+            .put(DyeColor.BLUE, Blocks.BLUE_CONCRETE)
+            .put(DyeColor.BROWN, Blocks.BROWN_CONCRETE)
+            .put(DyeColor.GREEN, Blocks.GREEN_CONCRETE)
+            .put(DyeColor.RED, Blocks.RED_CONCRETE)
+            .put(DyeColor.BLACK, Blocks.BLACK_CONCRETE)
+            .build();
 
     static void register() {
         final String[] plankNames = new String[]{
@@ -301,7 +325,7 @@ public class ModBlocks {
 
         Supplier<FlowerPotBlock> flowerPotSupplier = () -> (FlowerPotBlock)flowerPot;
 
-        for (RegistryObject<FlowerBlock> _flower : _COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : _COLLECTION_FLOWERS) {
             Block.Properties props = Block.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance();
             FlowerPotBlock potted = new FlowerPotBlock(flowerPotSupplier, () -> _flower.get().getBlock(), props);
 
@@ -363,7 +387,7 @@ public class ModBlocks {
     }
 
     static void postRegister() {
-        for (RegistryObject<FlowerBlock> _flower : _COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : _COLLECTION_FLOWERS) {
             registerCompostable(0.65F, _flower);
         }
         for (RegistryObject<ModMushroomBlock> _mushroom : _COLLECTION_MUSHROOMS) {
@@ -380,7 +404,7 @@ public class ModBlocks {
     public static void registerRenderTypes(FMLClientSetupEvent event) {
 
 
-        for (RegistryObject<FlowerBlock> _flower : _COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : _COLLECTION_FLOWERS) {
             setRenderLayer(_flower.get(), RenderType.getCutout());
         }
         for (RegistryObject<ModMushroomBlock> _mushroom : _COLLECTION_MUSHROOMS) {
@@ -438,7 +462,7 @@ public class ModBlocks {
     }
 
     private static void setRenderLayer(Block block, RenderType renderType) {
-        AllotmentMod.getLogger().info("Registering render type " + renderType.toString() + " for " + block.getRegistryName().toString());
+        AllotmentMod.getLogger().debug("Registering render type " + renderType.toString() + " for " + block.getRegistryName().toString());
         RenderTypeLookup.setRenderLayer(block, renderType);
     }
 
@@ -463,14 +487,15 @@ public class ModBlocks {
 
     private static RegistryObject<TallWallBlock> concreteWall(DyeColor color) {
         String colorName = color.getTranslationKey();
-        return tallWallBlock(colorName + "_concrete_wall", colorName + "_concrete", AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+        Block concreteBlock = _MAPPING_CONCRETE.get(color);
+        return tallWallBlock(colorName + "_concrete_wall", concreteBlock, AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
     }
 
-    private static RegistryObject<TallWallBlock> tallWallBlock(String name, String forBlock, AbstractBlock.Properties properties) {
+    private static RegistryObject<TallWallBlock> tallWallBlock(String name, Block forBlock, AbstractBlock.Properties properties) {
         return register(name, () -> new TallWallBlock(properties, forBlock));
     }
 
-    private static RegistryObject<ModWallBlock> modWallBlock(String name, String forBlock, AbstractBlock.Properties properties) {
+    private static RegistryObject<ModWallBlock> modWallBlock(String name, Block forBlock, AbstractBlock.Properties properties) {
         return register(name, () -> new ModWallBlock(properties, forBlock));
     }
 
@@ -494,14 +519,14 @@ public class ModBlocks {
         return register(name, () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD, color).hardnessAndResistance(3.0F).harvestTool(ToolType.AXE).sound(sound).notSolid().setAllowsSpawn(ModBlocks::neverAllowSpawn)));
     }
 
-    private static RegistryObject<FlowerBlock> flower(String name)
+    private static RegistryObject<ModFlowerBlock> flower(String name, Effect potionEffect, int effectDuration, DyeItem resultingDye)
     {
-        return register(name, () -> new FlowerBlock(Effects.POISON, 5, AbstractBlock.Properties.create(Material.PLANTS).zeroHardnessAndResistance().doesNotBlockMovement().sound(SoundType.PLANT)));
+        return register(name, () -> new ModFlowerBlock(potionEffect, effectDuration, resultingDye, AbstractBlock.Properties.create(Material.PLANTS).zeroHardnessAndResistance().doesNotBlockMovement().sound(SoundType.PLANT)));
     }
 
-    private static RegistryObject<SmallCactusBlock> smallCactus(String name)
+    private static RegistryObject<SmallCactusBlock> smallCactus(String name, DyeItem resultingDye)
     {
-        return register(name, () -> new SmallCactusBlock());
+        return register(name, () -> new SmallCactusBlock(resultingDye));
     }
 
     private static RegistryObject<Block> plank(String prefix, String name)

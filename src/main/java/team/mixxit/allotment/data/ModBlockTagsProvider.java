@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.fml.RegistryObject;
@@ -15,6 +16,10 @@ import team.mixxit.allotment.setup.ModTags;
 public class ModBlockTagsProvider extends BlockTagsProvider {
     public ModBlockTagsProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, AllotmentMod.MOD_ID, existingFileHelper);
+    }
+
+    public Builder<Block> publicGetOrCreateBuilder(ITag.INamedTag<Block> tag) {
+        return getOrCreateBuilder(tag);
     }
 
     @Override
@@ -38,7 +43,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 .add(Blocks.SAND)
                 .add(Blocks.RED_SAND);
 
-        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             flowersBuilder.add(_flower.get());
             smallFlowersBuilder.add(_flower.get());
         }

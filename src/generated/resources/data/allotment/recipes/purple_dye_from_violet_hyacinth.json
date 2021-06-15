@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:violet_hyacinth"
+    }
+  ],
+  "result": {
+    "item": "minecraft:purple_dye"
+  }
+}

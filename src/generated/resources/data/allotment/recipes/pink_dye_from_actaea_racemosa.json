@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:actaea_racemosa"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_dye"
+  }
+}

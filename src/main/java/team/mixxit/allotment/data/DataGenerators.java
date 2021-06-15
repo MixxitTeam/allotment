@@ -12,6 +12,12 @@ import team.mixxit.allotment.data.client.ModItemModelProvider;
 
 @Mod.EventBusSubscriber(modid = AllotmentMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
+    private static ModBlockTagsProvider blockTagsProvider;
+
+    public static ModBlockTagsProvider getBlockTagsProvider() {
+        return blockTagsProvider;
+    }
+
     private DataGenerators() {}
 
     @SubscribeEvent
@@ -22,10 +28,11 @@ public class DataGenerators {
         gen.addProvider(new ModBlockStateProvider(gen, existingFileHelper));
         gen.addProvider(new ModItemModelProvider(gen, existingFileHelper));
 
-        ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(gen, existingFileHelper);
+        blockTagsProvider = new ModBlockTagsProvider(gen, existingFileHelper);
         gen.addProvider(blockTagsProvider);
         gen.addProvider(new ModItemTagsProvider(gen, blockTagsProvider, existingFileHelper));
 
         gen.addProvider(new ModLootTableProvider(gen));
+        gen.addProvider(new ModRecipeProvider(gen));
     }
 }

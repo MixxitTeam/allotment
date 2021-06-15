@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:red_hyacinth"
+    }
+  ],
+  "result": {
+    "item": "minecraft:red_dye"
+  }
+}

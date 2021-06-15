@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:false_shamrock"
+    }
+  ],
+  "result": {
+    "item": "minecraft:black_dye"
+  }
+}

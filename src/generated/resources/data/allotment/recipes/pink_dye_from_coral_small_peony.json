@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:coral_small_peony"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_dye"
+  }
+}

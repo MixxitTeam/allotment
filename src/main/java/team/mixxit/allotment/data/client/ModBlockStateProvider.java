@@ -20,7 +20,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             plant(_flower);
         }
 
@@ -85,7 +85,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
             final ModWallBlock block = _wall.get();
-            final String forBlock = block.ForBlock;
+            final String forBlock = block.ForBlock.getRegistryName().getPath();
             final ResourceLocation texture = mcLoc("block/" + forBlock);
             ModelFile _post = models().withExistingParent(_wall.getId().getPath() + "_post", modLoc("block/tall_wall_post"))
                     .texture("wall", texture);

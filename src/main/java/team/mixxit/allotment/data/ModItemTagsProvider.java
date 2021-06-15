@@ -13,6 +13,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.ModFlowerBlock;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.ModTags;
 
@@ -27,7 +28,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void registerTags() {
         Builder<Item> flowersBuilder = getOrCreateBuilder(ItemTags.FLOWERS);
         Builder<Item> smallFlowersBuilder = getOrCreateBuilder(ItemTags.SMALL_FLOWERS);
-        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             flowersBuilder.add(_flower.get().asItem());
             smallFlowersBuilder.add(_flower.get().asItem());
         }

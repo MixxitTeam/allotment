@@ -60,7 +60,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         trapdoor("gutter");
 
-        for (RegistryObject<FlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
+        for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             builderForBlock(itemGenerated, _flower.getId().getPath());
         }
 
@@ -111,7 +111,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
 
         for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
-            tallWall(_wall.getId().getPath(), mcLoc("block/" + _wall.get().ForBlock));
+            tallWall(_wall.getId().getPath(), mcLoc("block/" + _wall.get().ForBlock.getRegistryName().getPath()));
         }
 
         for (RegistryObject<ModVineBlock> _vine : ModBlocks._COLLECTION_VINES) {
