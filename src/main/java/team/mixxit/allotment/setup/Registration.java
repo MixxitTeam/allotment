@@ -2,6 +2,7 @@ package team.mixxit.allotment.setup;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.registry.Bootstrap;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,17 +17,20 @@ public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AllotmentMod.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AllotmentMod.MOD_ID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, AllotmentMod.MOD_ID);
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, AllotmentMod.MOD_ID);
 
     public static void register() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
+        RECIPES.register(modEventBus);
 
         ModBlocks.register();
         ModItems.register();
         //ModTileEntities.register();
         ModDamageSources.register();
+        ModRecipes.register();
 
         MinecraftForge.EVENT_BUS.register(AxeStripEventHandler.class);
         //modEventBus.register(AxeStripEventHandler.class);

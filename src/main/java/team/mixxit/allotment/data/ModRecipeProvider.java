@@ -16,6 +16,7 @@ import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.ModFlowerBlock;
 import team.mixxit.allotment.blocks.TallWallBlock;
+import team.mixxit.allotment.crafting.ToolUsageRecipeBuilder;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.ModItems;
 import team.mixxit.allotment.setup.Registration;
@@ -56,6 +57,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .patternLine("###")
                     .patternLine("###")
                     .addCriterion("has_item", hasItem(wall.ForBlock))
+                    .setGroup("concrete_walls")
                     .build(consumer);
         }
 
@@ -95,7 +97,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         // FIXME
-        /*
+
         Ingredient axeIngredients = Ingredient.fromItems(
                 () -> Items.WOODEN_AXE,
                 () -> Items.STONE_AXE,
@@ -105,12 +107,11 @@ public class ModRecipeProvider extends RecipeProvider {
                 () -> Items.NETHERITE_AXE
         );
 
-        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks._COLLECTION_PLANKS.get(0).get())
+        ToolUsageRecipeBuilder.begin(ModBlocks._COLLECTION_PLANKS.get(0).get())
                 .addIngredient(Blocks.ACACIA_PLANKS)
                 .addIngredient(axeIngredients)
                 .addCriterion("has_plank", hasItem(Blocks.ACACIA_PLANKS))
                 .build(consumer);
-        */
     }
 
     private ResourceLocation modLoc(String name) {

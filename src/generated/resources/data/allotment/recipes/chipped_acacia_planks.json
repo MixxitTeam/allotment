@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "allotment:crafting_shapeless_with_tool",
   "ingredients": [
     {
       "item": "minecraft:acacia_planks"
