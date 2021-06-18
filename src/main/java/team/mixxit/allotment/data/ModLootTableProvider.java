@@ -122,7 +122,7 @@ public class ModLootTableProvider extends LootTableProvider {
             registerDropSelfLootTable(ModBlocks.PINCUSSION_MOSS.get());
             registerDropSelfLootTable(ModBlocks.CORRUGATED_IRON.get());
             registerDropSelfLootTable(ModBlocks.GUTTER.get());
-            registerDropSelfLootTable(ModBlocks.DEBUG_TINT_BLOCK.get());
+            registerDropSelfLootTable(ModBlocks.ELDER_BUTTON.get());
 
             registerLootTable(ModBlocks.PAMPAS_GRASS.get(), droppingSheared(ModBlocks.PAMPAS_GRASS.get()));
             registerLootTable(ModBlocks.PAMPAS_GRASS_PINK.get(), droppingSheared(ModBlocks.PAMPAS_GRASS_PINK.get()));
@@ -133,6 +133,7 @@ public class ModLootTableProvider extends LootTableProvider {
 
             registerLootTable(ModBlocks.ALLOTMENT_LOGO_1.get(), blockNoDrop());
             registerLootTable(ModBlocks.ALLOTMENT_LOGO_2.get(), blockNoDrop());
+            registerLootTable(ModBlocks.DEBUG_TINT_BLOCK.get(), blockNoDrop());
         }
 
         @Override

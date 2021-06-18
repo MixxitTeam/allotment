@@ -31,9 +31,9 @@ public class AllotmentMod
 //region TODO List
     // TODO Crafting recipes!
     // TODO World generation
-    // TODO Elder sign & button
+    // TODO Elder sign ~& button~
     // TODO Other firewood bundles
-    // TODO Gutter placeable on walls
+    // DONE ~Gutter placeable on walls~
 //endregion
 
     public static final String MOD_ID = "allotment";

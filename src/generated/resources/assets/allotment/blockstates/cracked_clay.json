@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "allotment:block/cracked_clay"
-    }
+    "": [
+      {
+        "model": "allotment:block/cracked_clay"
+      },
+      {
+        "model": "allotment:block/cracked_clay",
+        "y": 90
+      },
+      {
+        "model": "allotment:block/cracked_clay",
+        "y": 180
+      },
+      {
+        "model": "allotment:block/cracked_clay",
+        "y": 270
+      }
+    ]
   }
 }

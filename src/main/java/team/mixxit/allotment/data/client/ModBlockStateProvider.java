@@ -2,6 +2,7 @@ package team.mixxit.allotment.data.client;
 
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
@@ -121,24 +122,223 @@ public class ModBlockStateProvider extends BlockStateProvider {
         axisBlock(ModBlocks.BAMBOO_BLOCK.get(), modLoc("block/bamboo_block"));
         axisBlock(ModBlocks.DRIED_BAMBOO_BLOCK.get(), modLoc("block/dried_bamboo_block"));
 
-        simpleBlock(ModBlocks.STRAW_BLOCK.get());
+        simpleNaturalBlock(ModBlocks.STRAW_BLOCK.get());
 
-        simpleBlock(ModBlocks.CRACKED_CLAY.get());
-        simpleBlock(ModBlocks.HUMUS.get());
-        simpleBlock(ModBlocks.TURF.get());
-        simpleBlock(ModBlocks.FERRALSOL.get());
-        simpleBlock(ModBlocks.MULCH.get());
-        simpleBlock(ModBlocks.TERRA_PRETA.get());
-        simpleBlock(ModBlocks.PINCUSSION_MOSS.get());
+        simpleNaturalBlock(ModBlocks.CRACKED_CLAY.get());
+        simpleNaturalBlock(ModBlocks.HUMUS.get());
+        simpleNaturalBlock(ModBlocks.TURF.get());
+        simpleNaturalBlock(ModBlocks.FERRALSOL.get());
+        simpleNaturalBlock(ModBlocks.MULCH.get());
+        simpleNaturalBlock(ModBlocks.TERRA_PRETA.get());
+        simpleNaturalBlock(ModBlocks.PINCUSSION_MOSS.get());
         tintedBlock(ModBlocks.DEBUG_TINT_BLOCK.get());
+
+        button(ModBlocks.ELDER_BUTTON.get());
 
         rotatableBlock(ModBlocks.CORRUGATED_IRON.get());
 
         transparentBlock(ModBlocks.SPANISH_MOSS.get());
 
-        ModelFile gutterBottom = models().getExistingFile(modLoc("block/gutter_bottom"));
-        ModelFile gutterTop = models().getExistingFile(modLoc("block/gutter_top"));
-        gutterBlock(ModBlocks.GUTTER.get(), gutterBottom, gutterTop);
+        //ModelFile gutterBottom = models().getExistingFile(modLoc("block/gutter_bottom"));
+        //ModelFile gutterTop = models().getExistingFile(modLoc("block/gutter_top"));
+        //gutterBlock(ModBlocks.GUTTER.get(), gutterBottom, gutterTop);
+
+        newGutterBlock(ModBlocks.GUTTER.get());
+    }
+
+    private void simpleNaturalBlock(Block block) {
+        ModelFile model = cubeAll(block);
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(block);
+        variantBuilder.partialState().modelForState().modelFile(model).rotationY(0).nextModel()
+                                                     .modelFile(model).rotationY(90).nextModel()
+                                                     .modelFile(model).rotationY(180).nextModel()
+                                                     .modelFile(model).rotationY(270).addModel();
+    }
+
+    private void newGutterBlock(GutterBlock gutterBlock) {
+        String name = gutterBlock.getRegistryName().getPath();
+        String textureName = gutterBlock.getRegistryName().getPath();
+        ModelFile model = models().getExistingFile(modLoc("block/gutter"));
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(gutterBlock);
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(270).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(180).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(0).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(90).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(90).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(0).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(180).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(270).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(90).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(0).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(180).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(270).rotationX(90).uvLock(true).addModel();
+    }
+
+    private void button(WoodButtonBlock woodButtonBlock) {
+        String name = woodButtonBlock.getRegistryName().getPath();
+        String textureName = woodButtonBlock.getRegistryName().getPath().replaceAll("_button$", "_planks");
+        ModelFile modelNormal = models().withExistingParent(name, mcLoc("block/button")).texture("texture", modLoc("block/" + textureName));
+        ModelFile modelPressed = models().withExistingParent(name + "_pressed", mcLoc("block/button_pressed")).texture("texture", modLoc("block/" + textureName));
+        ModelFile modelInventory = models().withExistingParent(name + "_inventory", mcLoc("block/button_inventory")).texture("texture", modLoc("block/" + textureName));
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(woodButtonBlock);
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(270).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(270).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(180).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(180).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(0).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(0).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(90).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(90).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(90).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(90).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(0).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(0).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(180).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(180).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(270).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(270).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(90).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(90).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(0).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(0).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(180).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(180).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.FALSE)
+                .modelForState().modelFile(modelNormal).rotationY(270).rotationX(90).uvLock(true).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .with(AbstractButtonBlock.POWERED, Boolean.TRUE)
+                .modelForState().modelFile(modelPressed).rotationY(270).rotationX(90).uvLock(true).addModel();
     }
 
     public void modTrapdoor(TrapDoorBlock trapdoor) {

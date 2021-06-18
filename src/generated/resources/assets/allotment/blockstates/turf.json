@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "allotment:block/turf"
-    }
+    "": [
+      {
+        "model": "allotment:block/turf"
+      },
+      {
+        "model": "allotment:block/turf",
+        "y": 90
+      },
+      {
+        "model": "allotment:block/turf",
+        "y": 180
+      },
+      {
+        "model": "allotment:block/turf",
+        "y": 270
+      }
+    ]
   }
 }

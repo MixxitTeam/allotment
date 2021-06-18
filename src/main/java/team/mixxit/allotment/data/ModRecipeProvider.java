@@ -96,8 +96,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .addCriterion("has_chain", hasItem(Items.IRON_BARS))
                 .build(consumer);
 
-        // FIXME
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ELDER_BUTTON.get())
+                .addIngredient(ModBlocks.ELDER_PLANKS.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .build(consumer);
 
+        // TODO Replace with item tag
         Ingredient axeIngredients = Ingredient.fromItems(
                 () -> Items.WOODEN_AXE,
                 () -> Items.STONE_AXE,

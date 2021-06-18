@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "allotment:block/terra_preta"
-    }
+    "": [
+      {
+        "model": "allotment:block/terra_preta"
+      },
+      {
+        "model": "allotment:block/terra_preta",
+        "y": 90
+      },
+      {
+        "model": "allotment:block/terra_preta",
+        "y": 180
+      },
+      {
+        "model": "allotment:block/terra_preta",
+        "y": 270
+      }
+    ]
   }
 }

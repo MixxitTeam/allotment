@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:elder_planks"
+    }
+  ],
+  "result": {
+    "item": "allotment:elder_button"
+  }
+}

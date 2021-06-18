@@ -58,7 +58,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "pampas_grass");
         builder(itemGenerated, "straw");
 
-        trapdoor("gutter");
+        gutter("gutter");
+
+        button("elder_button");
 
         for (RegistryObject<ModFlowerBlock> _flower : ModBlocks._COLLECTION_FLOWERS) {
             builderForBlock(itemGenerated, _flower.getId().getPath());
@@ -142,6 +144,14 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private void flower(String name) {
         singleTexture(name, modLoc("block/" + name), modLoc("block/" + name));
+    }
+
+    private ItemModelBuilder gutter(String name) {
+        return withExistingParent(name, modLoc("block/" + name));
+    }
+
+    private ItemModelBuilder button(String name) {
+        return withExistingParent(name, modLoc("block/" + name + "_inventory"));
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {

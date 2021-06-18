@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "allotment:block/mulch"
-    }
+    "": [
+      {
+        "model": "allotment:block/mulch"
+      },
+      {
+        "model": "allotment:block/mulch",
+        "y": 90
+      },
+      {
+        "model": "allotment:block/mulch",
+        "y": 180
+      },
+      {
+        "model": "allotment:block/mulch",
+        "y": 270
+      }
+    ]
   }
 }

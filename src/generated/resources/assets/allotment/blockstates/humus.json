@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "allotment:block/humus"
-    }
+    "": [
+      {
+        "model": "allotment:block/humus"
+      },
+      {
+        "model": "allotment:block/humus",
+        "y": 90
+      },
+      {
+        "model": "allotment:block/humus",
+        "y": 180
+      },
+      {
+        "model": "allotment:block/humus",
+        "y": 270
+      }
+    ]
   }
 }

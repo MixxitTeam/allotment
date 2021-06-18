@@ -1,15 +1,13 @@
 package team.mixxit.allotment.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
@@ -18,25 +16,58 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraftforge.client.model.b3d.B3DModel;
 
-public class GutterBlock extends Block implements IWaterLoggable {
+public class GutterBlock extends HorizontalFaceBlock implements IWaterLoggable {
     static final double HEIGHT = 1.0D;
 
-    public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     protected static final VoxelShape BOTTOM_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, HEIGHT, 16.0D);
-    protected static final VoxelShape TOP_AABB = Block.makeCuboidShape(0.0D, 16.0D - HEIGHT, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape    TOP_AABB = Block.makeCuboidShape(0.0D, 16.0D - HEIGHT, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape   EAST_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, HEIGHT, 16.0D, 16.0D);
+    protected static final VoxelShape   WEST_AABB = Block.makeCuboidShape(16.0D - HEIGHT, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape  SOUTH_AABB = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, HEIGHT);
+    protected static final VoxelShape  NORTH_AABB = Block.makeCuboidShape(0.0D, 0.0D, 16.0D - HEIGHT, 16.0D, 16.0D, 16.0D);
 
     public GutterBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState()
-                .with(HALF, Half.BOTTOM)
-                .with(WATERLOGGED, Boolean.valueOf(false)));
+                .with(FACE, AttachFace.FLOOR)
+                .with(HORIZONTAL_FACING, Direction.EAST)
+                .with(WATERLOGGED, Boolean.FALSE));
+    }
+
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return true;
+    }
+
+    public static boolean isSideSolidForDirection(IWorldReader reader, BlockPos pos, Direction direction) {
+        BlockPos blockpos = pos.offset(direction);
+        return reader.getBlockState(blockpos).isSolidSide(reader, blockpos, direction.getOpposite());
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.get(HALF) == Half.TOP ? TOP_AABB : BOTTOM_AABB;
+        AttachFace face = state.get(FACE);
+        Direction direction = state.get(HORIZONTAL_FACING);
+        if (AttachFace.FLOOR.equals(face)) {
+            return BOTTOM_AABB;
+        } else if (AttachFace.CEILING.equals(face)) {
+            return TOP_AABB;
+        } else if (AttachFace.WALL.equals(face)) {
+            if (Direction.EAST.equals(direction)) {
+                return EAST_AABB;
+            } else if (Direction.NORTH.equals(direction)) {
+                return NORTH_AABB;
+            } else if (Direction.SOUTH.equals(direction)) {
+                return SOUTH_AABB;
+            } else if (Direction.WEST.equals(direction)) {
+                return WEST_AABB;
+            } else
+            return null;
+        }
+        return null;
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -44,16 +75,39 @@ public class GutterBlock extends Block implements IWaterLoggable {
         FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
         Direction direction = context.getFace();
         if (!context.replacingClickedOnBlock() && direction.getAxis().isHorizontal()) {
-            blockstate = blockstate.with(HALF, context.getHitVec().y - (double)context.getPos().getY() > 0.5D ? Half.TOP : Half.BOTTOM);
-        } else {
-            blockstate = blockstate.with(HALF, direction == Direction.UP ? Half.BOTTOM : Half.TOP);
+            final double ypos = context.getHitVec().y - (double) context.getPos().getY();
+            blockstate = blockstate
+                    .with(FACE,
+                            ypos > 0.75D ? AttachFace.CEILING : (
+                                    ypos < 0.25D ? AttachFace.FLOOR : AttachFace.WALL
+                            )
+                    )
+                    .with(HORIZONTAL_FACING, direction);
+        }  else {
+            final double xpos = context.getHitVec().x - (double) context.getPos().getX();
+            final double zpos = context.getHitVec().z - (double) context.getPos().getZ();
+
+            if (xpos >= 0.25D && xpos <= 0.75D && zpos < 0.25D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, Direction.SOUTH);
+            else if (xpos >= 0.25D && xpos <= 0.75D && zpos > 0.75D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, Direction.NORTH);
+            else if (zpos >= 0.25D && zpos <= 0.75D && xpos < 0.25D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, Direction.EAST);
+            else if (zpos >= 0.25D && zpos <= 0.75D && xpos > 0.75D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, Direction.WEST);
+            else
+                blockstate = blockstate.with(FACE, direction == Direction.UP ? AttachFace.FLOOR : AttachFace.CEILING);
+
+            if (!direction.equals(Direction.UP) && !direction.equals(Direction.DOWN)) {
+                blockstate = blockstate.with(HORIZONTAL_FACING, direction);
+            }
         }
 
-        return blockstate.with(WATERLOGGED, Boolean.valueOf(fluidstate.getFluid() == Fluids.WATER));
+        return blockstate.with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HALF, WATERLOGGED);
+        builder.add(HORIZONTAL_FACING, FACE, WATERLOGGED);
     }
 
     public FluidState getFluidState(BlockState state) {

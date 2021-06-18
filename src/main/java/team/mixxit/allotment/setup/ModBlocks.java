@@ -54,17 +54,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> ZEN_GRAVEL_END = register("zen_gravel_end", () ->
             new RotatableFallingBlock(AbstractBlock.Properties.create(Material.SAND).hardnessAndResistance(0.5F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
 
-    public static final RegistryObject<RotatedPillarBlock> ELDER_LOG = register("elder_log", () ->
-            createLogBlock(MaterialColor.SAND, MaterialColor.LIGHT_GRAY));
-
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_ELDER_LOG = register("stripped_elder_log", () ->
             createLogBlock(MaterialColor.SAND, MaterialColor.SAND));
 
-    public static final RegistryObject<RotatedPillarBlock> ELDER_WOOD = register("elder_wood", () ->
-            createLogBlock(MaterialColor.LIGHT_GRAY, MaterialColor.LIGHT_GRAY));
+    public static final RegistryObject<RotatedPillarBlock> ELDER_LOG = register("elder_log", () ->
+            new StrippableLogBlock(MaterialColor.SAND, MaterialColor.LIGHT_GRAY, STRIPPED_ELDER_LOG));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_ELDER_WOOD = register("stripped_elder_wood", () ->
             createLogBlock(MaterialColor.SAND, MaterialColor.SAND));
+
+    public static final RegistryObject<RotatedPillarBlock> ELDER_WOOD = register("elder_wood", () ->
+            new StrippableLogBlock(MaterialColor.LIGHT_GRAY, MaterialColor.LIGHT_GRAY, STRIPPED_ELDER_WOOD));
 
     public static final RegistryObject<Block> ELDER_PLANKS = register("elder_planks", () ->
             new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
@@ -116,6 +116,9 @@ public class ModBlocks {
 
     public static final RegistryObject<GutterBlock> GUTTER = register("gutter", () ->
             new GutterBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().notSolid().setAllowsSpawn((a, b, c, d) -> Boolean.FALSE).hardnessAndResistance(1.5F, 2.0F)));
+
+    public static final RegistryObject<WoodButtonBlock> ELDER_BUTTON = register("elder_button", () ->
+            new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
             new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
@@ -556,7 +559,7 @@ public class ModBlocks {
     }
 
     private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
-        return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+        return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> state.get(RotatedPillarBlock.AXIS).equals(Direction.Axis.Y) ? topColor : barkColor).harvestTool(ToolType.AXE).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
     }
 
     private static ModLeavesBlock createLeavesBlock() {
