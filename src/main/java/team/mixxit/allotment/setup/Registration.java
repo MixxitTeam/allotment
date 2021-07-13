@@ -11,7 +11,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import team.mixxit.allotment.AllotmentMod;
-import team.mixxit.allotment.eventhandlers.AxeStripEventHandler;
 
 public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AllotmentMod.MOD_ID);
@@ -32,7 +31,7 @@ public class Registration {
         ModDamageSources.register();
         ModRecipes.register();
 
-        MinecraftForge.EVENT_BUS.register(AxeStripEventHandler.class);
+        //MinecraftForge.EVENT_BUS.register(AxeStripEventHandler.class);
         //modEventBus.register(AxeStripEventHandler.class);
 
         System.out.println("[[ EVERYTHING REGISTERED ]]");

@@ -48,6 +48,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("pincussion_moss");
         block("corrugated_iron");
 
+        block("debug_block");
         block("debug_tint_block");
 
         // TODO All firewood bundles in one array; iterate with for loop

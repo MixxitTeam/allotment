@@ -132,6 +132,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleNaturalBlock(ModBlocks.TERRA_PRETA.get());
         simpleNaturalBlock(ModBlocks.PINCUSSION_MOSS.get());
         tintedBlock(ModBlocks.DEBUG_TINT_BLOCK.get());
+        simpleBlock(ModBlocks.DEBUG_BLOCK.get());
 
         button(ModBlocks.ELDER_BUTTON.get());
 

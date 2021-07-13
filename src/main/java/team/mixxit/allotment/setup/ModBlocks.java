@@ -122,6 +122,9 @@ public class ModBlocks {
 
     public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
             new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
+
+    public static final RegistryObject<Block> DEBUG_BLOCK = registerNoCreative("debug_block", () ->
+            new Block(AbstractBlock.Properties.create(Material.ROCK)));
 //endregion
 
 //region Lists (arrays)

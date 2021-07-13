@@ -133,6 +133,7 @@ public class ModLootTableProvider extends LootTableProvider {
 
             registerLootTable(ModBlocks.ALLOTMENT_LOGO_1.get(), blockNoDrop());
             registerLootTable(ModBlocks.ALLOTMENT_LOGO_2.get(), blockNoDrop());
+            registerLootTable(ModBlocks.DEBUG_BLOCK.get(), blockNoDrop());
             registerLootTable(ModBlocks.DEBUG_TINT_BLOCK.get(), blockNoDrop());
         }
 
