@@ -1,3 +1,6 @@
+---
+layout: none
+---
 var sjs = (function() {
   var USE_CTRL_F = false;
   var searchInput = document.getElementById('search-input');
@@ -7,7 +10,7 @@ var sjs = (function() {
   var _sjs = SimpleJekyllSearch({
     searchInput: searchInput,
     resultsContainer: resultsContainer,
-    json: '/search.json',
+    json: {{ "/search.json" | relative_url | jsonify }},
     fuzzy: true,
     onSearch: onSearchSuccess,
     debounceTime: 100
@@ -61,6 +64,10 @@ var sjs = (function() {
         ) {
           if (highlightSearchResult(event.key === "ArrowUp" ? -1 : 1))
             event.preventDefault();
+        } else if (event.key !== "Enter") {
+          var ev = new KeyboardEvent(event.type, event);
+          searchInput.focus();
+          searchInput.dispatchEvent(ev);
         }
       });
     });

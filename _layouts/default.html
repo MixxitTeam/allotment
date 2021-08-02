@@ -6,7 +6,7 @@
     <title>{{ page.title | escape }}</title>
     <link rel="stylesheet" href="{{ "/css/styles.css" | relative_url }}">
     <link rel="icon" href="{{ "/img/book.png" | relative_url }}">
-    {{ seo }}
+    {% seo %}
   </head>
   <body>
     <header>
@@ -39,9 +39,9 @@
       </div>
     </footer>
     <script src="{{ "/js/modernizr.js" | relative_url }}"></script>
-    <script src="{{ "/js/theme-select.min.js" | relative_url }}"></script>
-    <script src="{{ "/js/feature-detect.min.js" | relative_url }}"></script>
+    <script src="{{ "/js/theme-select.js" | relative_url }}"></script>
+    <script src="{{ "/js/feature-detect.js" | relative_url }}"></script>
     <script src="{{ "/js/simple-jekyll-search.min.js" | relative_url }}"></script>
-    <script src="{{ "/js/search.min.js" | relative_url }}"></script>
+    <script src="{{ "/js/search.js" | relative_url }}"></script>
   </body>
 </html>

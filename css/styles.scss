@@ -151,8 +151,8 @@ body {
         padding: 8px 8px 8px 40px;
         border: 0;
         border-radius: 0;
-        background-color: RGBA(var(--block-color), 0.4);
-        background-image: url("/img/search.png");
+        background-color: RGBA(var(--block-color), 0.2);
+        background-image: url({{ "/img/search.png" | relative_url }});
         background-repeat: no-repeat;
         background-position: 8px center;
         background-size: 24px 24px;
