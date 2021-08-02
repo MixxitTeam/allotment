@@ -1,0 +1,16 @@
+---
+layout: none
+---
+{% assign sitepages = site.pages | where_exp: "item", "item.title != nil" | where_exp: "item", "item.hidefromsearch != true" %}
+[
+  {% for page in sitepages %}
+    {% if page.title != nil %}
+      {
+        "title": {{ page.title | jsonify }},
+        "category" : {{ page.category | jsonify }},
+        "tags": {{ page.tags | join: ', ' | jsonify }},
+        "url": {{ site.baseurl | append: page.url | jsonify }}
+      } {% unless forloop.last %},{% endunless %}
+    {% endif %}
+  {% endfor %}
+]

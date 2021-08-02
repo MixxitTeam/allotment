@@ -1,0 +1,13 @@
+{
+  "telemetry.enableCrashReporter": false,
+  "files.eol": "\n",
+  "files.associations": {
+    "*.html": "twig"
+  },
+  "es6-css-minify.css": {
+      "inline": false
+  },
+  "enableTelemetry": false,
+  "editor.tabSize": 2,
+  "editor.emptySelectionClipboard": false
+}

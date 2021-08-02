@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<h1>{{ page.title | escape }}</h1>
+
+<block-info data-for-id="{{ page.mcid | escape }}"></block-info>
+
+{{ content }}
+
+<script src="/js/block.min.js"></script>

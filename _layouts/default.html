@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ page.title | escape }}</title>
+    <link rel="stylesheet" href="{{ "/css/styles.css" | relative_url }}">
+    <link rel="icon" href="{{ "/img/book.png" | relative_url }}">
+    {{ seo }}
+  </head>
+  <body>
+    <header>
+      <img src="{{ "/img/book.png" | relative_url }}" alt="Book icon" width="16" height="16">
+      <span>Allotment Wiki</span>
+    </header>
+    <nav>
+      <div id="links">
+        <a href="{{ "/" | relative_url }}">Overview</a>
+        <a href="{{ "/flowers.html" | relative_url }}">Flowers &amp; Plants Index</a>
+        <a href="{{ "/blocks.html" | relative_url }}">Other Blocks</a>
+      </div>
+      <div id="search">
+        <input type="text" accesskey="f" id="search-input" placeholder="Search&hellip; (F)" autocomplete="off">
+        <ul id="results-container"></ul>
+      </div>
+    </nav>
+    <main>
+      {{ content }}
+    </main>
+    <footer>
+      <div class="copyright">Copyright &copy; {{ 'now' | date: "%Y" }} <a href="https://mixxitteam.github.io/">Mixxit Team</a></div>
+      <div class="theme-select">
+        <label for="theme">Theme: </label>
+        <select id="theme">
+          <option value="-1">System default</option>
+          <option value="0">Light</option>
+          <option value="1">Dark</option>
+        </select>
+      </div>
+    </footer>
+    <script src="{{ "/js/modernizr.js" | relative_url }}"></script>
+    <script src="{{ "/js/theme-select.min.js" | relative_url }}"></script>
+    <script src="{{ "/js/feature-detect.min.js" | relative_url }}"></script>
+    <script src="{{ "/js/simple-jekyll-search.min.js" | relative_url }}"></script>
+    <script src="{{ "/js/search.min.js" | relative_url }}"></script>
+  </body>
+</html>
