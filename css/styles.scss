@@ -15,6 +15,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
   $alink-color: 255, 0, 0;
   // $block-color: 0, 128, 255;
   $block-color: 253, 118, 0;
+  $accent-color: #FFA63D; // TODO Adapt for light mode
 
   $__bg: rgb($background-color...);
   $__kg: rgb($block-color...);
@@ -25,6 +26,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
   --link-color: #{$link-color};
   --alink-color: #{$alink-color};
   --block-color: #{$block-color};
+  --accent-color: #{$accent-color};
 
   @for $i from 1 through 9 {
     --block-color-#{$i}0-solid: #{mix($__bg, $__kg, $weight: (10 - $i) * 10)};
@@ -37,6 +39,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
   $link-color: 204, 204, 255;
   $alink-color: 255, 204, 204;
   $block-color: 255, 255, 255;
+  $accent-color: #FFA63D; // TODO Adapt for light mode
 
   $__bg: rgb($background-color...);
   $__kg: rgb($block-color...);
@@ -47,6 +50,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
   --link-color: #{$link-color};
   --alink-color: #{$alink-color};
   --block-color: #{$block-color};
+  --accent-color: #{$accent-color};
 
   @for $i from 1 through 9 {
     --block-color-#{$i}0-solid: #{mix($__bg, $__kg, $weight: (10 - $i) * 10)};
@@ -66,6 +70,12 @@ $sprite-offset-muliplier: $sprite-size * -1;
   image-rendering: pixelated;   // The rest of 'em
 }
 
+%inventory {
+  border: 2px solid;
+  background-color: #8b8b8b;
+  border-color: #373737 #fff #fff #373737;
+}
+
 @mixin tool-info-light {
   block-info .tool-info {
     &.tool-level-0 {
@@ -73,6 +83,9 @@ $sprite-offset-muliplier: $sprite-size * -1;
     }
     &.tool-none {
       background-position-x: 1 * $sprite-offset-muliplier;
+    }
+    &.tool-shears.tool-level-0 {
+      background-position-x: 3 * $sprite-offset-muliplier;
     }
   }
 }
@@ -84,6 +97,9 @@ $sprite-offset-muliplier: $sprite-size * -1;
     }
     &.tool-none {
       background-position-x: 0 * $sprite-offset-muliplier;
+    }
+    &.tool-shears.tool-level-0 {
+      background-position-x: 2 * $sprite-offset-muliplier;
     }
   }
 }
@@ -206,6 +222,7 @@ body {
         margin: 0;
         padding: 8px;
         flex-direction: column;
+        box-shadow: 0 6px 12px rgba(#000, $alpha: 0.2);
 
         a {
           display: block;
@@ -302,9 +319,7 @@ select {
 
       @extend %pixelated;
     
-      border: 2px solid;
-      background-color: #8b8b8b;
-      border-color: #373737 #fff #fff #373737;
+      @extend %inventory;
     }
   }
 }
@@ -315,16 +330,20 @@ block-info {
   background: RGB(var(--block-color), 0.1);
   padding: 8px;
 
-  img {
-    width: 276px;
+  img.preview-icon {
+    box-sizing: content-box;
+    width: 256px;
     height: auto;
     // @extend %pixelated;
     
-    border: 2px solid;
-    background-color: #8b8b8b;
-    border-color: #373737 #fff #fff #373737;
+    // @extend %inventory;
+    background-color: RGB(var(--block-color), 0.2);
 
     padding: 8px;
+  }
+
+  img.effect-icon {
+    @extend %pixelated;
   }
 
   .tool-info {
@@ -368,8 +387,17 @@ block-info {
       background-position-y: 5 * $sprite-offset-muliplier;
     }
 
-    &.tool-shears {
-      background-position-x: 2 * $sprite-offset-muliplier;
+    &.tool-shears.tool-level-0 {
+      background-position-x: 3 * $sprite-offset-muliplier;
+    }
+
+    &.tool-shears,
+    &.tool-shears.tool-level-1,
+    &.tool-shears.tool-level-2,
+    &.tool-shears.tool-level-3,
+    &.tool-shears.tool-level-4,
+    &.tool-shears.tool-level-5 {
+      background-position-x: 4 * $sprite-offset-muliplier;
       background-position-y: 5 * $sprite-offset-muliplier;
     }
   }
