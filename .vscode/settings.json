@@ -5,7 +5,7 @@
     "*.html": "twig"
   },
   "es6-css-minify.css": {
-      "inline": false
+    "inline": false
   },
   "enableTelemetry": false,
   "editor.tabSize": 2,

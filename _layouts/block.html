@@ -4,6 +4,11 @@ layout: default
 
 <h1>{{ page.title | escape }}</h1>
 
+{% if page.blockprops != nil %}
+<script>var _blockProps = {{ page.blockprops | jsonify }};</script>
+{% else %}
+<script>var _blockProps = null;</script>
+{% endif %}
 <block-info data-for-id="{{ page.mcid | escape }}"></block-info>
 
 {{ content }}

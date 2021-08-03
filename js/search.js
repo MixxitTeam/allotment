@@ -1,12 +1,14 @@
 ---
 layout: none
 ---
+
 var sjs = (function() {
   var USE_CTRL_F = false;
   var searchInput = document.getElementById('search-input');
   var resultsContainer = document.getElementById('results-container');
   var results = [];
   var currentIndex = -1;
+
   var _sjs = SimpleJekyllSearch({
     searchInput: searchInput,
     resultsContainer: resultsContainer,

@@ -5,6 +5,9 @@
 
 $padding: 16px;
 
+$sprite-size: 32px;
+$sprite-offset-muliplier: $sprite-size * -1;
+
 @mixin light {
   $text-color: 0, 0, 0;
   $background-color: 255, 255, 255;
@@ -58,6 +61,33 @@ $padding: 16px;
   }
 }
 
+%pixelated {
+  image-rendering: crisp-edges; // Firefox
+  image-rendering: pixelated;   // The rest of 'em
+}
+
+@mixin tool-info-light {
+  block-info .tool-info {
+    &.tool-level-0 {
+      background-position-x: 1 * $sprite-offset-muliplier;
+    }
+    &.tool-none {
+      background-position-x: 1 * $sprite-offset-muliplier;
+    }
+  }
+}
+
+@mixin tool-info-dark {
+  block-info .tool-info {
+    &.tool-level-0 {
+      background-position-x: 0 * $sprite-offset-muliplier;
+    }
+    &.tool-none {
+      background-position-x: 0 * $sprite-offset-muliplier;
+    }
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -92,9 +122,11 @@ body {
   @include applytheme("light");
   &.dark {
     @include applytheme("dark");
+    @include tool-info-dark;
   }
   &.light {
     @include applytheme("light");
+    @include tool-info-light;
   }
 
   header {
@@ -110,7 +142,7 @@ body {
     img {
       width: 32px;
       height: auto;
-      image-rendering: pixelated;
+      @extend %pixelated;
       margin-right: 8px;
     }
   }
@@ -156,7 +188,7 @@ body {
         background-repeat: no-repeat;
         background-position: 8px center;
         background-size: 24px 24px;
-        image-rendering: pixelated;
+        @extend %pixelated;
         color: RGB(var(--text-color));
 
         &::placeholder {
@@ -268,7 +300,7 @@ select {
       width: 36px;
       height: auto;
 
-      image-rendering: pixelated;
+      @extend %pixelated;
     
       border: 2px solid;
       background-color: #8b8b8b;
@@ -284,15 +316,75 @@ block-info {
   padding: 8px;
 
   img {
-    width: 116px;
+    width: 276px;
     height: auto;
-    image-rendering: pixelated;
+    // @extend %pixelated;
     
     border: 2px solid;
     background-color: #8b8b8b;
     border-color: #373737 #fff #fff #373737;
 
-    padding: 9px;
+    padding: 8px;
+  }
+
+  .tool-info {
+    @extend %pixelated;
+
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    background-image: url("{{ "/img/tools_sprite.png" | relative_url }}");
+    background-size: 224px 192px;
+
+    @for $i from 0 through 5 {
+      &.tool-level-#{$i} {
+        background-position-x: ($i + 1) * $sprite-offset-muliplier;
+      }
+    }
+
+    &.tool-axe {
+      background-position-y: 0 * $sprite-offset-muliplier;
+    }
+
+    &.tool-pickaxe {
+      background-position-y: 1 * $sprite-offset-muliplier;
+    }
+
+    &.tool-shovel {
+      background-position-y: 2 * $sprite-offset-muliplier;
+    }
+
+    &.tool-hoe {
+      background-position-y: 3 * $sprite-offset-muliplier;
+    }
+
+    &.tool-sword {
+      background-position-y: 4 * $sprite-offset-muliplier;
+    }
+
+    &.tool-none {
+      background-position-x: 1 * $sprite-offset-muliplier;
+      background-position-y: 5 * $sprite-offset-muliplier;
+    }
+
+    &.tool-shears {
+      background-position-x: 2 * $sprite-offset-muliplier;
+      background-position-y: 5 * $sprite-offset-muliplier;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    
+    tbody>tr:nth-child(odd) {
+      background-color: RGBA(var(--block-color), 0.2);
+    }
+
+    td, th {
+      padding: 4px;
+    }
   }
 }
 
@@ -320,6 +412,8 @@ block-info {
 @media (prefers-color-scheme: dark) {
   body {
     @include applytheme("dark");
+
+    @include tool-info-dark;
   }
 }
 
