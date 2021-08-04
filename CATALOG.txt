@@ -4,9 +4,7 @@
 # The following categories exist:
 #   flower
 #   block
-
-test_item			none
-test_block			none
+#   item
 
 lawn_block			block
 hose_reel			block
@@ -154,3 +152,4 @@ pink_pampas_grass		flower
 straw				item
 
 mandevilla			flower
+elder_sapling			flower

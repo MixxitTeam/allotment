@@ -11,7 +11,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
 @mixin light {
   $text-color: 0, 0, 0;
   $background-color: 255, 255, 255;
-  $link-color: 0, 0, 255;
+  $link-color: 7, 130, 30;
   $alink-color: 255, 0, 0;
   // $block-color: 0, 128, 255;
   $block-color: 253, 118, 0;
@@ -71,6 +71,8 @@ $sprite-offset-muliplier: $sprite-size * -1;
 }
 
 %inventory {
+  box-sizing: content-box;
+
   border: 2px solid;
   background-color: #8b8b8b;
   border-color: #373737 #fff #fff #373737;
@@ -314,7 +316,7 @@ select {
 
     img {
       margin-right: 8px;
-      width: 36px;
+      width: 32px;
       height: auto;
 
       @extend %pixelated;
@@ -340,6 +342,16 @@ block-info {
     background-color: RGB(var(--block-color), 0.2);
 
     padding: 8px;
+  }
+
+  img.inventory-icon {
+    display: block;
+    width: 32px;
+    height: auto;
+    margin: 0 auto;
+
+    @extend %inventory;
+    @extend %pixelated;
   }
 
   img.effect-icon {

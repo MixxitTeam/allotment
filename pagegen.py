@@ -15,6 +15,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--action", required=True)
 parser.add_argument("--overwrite", action="store_true")
+parser.add_argument("--filter")
 args = parser.parse_args()
 
 colorama.init()
@@ -174,6 +175,8 @@ config.read("allotmentconfig.cfg")
 allotment_dir = config["GLOBAL"]["allotment_repo_dir"]
 pages_dir = config["pages"]["page_output_dir"]
 pages_ext = config["pages"]["page_extension"]
+preview_texture_dir = config["textures"]["preview_texture_dir"]
+inventory_texture_dir = config["textures"]["inventory_texture_dir"]
 
 lang_file = os.path.join(allotment_dir, "src/main/resources/assets/allotment/lang/en_us.json")
 catalog_file = "CATALOG.txt"
@@ -204,8 +207,10 @@ def a_checkpages(args):
 
     if page_count_total == page_count_exist:
         log_ok("All pages exist")
+        return 0
     else:
         log_error("There are " + str(page_count_total - page_count_exist) + " out of " + str(page_count_total) +  " page(s) missing!")
+        return 1
 
 def a_generatepages(args):
     global cat, page_names, pages_dir, pages_ext
@@ -228,17 +233,24 @@ def a_generatepages(args):
                 ))
         else:
             log_info("Page already exists: " + p + pages_ext)
+    
+    return 0
 
 def a_checkcatalog(args):
     global cat, page_names
 
     keys = cat.keys()
 
+    returnValue = 0
+
     for p in page_names:
         if p not in keys:
             log_error("ID " + p + " not in catalog")
+            returnValue = 1
         else:
             log_ok("ID " + p + " found in catalog")
+
+    return returnValue
 
 
 def a_updatecatalog(args):
@@ -250,6 +262,44 @@ def a_updatecatalog(args):
         if p not in keys:
             print("Adding id " + p)
             cat.add_entry("\t".join([p, "TODO"]))
+    
+    return 0
+
+def a_checktextures(args):
+    global cat, preview_texture_dir, inventory_texture_dir
+
+    keys = cat.keys()
+    prevDir = os.path.realpath(preview_texture_dir)
+    invDir = os.path.realpath(inventory_texture_dir)
+
+    returnValue = 0
+
+    ofilter = [] if args.filter == None else args.filter.split(",")
+
+    for k in keys:
+        prevPath = os.path.join(prevDir, k + ".png")
+        invPath = os.path.join(invDir, k + ".png")
+
+        prevExists = os.path.isfile(prevPath)
+        invExists = os.path.isfile(invPath)
+
+        if not prevExists and not invExists:
+            if "all" in ofilter:
+                log_error("Both images for {} missing!".format(k))
+                returnValue = 1
+        elif not prevExists and invExists:
+            if "preview" in ofilter:
+                log_error("Preview image for {} missing, but inventory image exists!".format(k))
+                returnValue = 1
+        elif prevExists and not invExists:
+            if "inventory" in ofilter:
+                log_error("Inventory image for {} missing, but preview image exists!".format(k))
+                returnValue = 1
+        else:
+            if "none" in ofilter:
+                log_ok("Both textures exist for {}".format(k))
+    
+    return returnValue
 #endregion
 
 _ACTIONS_ = {
@@ -257,14 +307,20 @@ _ACTIONS_ = {
     "checkcatalog": a_checkcatalog,
     "updatecatalog": a_updatecatalog,
     "generatepages": a_generatepages,
+    "checktextures": a_checktextures,
 }
 
 actionMethod = _ACTIONS_.get(args.action, None)
 
+returnValue = 0
+
 if actionMethod == None:
     log_error("Invalid action: " + args.action)
     log_error("Valid actions are:\n" + "\n".join(_ACTIONS_.keys()))
+    returnValue = 2
 else:
-    actionMethod(args)
+    returnValue = actionMethod(args)
 
 write_catalog(cat)
+
+exit(returnValue)
