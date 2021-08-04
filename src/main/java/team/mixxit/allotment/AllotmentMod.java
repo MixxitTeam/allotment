@@ -3,19 +3,24 @@ package team.mixxit.allotment;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.mixxit.allotment.blocks.ModVineBlock;
@@ -23,6 +28,7 @@ import team.mixxit.allotment.interf.IBlockColorProvider;
 import team.mixxit.allotment.interf.IItemColorProvider;
 import team.mixxit.allotment.itemgroups.MainItemGroup;
 import team.mixxit.allotment.setup.ModBlocks;
+import team.mixxit.allotment.setup.ModFeatures;
 import team.mixxit.allotment.setup.Registration;
 
 @Mod(AllotmentMod.MOD_ID)
@@ -62,6 +68,10 @@ public class AllotmentMod
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public static ResourceLocation getId(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 
     private void commonSetup(FMLCommonSetupEvent evt) {
@@ -152,8 +162,14 @@ public class AllotmentMod
                 event.getBlockColors().register(color, _vineBlock);
             }
 
-            IBlockColor color = ((IBlockColorProvider)ModBlocks.DEBUG_TINT_BLOCK.get()).getBlockColor(event.getBlockColors());
-            event.getBlockColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
+            {
+                IBlockColor color = ((IBlockColorProvider) ModBlocks.DEBUG_TINT_BLOCK.get()).getBlockColor(event.getBlockColors());
+                event.getBlockColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
+            }
+            {
+                IBlockColor color = ((IBlockColorProvider) ModBlocks.DEBUG_FOLIAGE_BLOCK.get()).getBlockColor(event.getBlockColors());
+                event.getBlockColors().register(color, ModBlocks.DEBUG_FOLIAGE_BLOCK.get());
+            }
         }
 
         @SubscribeEvent
@@ -192,8 +208,22 @@ public class AllotmentMod
                     event.getItemColors().register(color, _vineBlock);
                 }
             }
-            IItemColor color = ((IBlockColorProvider)ModBlocks.DEBUG_TINT_BLOCK.get()).getItemColor(event.getItemColors());
-            event.getItemColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
+
+            {
+                IItemColor color = ((IBlockColorProvider) ModBlocks.DEBUG_TINT_BLOCK.get()).getItemColor(event.getItemColors());
+                event.getItemColors().register(color, ModBlocks.DEBUG_TINT_BLOCK.get());
+            }
+            {
+                IItemColor color = ((IBlockColorProvider) ModBlocks.DEBUG_FOLIAGE_BLOCK.get()).getItemColor(event.getItemColors());
+                event.getItemColors().register(color, ModBlocks.DEBUG_FOLIAGE_BLOCK.get());
+            }
+        }
+
+        @SubscribeEvent
+        public static void FMLLoadCompleteEvent(FMLLoadCompleteEvent event) {
+            for (Biome biome : ForgeRegistries.BIOMES) {
+
+            }
         }
     }
 }

@@ -10,8 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
+import team.mixxit.allotment.interf.IBlockColorProvider;
 import team.mixxit.allotment.setup.ModBlocks;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -131,6 +133,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleNaturalBlock(ModBlocks.MULCH.get());
         simpleNaturalBlock(ModBlocks.TERRA_PRETA.get());
         simpleNaturalBlock(ModBlocks.PINCUSSION_MOSS.get());
+        tintedBlock(ModBlocks.DEBUG_FOLIAGE_BLOCK.get());
         tintedBlock(ModBlocks.DEBUG_TINT_BLOCK.get());
         simpleBlock(ModBlocks.DEBUG_BLOCK.get());
 
@@ -145,6 +148,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //gutterBlock(ModBlocks.GUTTER.get(), gutterBottom, gutterTop);
 
         newGutterBlock(ModBlocks.GUTTER.get());
+
+        orientableFlower(ModBlocks.TEST_FLOWER.get(), "guzmania");
+
+        sapling(ModBlocks.ELDER_SAPLING.get());
+    }
+
+    private ModelFile simpleCross(Block block) {
+        ResourceLocation id = block.getRegistryName();
+        String name = id.getPath();
+        return models().cross(name, modLoc("block/" + name));
+    }
+
+    private void sapling(ModSapling sapling) {
+        ModelFile model = simpleCross(sapling);
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(sapling);
+        variantBuilder.partialState().modelForState().modelFile(model).addModel();
     }
 
     private void simpleNaturalBlock(Block block) {
@@ -154,6 +173,62 @@ public class ModBlockStateProvider extends BlockStateProvider {
                                                      .modelFile(model).rotationY(90).nextModel()
                                                      .modelFile(model).rotationY(180).nextModel()
                                                      .modelFile(model).rotationY(270).addModel();
+    }
+
+    private void orientableFlower(OrientableFlower flower, String textureName) {
+        String name = flower.getRegistryName().getPath();
+        //ModelFile model = models().cross(name, mcLoc("block/cross")).texture("cross", modLoc("block/" + textureName));
+        ModelFile model = models().cross(name, modLoc("block/" + textureName));
+
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(flower);
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(270).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(180).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(0).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.CEILING)
+                .modelForState().modelFile(model).rotationY(90).rotationX(180).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(90).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(0).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(180).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.FLOOR)
+                .modelForState().modelFile(model).rotationY(270).rotationX(0).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.EAST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(90).rotationX(90).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(0).rotationX(90).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(180).rotationX(90).addModel();
+        variantBuilder.partialState()
+                .with(AbstractButtonBlock.HORIZONTAL_FACING, Direction.WEST)
+                .with(AbstractButtonBlock.FACE, AttachFace.WALL)
+                .modelForState().modelFile(model).rotationY(270).rotationX(90).addModel();
     }
 
     private void newGutterBlock(GutterBlock gutterBlock) {
@@ -358,7 +433,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build(), TrapDoorBlock.POWERED, TrapDoorBlock.WATERLOGGED);
     }
 
-    public void tintedBlock(TintedBlock block) {
+    public <T extends Block & IBlockColorProvider> void tintedBlock(T block) {
         String name = block.getRegistryName().getPath();
 
         ModelFile base = models().getExistingFile(modLoc("block/tinted_cube_all"));

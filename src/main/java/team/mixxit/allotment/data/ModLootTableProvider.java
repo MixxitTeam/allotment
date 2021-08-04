@@ -123,18 +123,25 @@ public class ModLootTableProvider extends LootTableProvider {
             registerDropSelfLootTable(ModBlocks.CORRUGATED_IRON.get());
             registerDropSelfLootTable(ModBlocks.GUTTER.get());
             registerDropSelfLootTable(ModBlocks.ELDER_BUTTON.get());
+            registerDropSelfLootTable(ModBlocks.TEST_FLOWER.get());
+            registerDropSelfLootTable(ModBlocks.ELDER_SAPLING.get());
 
             registerLootTable(ModBlocks.PAMPAS_GRASS.get(), droppingSheared(ModBlocks.PAMPAS_GRASS.get()));
             registerLootTable(ModBlocks.PAMPAS_GRASS_PINK.get(), droppingSheared(ModBlocks.PAMPAS_GRASS_PINK.get()));
 
             registerLootTable(ModBlocks.LAWN_BLOCK.get(), (_b) -> droppingWithSilkTouch(_b, Blocks.DIRT));
 
-            registerLootTable(ModBlocks.ELDER_LEAVES.get(), (leaves) -> droppingWithChancesAndSticks(leaves, ModBlocks.ELDER_LEAVES.get(), DEFAULT_SAPLING_DROP_RATES));
+            registerLootTable(ModBlocks.ELDER_LEAVES.get(), (leaves) -> droppingWithChancesAndSticks(leaves, ModBlocks.ELDER_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
 
-            registerLootTable(ModBlocks.ALLOTMENT_LOGO_1.get(), blockNoDrop());
-            registerLootTable(ModBlocks.ALLOTMENT_LOGO_2.get(), blockNoDrop());
-            registerLootTable(ModBlocks.DEBUG_BLOCK.get(), blockNoDrop());
-            registerLootTable(ModBlocks.DEBUG_TINT_BLOCK.get(), blockNoDrop());
+            registerNoDropLootTable(ModBlocks.ALLOTMENT_LOGO_1.get());
+            registerNoDropLootTable(ModBlocks.ALLOTMENT_LOGO_2.get());
+            registerNoDropLootTable(ModBlocks.DEBUG_BLOCK.get());
+            registerNoDropLootTable(ModBlocks.DEBUG_TINT_BLOCK.get());
+            registerNoDropLootTable(ModBlocks.DEBUG_FOLIAGE_BLOCK.get());
+        }
+
+        public void registerNoDropLootTable(Block block) {
+            registerLootTable(block, blockNoDrop());
         }
 
         @Override

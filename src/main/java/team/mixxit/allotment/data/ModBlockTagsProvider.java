@@ -34,6 +34,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         Builder<Block> fenceBuilder = getOrCreateBuilder(BlockTags.FENCES);
         Builder<Block> woodenFenceBuilder = getOrCreateBuilder(BlockTags.WOODEN_FENCES);
         Builder<Block> wallBuilder = getOrCreateBuilder(BlockTags.WALLS);
+        Builder<Block> saplingBuilder = getOrCreateBuilder(BlockTags.SAPLINGS);
 
         for (RegistryObject<SmallCactusBlock> _cactus : ModBlocks._COLLECTION_SMALL_CACTI) {
             smallCactiBuilder.add(_cactus.get());
@@ -79,5 +80,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         for (RegistryObject<TallWallBlock> _wall : ModBlocks._COLLECTION_TALL_WALLS) {
             wallBuilder.add(_wall.get());
         }
+
+        saplingBuilder.add(ModBlocks.ELDER_SAPLING.get());
     }
 }

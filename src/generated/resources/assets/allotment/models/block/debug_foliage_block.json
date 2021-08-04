@@ -1,0 +1,6 @@
+{
+  "parent": "allotment:block/tinted_cube_all",
+  "textures": {
+    "all": "allotment:block/debug_foliage_block"
+  }
+}

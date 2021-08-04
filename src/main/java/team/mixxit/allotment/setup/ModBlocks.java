@@ -20,6 +20,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
+import team.mixxit.allotment.worldgen.ElderTree;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,11 +28,26 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
 //region Block fields
+
+    //region Debug blocks
     public static final RegistryObject<Block> ALLOTMENT_LOGO_1 = registerNoCreative("allotment_logo_1", () ->
             new Block(AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 
     public static final RegistryObject<Block> ALLOTMENT_LOGO_2 = registerNoCreative("allotment_logo_2", () ->
             new Block(AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+
+    public static final RegistryObject<OrientableFlower> TEST_FLOWER = registerNoCreative("test_flower", () ->
+            new OrientableFlower(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
+            new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
+
+    public static final RegistryObject<TintedFoliageBlock> DEBUG_FOLIAGE_BLOCK = registerNoCreative("debug_foliage_block", () ->
+            new TintedFoliageBlock(AbstractBlock.Properties.create(Material.LEAVES)));
+
+    public static final RegistryObject<Block> DEBUG_BLOCK = registerNoCreative("debug_block", () ->
+            new Block(AbstractBlock.Properties.create(Material.ROCK)));
+    //endregion
 
     public static final RegistryObject<Block> LAWN_BLOCK = register("lawn_block", () ->
             new LawnBlock(AbstractBlock.Properties.create(Material.EARTH).hardnessAndResistance(0.65F).harvestTool(ToolType.SHOVEL).sound(SoundType.PLANT)));
@@ -70,7 +86,7 @@ public class ModBlocks {
             new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves",
-            ModBlocks::createLeavesBlock);
+            () -> ModBlocks.createLeavesBlock(12));
 
     public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle",
             FirewoodBundleBlock::new);
@@ -82,7 +98,7 @@ public class ModBlocks {
             () -> createRotatableBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO)));
 
     public static final RegistryObject<RotatedPillarBlock> DRIED_BAMBOO_BLOCK = register("dried_bamboo_block",
-            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).harvestTool(ToolType.HOE).hardnessAndResistance(0.8F).sound(SoundType.PLANT)));
+            () -> createRotatableBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).harvestTool(ToolType.HOE).hardnessAndResistance(0.8F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<StrawBlock> STRAW_BLOCK = register("straw_block", () ->
             new StrawBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
@@ -120,11 +136,8 @@ public class ModBlocks {
     public static final RegistryObject<WoodButtonBlock> ELDER_BUTTON = register("elder_button", () ->
             new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<TintedBlock> DEBUG_TINT_BLOCK = registerNoCreative("debug_tint_block", () ->
-            new TintedBlock(AbstractBlock.Properties.create(Material.EARTH)));
-
-    public static final RegistryObject<Block> DEBUG_BLOCK = registerNoCreative("debug_block", () ->
-            new Block(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<ModSapling> ELDER_SAPLING = register("elder_sapling", () ->
+            new ModSapling(() -> new ElderTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
 //endregion
 
 //region Lists (arrays)
@@ -181,7 +194,7 @@ public class ModBlocks {
 
     public static final RegistryObject<TrapDoorBlock>[] _COLLECTION_TRAPDOORS = new RegistryObject[]{
             trapdoor("bamboo_trapdoor", MaterialColor.GREEN, SoundType.BAMBOO),
-            trapdoor("dried_bamboo_trapdoor", MaterialColor.SAND, SoundType.BAMBOO),
+            trapdoor("dried_bamboo_trapdoor", MaterialColor.SAND, SoundType.WOOD),
             trapdoor("elder_trapdoor", MaterialColor.SAND, SoundType.WOOD)
     };
 
@@ -379,7 +392,7 @@ public class ModBlocks {
                 new ModSlabBlock(AbstractBlock.Properties.create(Material.BAMBOO, (state) -> MaterialColor.GREEN).hardnessAndResistance(1.0F).sound(SoundType.BAMBOO),
         "bamboo_block", "bamboo_block_end", "bamboo_block_side")));
         _COLLECTION_SLABS.add(register("dried_bamboo_slab", () ->
-                new ModSlabBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.PLANT),
+                new ModSlabBlock(AbstractBlock.Properties.create(Material.EARTH, (state) -> MaterialColor.SAND).hardnessAndResistance(0.8F).sound(SoundType.WOOD),
         "dried_bamboo_block", "dried_bamboo_block_end", "dried_bamboo_block_side")));
 
         for (ModWoodType _woodType : ModWoodType.VALUES) {
@@ -445,6 +458,8 @@ public class ModBlocks {
         setRenderLayer(ELDER_LEAVES.get(), RenderType.getCutoutMipped());
         setRenderLayer(SPANISH_MOSS.get(), RenderType.getCutout());
         setRenderLayer(GUTTER.get(), RenderType.getCutout());
+        setRenderLayer(TEST_FLOWER.get(), RenderType.getCutout());
+        setRenderLayer(ELDER_SAPLING.get(), RenderType.getCutout());
     }
 
 //region Helper methods
@@ -542,7 +557,7 @@ public class ModBlocks {
 
     private static RegistryObject<ModMushroomBlock> mushroom(String name)
     {
-        return register(name, () -> new ModMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT).setLightLevel((state) -> 1).setNeedsPostProcessing(ModBlocks::needsPostProcessing)));
+        return register(name, () -> new ModMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT).setLightLevel((state) -> 0).setNeedsPostProcessing(ModBlocks::needsPostProcessing)));
     }
 
     private static RegistryObject<TallFlowerBlock> tallThistle(String name) {
@@ -567,6 +582,10 @@ public class ModBlocks {
 
     private static ModLeavesBlock createLeavesBlock() {
         return new ModLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid));
+    }
+
+    private static ModLeavesBlock createLeavesBlock(int decayDistance) {
+        return new ModLeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid().setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves).setSuffocates(ModBlocks::isntSolid).setBlocksVision(ModBlocks::isntSolid), decayDistance);
     }
 
     private static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {

@@ -23,14 +23,14 @@ public class TintedBlock extends Block implements IBlockColorProvider, IItemColo
     @Override
     @OnlyIn(Dist.CLIENT)
     public IBlockColor getBlockColor(BlockColors colors) {
-        final BlockState leafState = grass.getDefaultState();
-        return (state, world, pos, tintIndex) -> colors.getColor(leafState, world, pos, tintIndex);
+        final BlockState grassState = grass.getDefaultState();
+        return (state, world, pos, tintIndex) -> colors.getColor(grassState, world, pos, tintIndex);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public IItemColor getItemColor(ItemColors colors) {
-        final ItemStack leafStack = new ItemStack(grass);
-        return (stack, tintIndex) -> colors.getColor(leafStack, tintIndex);
+        final ItemStack grassStack = new ItemStack(grass);
+        return (stack, tintIndex) -> colors.getColor(grassStack, tintIndex);
     }
 }

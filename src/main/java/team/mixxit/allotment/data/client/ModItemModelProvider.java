@@ -50,6 +50,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         block("debug_block");
         block("debug_tint_block");
+        block("debug_foliage_block");
 
         // TODO All firewood bundles in one array; iterate with for loop
         block("spruce_firewood_bundle");
@@ -125,6 +126,11 @@ public class ModItemModelProvider extends ItemModelProvider {
             System.out.println("[[DEBUG] TintedOverlayVines]: " + _item.getId().getPath());
             builder(itemGenerated, _item.getId().getPath());
         }
+
+        builderWithBlockTexture(itemGenerated, "test_flower", "guzmania");
+
+        String elderSaplingPath = ModBlocks.ELDER_SAPLING.getId().getPath();
+        builderWithBlockTexture(itemGenerated, elderSaplingPath, elderSaplingPath);
     }
 
     public void tallWall(String name, ResourceLocation texture) {
@@ -160,7 +166,15 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private ItemModelBuilder builderWithTexture(ModelFile itemGenerated, String name, String texture) {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", texture);
+    }
+
+    private ItemModelBuilder builderWithItemTexture(ModelFile itemGenerated, String name, String texture) {
         return getBuilder(name).parent(itemGenerated).texture("layer0", "item/" + texture);
+    }
+
+    private ItemModelBuilder builderWithBlockTexture(ModelFile itemGenerated, String name, String texture) {
+        return getBuilder(name).parent(itemGenerated).texture("layer0", "block/" + texture);
     }
 
     private ItemModelBuilder builderTallFlower(ModelFile itemGenerated, String name) {
