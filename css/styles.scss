@@ -449,6 +449,85 @@ block-info {
   }
 }
 
+.cookiemsg-root {
+  position: fixed;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  background-color: var(--block-color-30-solid);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  z-index: 102;
+  animation: cookiemsg-attention 1s ease-out;
+
+  .cookiemsg-inner {
+    display: flex;
+    flex-direction: column;
+
+    .cookiemsg-buttons {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+#missingno {
+  background-color: #f0f;
+  width: 128px;
+  height: 128px;
+  margin: 8px auto;
+
+  position: relative;
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 50%;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation-timing-function: ease;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+  }
+
+  &::before {
+    animation-name: missingno-1;
+  }
+
+  &::after {
+    animation-name: missingno-2;
+  }
+}
+
+@keyframes missingno-1 {
+  0%, 100% { transform: translate(0%, 0%); }
+  25% { transform: translate(100%, 0%); }
+  50% { transform: translate(100%, 100%); }
+  75% { transform: translate(0%, 100%); }
+}
+
+@keyframes missingno-2 {
+  0%, 100% { transform: translate(100%, 100%); }
+  25% { transform: translate(0%, 100%); }
+  50% { transform: translate(0%, 0%); }
+  75% { transform: translate(100%, 0%); }
+}
+
+@keyframes cookiemsg-attention {
+  10%, 50% {
+    background-color: var(--block-color-50-solid);
+  }
+  0%, 30%, 100% {
+    background-color: var(--block-color-30-solid);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     @include applytheme("dark");
