@@ -6,14 +6,17 @@ import net.minecraft.data.*;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
+import team.mixxit.allotment.blocks.MadeFromBlock;
 import team.mixxit.allotment.blocks.ModFlowerBlock;
 import team.mixxit.allotment.blocks.TallWallBlock;
 import team.mixxit.allotment.crafting.ToolUsageRecipeBuilder;
@@ -111,10 +114,169 @@ public class ModRecipeProvider extends RecipeProvider {
                 () -> Items.NETHERITE_AXE
         );
 
-        ToolUsageRecipeBuilder.begin(ModBlocks._COLLECTION_PLANKS.get(0).get())
-                .addIngredient(Blocks.ACACIA_PLANKS)
-                .addIngredient(axeIngredients)
-                .addCriterion("has_plank", hasItem(Blocks.ACACIA_PLANKS))
+        for (RegistryObject<MadeFromBlock> _plank : ModBlocks._COLLECTION_PLANKS) {
+            Block madeFrom = _plank.get().getMadeFrom().get();
+            AllotmentMod.getLogger().debug("Registering recipe for " + _plank.getId().toString());
+            AllotmentMod.getLogger().debug(" \\--> Made from block " + madeFrom.getRegistryName().toString());
+            ToolUsageRecipeBuilder.begin(_plank.get())
+                    .addIngredient(madeFrom)
+                    .addIngredient(axeIngredients)
+                    .addCriterion("has_plank", hasItem(madeFrom))
+                    .build(consumer);
+        }
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ELDER_WOOD.get(), 3)
+                .key('x', ModBlocks.ELDER_LOG.get())
+                .patternLine("xx")
+                .patternLine("xx")
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_LOG.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.STRIPPED_ELDER_WOOD.get(), 3)
+                .key('x', ModBlocks.STRIPPED_ELDER_LOG.get())
+                .patternLine("xx")
+                .patternLine("xx")
+                .addCriterion("has_item", hasItem(ModBlocks.STRIPPED_ELDER_LOG.get()))
+                .build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ELDER_PLANKS.get(), 4)
+                .addIngredient(ModBlocks.ELDER_LOG.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.BAMBOO_BLOCK.get())
+                .key('x', Items.BAMBOO)
+                .patternLine("xx")
+                .patternLine("xx")
+                .addCriterion("has_item", hasItem(Items.BAMBOO))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.DRIED_BAMBOO_BLOCK.get())
+                .key('x', ModItems.DRIED_BAMBOO.get())
+                .patternLine("xx")
+                .patternLine("xx")
+                .addCriterion("has_item", hasItem(ModItems.DRIED_BAMBOO.get()))
+                .build(consumer);
+
+        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Items.BAMBOO), ModItems.DRIED_BAMBOO.get(), 0.1f, 200)
+                .addCriterion("has_item", hasItem(Items.BAMBOO))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCES[ModBlocks.BAMBOO_FENCE].get())
+                .key('b', Items.BAMBOO)
+                .key('s', Items.STICK)
+                .patternLine("bsb")
+                .patternLine("bsb")
+                .addCriterion("has_bamboo", hasItem(Items.BAMBOO))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCES[ModBlocks.DRIED_BAMBOO_FENCE].get())
+                .key('b', ModItems.DRIED_BAMBOO.get())
+                .key('s', Items.STICK)
+                .patternLine("bsb")
+                .patternLine("bsb")
+                .addCriterion("has_bamboo", hasItem(ModItems.DRIED_BAMBOO.get()))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCES[ModBlocks.ELDER_FENCE].get())
+                .key('p', ModBlocks.ELDER_PLANKS.get())
+                .key('s', Items.STICK)
+                .patternLine("psp")
+                .patternLine("psp")
+                .addCriterion("has_planks", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCEGATES[ModBlocks.BAMBOO_FENCE_GATE].get())
+                .key('b', Items.BAMBOO)
+                .key('s', Items.STICK)
+                .patternLine("sbs")
+                .patternLine("sbs")
+                .addCriterion("has_bamboo", hasItem(Items.BAMBOO))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCEGATES[ModBlocks.DRIED_BAMBOO_FENCE_GATE].get())
+                .key('b', ModItems.DRIED_BAMBOO.get())
+                .key('s', Items.STICK)
+                .patternLine("sbs")
+                .patternLine("sbs")
+                .addCriterion("has_bamboo", hasItem(ModItems.DRIED_BAMBOO.get()))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_FENCEGATES[ModBlocks.ELDER_FENCE_GATE].get())
+                .key('p', ModBlocks.ELDER_PLANKS.get())
+                .key('s', Items.STICK)
+                .patternLine("sps")
+                .patternLine("sps")
+                .addCriterion("has_planks", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .addCriterion("has_stick", hasItem(Items.STICK))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_STAIRS.get(ModBlocks.ELDER_STAIRS).get())
+                .key('x', ModBlocks.ELDER_PLANKS.get())
+                .patternLine("x  ")
+                .patternLine("xx ")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_STAIRS.get(ModBlocks.BAMBOO_STAIRS).get())
+                .key('x', ModBlocks.BAMBOO_BLOCK.get())
+                .patternLine("x  ")
+                .patternLine("xx ")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.BAMBOO_BLOCK.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_STAIRS.get(ModBlocks.DRIED_BAMBOO_STAIRS).get())
+                .key('x', ModBlocks.DRIED_BAMBOO_BLOCK.get())
+                .patternLine("x  ")
+                .patternLine("xx ")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.DRIED_BAMBOO_BLOCK.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_SLABS.get(ModBlocks.ELDER_SLAB).get())
+                .key('x', ModBlocks.ELDER_PLANKS.get())
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_SLABS.get(ModBlocks.BAMBOO_SLAB).get())
+                .key('x', ModBlocks.BAMBOO_BLOCK.get())
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.BAMBOO_BLOCK.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_SLABS.get(ModBlocks.DRIED_BAMBOO_SLAB).get())
+                .key('x', ModBlocks.DRIED_BAMBOO_BLOCK.get())
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.DRIED_BAMBOO_BLOCK.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_TRAPDOORS[ModBlocks.ELDER_TRAPDOOR].get())
+                .key('x', ModBlocks.ELDER_PLANKS.get())
+                .patternLine("xxx")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.ELDER_PLANKS.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_TRAPDOORS[ModBlocks.BAMBOO_TRAPDOOR].get())
+                .key('x', ModBlocks.BAMBOO_BLOCK.get())
+                .patternLine("xxx")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.BAMBOO_BLOCK.get()))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks._COLLECTION_TRAPDOORS[ModBlocks.DRIED_BAMBOO_TRAPDOOR].get())
+                .key('x', ModBlocks.DRIED_BAMBOO_BLOCK.get())
+                .patternLine("xxx")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModBlocks.DRIED_BAMBOO_BLOCK.get()))
                 .build(consumer);
     }
 

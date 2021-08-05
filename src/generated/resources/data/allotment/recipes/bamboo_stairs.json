@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "allotment:bamboo_block"
+    }
+  },
+  "result": {
+    "item": "allotment:bamboo_stairs"
+  }
+}

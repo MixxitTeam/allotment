@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "allotment:elder_planks"
+    }
+  },
+  "result": {
+    "item": "allotment:elder_stairs"
+  }
+}

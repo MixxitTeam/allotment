@@ -70,7 +70,7 @@ public class ModLootTableProvider extends LootTableProvider {
             for (RegistryObject<ModFenceGateBlock> _fenceGate : ModBlocks._COLLECTION_FENCEGATES)
                 registerDropSelfLootTable(_fenceGate.get());
 
-            for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS)
+            for (RegistryObject<MadeFromBlock> _plank : ModBlocks._COLLECTION_PLANKS)
                 registerDropSelfLootTable(_plank.get());
 
             for (RegistryObject<ModStairsBlock> _stair : ModBlocks._COLLECTION_STAIRS)

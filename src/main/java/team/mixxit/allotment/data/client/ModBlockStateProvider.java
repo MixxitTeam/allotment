@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.interf.IBlockColorProvider;
@@ -35,7 +34,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
             plant(_cactus);
         }
 
-        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
+        for (RegistryObject<MadeFromBlock> _plank : ModBlocks._COLLECTION_PLANKS) {
             plank(_plank);
         }
 
@@ -796,7 +795,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(block, models().getBuilder(pot).parent(base).texture("plant", "block/" + plant_texture_name));
     }
 
-    private void plank(RegistryObject<Block> block) {
+    private void plank(RegistryObject<? extends Block> block) {
         simpleBlock(block.get());
     }
 

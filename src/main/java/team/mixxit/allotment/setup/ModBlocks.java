@@ -11,6 +11,7 @@ import net.minecraft.item.*;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,10 +19,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.worldgen.ElderTree;
 
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -239,7 +242,7 @@ public class ModBlocks {
 
 //region Dynamic lists (ArrayLists)
     public static final ArrayList<FlowerPotBlock> _COLLECTION_POTTED_PLANTS = new ArrayList<>();
-    public static final ArrayList<RegistryObject<Block>> _COLLECTION_PLANKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<MadeFromBlock>> _COLLECTION_PLANKS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModStairsBlock>> _COLLECTION_STAIRS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModSlabBlock>> _COLLECTION_SLABS = new ArrayList<>();
     public static final ArrayList<RegistryObject<ModStandingSignBlock>> _COLLECTION_STANDING_SIGNS = new ArrayList<>();
@@ -301,6 +304,26 @@ public class ModBlocks {
     public static final int CHAIN_LINK_FENCE = 0;
     public static final int JAKTOP_CRISS_CROSS_FENCE = 1;
     public static final int BAR_MAT_FENCE = 2;
+
+    public static final int ELDER_FENCE = 0;
+    public static final int DRIED_BAMBOO_FENCE = 1;
+    public static final int BAMBOO_FENCE = 2;
+
+    public static final int ELDER_FENCE_GATE = 0;
+    public static final int DRIED_BAMBOO_FENCE_GATE = 1;
+    public static final int BAMBOO_FENCE_GATE = 2;
+
+    public static final int ELDER_STAIRS = 0;
+    public static final int BAMBOO_STAIRS = 1;
+    public static final int DRIED_BAMBOO_STAIRS = 2;
+
+    public static final int ELDER_SLAB = 0;
+    public static final int BAMBOO_SLAB = 1;
+    public static final int DRIED_BAMBOO_SLAB = 2;
+
+    public static final int BAMBOO_TRAPDOOR = 0;
+    public static final int DRIED_BAMBOO_TRAPDOOR = 1;
+    public static final int ELDER_TRAPDOOR = 2;
 //endregion
 
     private static final Map<DyeColor, Block> _MAPPING_CONCRETE = ImmutableMap.<DyeColor, Block>builder()
@@ -323,21 +346,25 @@ public class ModBlocks {
             .build();
 
     static void register() {
-        final String[] plankNames = new String[]{
-                "acacia",
-                "birch",
-                "crimson",
-                "dark_oak",
-                "elder",
-                "jungle",
-                "oak",
-                "spruce",
-                "warped"
+        final ResourceLocation[] plankNames = new ResourceLocation[]{
+                mcLoc("acacia_planks"),
+                mcLoc("birch_planks"),
+                mcLoc("crimson_planks"),
+                mcLoc("dark_oak_planks"),
+                modLoc("elder_planks"),
+                mcLoc("jungle_planks"),
+                mcLoc("oak_planks"),
+                mcLoc("spruce_planks"),
+                mcLoc("warped_planks")
         };
 
-        for (String _plank : plankNames) {
-            _COLLECTION_PLANKS.add(plank("chipped", _plank));
-            _COLLECTION_PLANKS.add(plank("weathered", _plank));
+        for (ResourceLocation _plank : plankNames) {
+            AllotmentMod.getLogger().debug("Plank: " + _plank.toString());
+            String path = _plank.getPath();
+            String plankName = path.substring(0, path.length() - 7);
+            RegistryObject<MadeFromBlock> chipped = plank("chipped", plankName, () -> ForgeRegistries.BLOCKS.getValue(_plank));
+            _COLLECTION_PLANKS.add(chipped);
+            _COLLECTION_PLANKS.add(plank("weathered", plankName, () -> chipped.get()));
         }
 
         Block flowerPot = Blocks.FLOWER_POT;
@@ -403,6 +430,14 @@ public class ModBlocks {
         for (DyeColor _color : DyeColor.values()) {
             _COLLECTION_TALL_WALLS.add(concreteWall(_color));
         }
+    }
+
+    public static ResourceLocation modLoc(String name) {
+        return new ResourceLocation(AllotmentMod.MOD_ID, name);
+    }
+
+    public static ResourceLocation mcLoc(String name) {
+        return new ResourceLocation(name);
     }
 
     static void postRegister() {
@@ -550,9 +585,9 @@ public class ModBlocks {
         return register(name, () -> new SmallCactusBlock(resultingDye));
     }
 
-    private static RegistryObject<Block> plank(String prefix, String name)
+    private static RegistryObject<MadeFromBlock> plank(String prefix, String name, Supplier<Block> madeFrom)
     {
-        return register(prefix + "_" + name + "_planks", () -> new Block(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+        return register(prefix + "_" + name + "_planks", () -> new MadeFromBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD), madeFrom));
     }
 
     private static RegistryObject<ModMushroomBlock> mushroom(String name)

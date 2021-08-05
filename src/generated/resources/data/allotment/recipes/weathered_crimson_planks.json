@@ -1,0 +1,31 @@
+{
+  "type": "allotment:crafting_shapeless_with_tool",
+  "ingredients": [
+    {
+      "item": "allotment:chipped_crimson_planks"
+    },
+    [
+      {
+        "item": "minecraft:wooden_axe"
+      },
+      {
+        "item": "minecraft:stone_axe"
+      },
+      {
+        "item": "minecraft:golden_axe"
+      },
+      {
+        "item": "minecraft:iron_axe"
+      },
+      {
+        "item": "minecraft:diamond_axe"
+      },
+      {
+        "item": "minecraft:netherite_axe"
+      }
+    ]
+  ],
+  "result": {
+    "item": "allotment:weathered_crimson_planks"
+  }
+}

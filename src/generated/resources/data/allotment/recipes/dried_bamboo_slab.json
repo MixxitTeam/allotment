@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "allotment:dried_bamboo_block"
+    }
+  },
+  "result": {
+    "item": "allotment:dried_bamboo_slab"
+  }
+}

@@ -54,7 +54,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         }
 
         planksBuilder.add(ModBlocks.ELDER_PLANKS.get());
-        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
+        for (RegistryObject<MadeFromBlock> _plank : ModBlocks._COLLECTION_PLANKS) {
             planksBuilder.add(_plank.get());
         }
 

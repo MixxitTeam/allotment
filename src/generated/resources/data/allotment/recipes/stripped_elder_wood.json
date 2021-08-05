@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx",
+    "xx"
+  ],
+  "key": {
+    "x": {
+      "item": "allotment:stripped_elder_log"
+    }
+  },
+  "result": {
+    "item": "allotment:stripped_elder_wood",
+    "count": 3
+  }
+}

@@ -76,7 +76,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             builderForBlock(itemGenerated, _cactus.getId().getPath());
         }
 
-        for (RegistryObject<Block> _plank : ModBlocks._COLLECTION_PLANKS) {
+        for (RegistryObject<MadeFromBlock> _plank : ModBlocks._COLLECTION_PLANKS) {
             block(_plank.getId().getPath());
         }
 

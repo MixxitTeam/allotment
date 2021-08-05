@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sbs",
+    "sbs"
+  ],
+  "key": {
+    "b": {
+      "item": "allotment:dried_bamboo"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "allotment:dried_bamboo_fence_gate"
+  }
+}

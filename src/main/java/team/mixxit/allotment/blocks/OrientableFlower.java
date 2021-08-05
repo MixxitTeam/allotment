@@ -24,7 +24,12 @@ public class OrientableFlower extends BushBlock {
     public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<AttachFace> FACE = BlockStateProperties.FACE;
 
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+    protected static final VoxelShape SHAPE_FLOOR = Block.makeCuboidShape(5, 0, 5, 11, 10, 11);
+    protected static final VoxelShape SHAPE_CEILING = Block.makeCuboidShape(5, 6, 5, 11, 16, 11);
+    protected static final VoxelShape SHAPE_WALL_E = Block.makeCuboidShape(0, 5, 5, 10, 11, 11);
+    protected static final VoxelShape SHAPE_WALL_S = Block.makeCuboidShape(5, 5, 0, 11, 11, 10);
+    protected static final VoxelShape SHAPE_WALL_W = Block.makeCuboidShape(6, 5, 5, 16, 11, 11);
+    protected static final VoxelShape SHAPE_WALL_N = Block.makeCuboidShape(5, 5, 6, 11, 11, 16);
 
     public OrientableFlower(AbstractBlock.Properties builder) {
         super(builder);
@@ -34,10 +39,23 @@ public class OrientableFlower extends BushBlock {
         );
     }
 
-    // TODO Fix hitbox orientation
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vector3d vector3d = state.getOffset(worldIn, pos);
-        return SHAPE.withOffset(vector3d.x, vector3d.y, vector3d.z);
+        AttachFace face = state.get(FACE);
+        Direction direction = state.get(HORIZONTAL_FACING);
+
+        if (face == AttachFace.FLOOR)
+            return SHAPE_FLOOR.withOffset(vector3d.x, vector3d.y, vector3d.z);
+        else if (face == AttachFace.CEILING)
+            return SHAPE_CEILING;
+        else if (direction == Direction.SOUTH)
+            return SHAPE_WALL_S;
+        else if (direction == Direction.WEST)
+            return SHAPE_WALL_W;
+        else if (direction == Direction.EAST)
+            return SHAPE_WALL_E;
+        else
+            return SHAPE_WALL_N;
     }
 
     /**

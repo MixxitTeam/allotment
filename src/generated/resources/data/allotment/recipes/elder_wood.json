@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx",
+    "xx"
+  ],
+  "key": {
+    "x": {
+      "item": "allotment:elder_log"
+    }
+  },
+  "result": {
+    "item": "allotment:elder_wood",
+    "count": 3
+  }
+}
