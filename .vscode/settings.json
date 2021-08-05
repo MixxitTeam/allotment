@@ -4,6 +4,9 @@
   "files.associations": {
     "*.html": "twig"
   },
+  "files.exclude": {
+    "_site/": true
+  },
   "es6-css-minify.css": {
     "inline": false
   },
