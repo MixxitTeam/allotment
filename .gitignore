@@ -23,3 +23,6 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+# Ignore cache files
+src/generated/resources/.cache/
