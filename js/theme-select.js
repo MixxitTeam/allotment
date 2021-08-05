@@ -20,12 +20,31 @@
   }
 
   themeSelector.addEventListener("change", () => {
-    const val = parseInt(themeSelector.value, 10);
+    const strval = themeSelector.value;
+    const val = parseInt(strval, 10);
 
-    applyTheme(val);
+    function setAndSaveTheme() {
+      applyTheme(val);
 
-    if ("localStorage" in window) {
-      localStorage.setItem("theme", val);
+      if ("localStorage" in window) {
+        localStorage.setItem("theme", val);
+      }
+    }
+
+    function listener(success) {
+      if (success) {
+        setAndSaveTheme();
+        themeSelector.value = strval;
+      } else
+        cookieMessageRemoveListener(listener);
+    }
+
+    if (getHasAcceptedCookies()) {
+      setAndSaveTheme();
+    } else {
+      themeSelector.value = -1;
+      cookieMessageAddListener(listener);
+      showCookieMsg();
     }
   });
 
