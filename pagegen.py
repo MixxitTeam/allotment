@@ -4,9 +4,7 @@ import configparser
 import os
 import json
 import re
-from sre_constants import CATEGORY
 import colorama
-import sys
 import io
 import math
 import argparse
