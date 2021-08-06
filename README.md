@@ -8,7 +8,7 @@ You need the following things installed on your development machine:
 
 - Jekyll
 - Python 3.8.x
-- NodeJS (optional, to build SimpleJekyllSearch[^1])
+- NodeJS (optional, to build SimpleJekyllSearch<sup name="a1">[1](#f1)</sup>)
 
 You also need the [main Allotment repository](https://github.com/MixxitTeam/Allotment) and the [wikirender repository](https://github.com/MixxitTeam/wikirender).
 
@@ -59,4 +59,4 @@ If you are using *wikirender*, this script can also automatically check for any 
 pagegen.py -a checktextures
 ```
 
-[^1]: This wiki uses a patched version of SimpleJekyllSearch. See [this pull request](https://github.com/christian-fei/Simple-Jekyll-Search/pull/178). Until the pull request will be merged, please [compile the fork from source](https://github.com/jonaskohl/Simple-Jekyll-Search).
+<b name="f1">1</b> This wiki uses a patched version of SimpleJekyllSearch. See [this pull request](https://github.com/christian-fei/Simple-Jekyll-Search/pull/178). Until the pull request will be merged, please [compile the fork from source](https://github.com/jonaskohl/Simple-Jekyll-Search). [↩](#a1)
