@@ -59,4 +59,4 @@ If you are using *wikirender*, this script can also automatically check for any 
 pagegen.py -a checktextures
 ```
 
-<b name="f1">1</b> This wiki uses a patched version of SimpleJekyllSearch. See [this pull request](https://github.com/christian-fei/Simple-Jekyll-Search/pull/178). Until the pull request will be merged, please [compile the fork from source](https://github.com/jonaskohl/Simple-Jekyll-Search). [↩](#a1)
+<small><b name="f1">1:</b> This wiki uses a patched version of SimpleJekyllSearch. See [this pull request](https://github.com/christian-fei/Simple-Jekyll-Search/pull/178). Until the pull request will be merged, please [compile the fork from source](https://github.com/jonaskohl/Simple-Jekyll-Search). <a href="#a1">↩</a></small>
