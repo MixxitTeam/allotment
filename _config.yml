@@ -34,6 +34,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - "jekyll-github-metadata"
 
 sass:
   # style: compressed

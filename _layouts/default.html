@@ -29,7 +29,11 @@
       {{ content }}
     </main>
     <footer>
-      <div class="copyright">Copyright &copy; {{ 'now' | date: "%Y" }} <a href="https://mixxitteam.github.io/">Mixxit Team</a></div>
+      <div class="copyright">
+        Copyright &copy; {{ 'now' | date: "%Y" }} <a href="https://mixxitteam.github.io/">Mixxit Team</a>
+        &#x25AA;
+        {% github_edit_link "Edit this page on GitHub" %}
+      </div>
       <div class="theme-select">
         <label for="theme">Theme: </label>
         <select id="theme">
