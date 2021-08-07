@@ -44,7 +44,7 @@ public class ModSapling extends BushBlock implements IGrowable {
 
     public void placeTree(ServerWorld world, BlockPos pos, BlockState state, Random rand) {
         if (state.get(STAGE) == 0) {
-            world.setBlockState(pos, state.func_235896_a_(STAGE), 4);
+            world.setBlockState(pos, state.cycleValue(STAGE), 4);
         } else {
             if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(world, rand, pos)) return;
             this.tree.get().attemptGrowTree(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);

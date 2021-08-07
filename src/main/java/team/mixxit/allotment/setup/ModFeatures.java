@@ -42,10 +42,10 @@ public class ModFeatures {
                             new SimpleBlockStateProvider(ModBlocks.ELDER_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(ModBlocks.ELDER_LEAVES.get().getDefaultState()),
                             //                                            Radius                         | Offset       | Height
-                            new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
-                            //new DarkOakFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1)),
-                            //new BushFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(0), 3),
-                            //new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 4),
+                            new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
+                            //new DarkOakFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(1)),
+                            //new BushFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(0), 3),
+                            //new BushFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 4),
 
                             //                      Base height | Height Rand A | Height Rand B
                             new StraightTrunkPlacer(4, 2, 0),
@@ -64,14 +64,14 @@ public class ModFeatures {
             Feature.FLOWER
                     .withConfiguration(Configs.NORMAL_FLOWER_CONFIG)
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2)
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2)
     );
 
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> DESERT_FLOWERS = register("desert_flowers", () ->
             Feature.FLOWER
                     .withConfiguration(Configs.DESERT_FLOWER_CONFIG)
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2)
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2)
     );
 
     public static final class States {

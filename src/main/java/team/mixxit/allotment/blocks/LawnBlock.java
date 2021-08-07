@@ -59,7 +59,7 @@ public class LawnBlock extends GrassBlock implements IGrowable, IBlockColorProvi
         BlockState blockstate = context.getWorld().getBlockState(context.getPos().up());
         return getDefaultState()
                 .with(FACING, context.getPlacementHorizontalFacing().getOpposite())
-                .with(SNOWY, blockstate.isIn(Blocks.SNOW_BLOCK) || blockstate.isIn(Blocks.SNOW));
+                .with(SNOWY, blockstate.matchesBlock(Blocks.SNOW_BLOCK) || blockstate.matchesBlock(Blocks.SNOW));
     }
 
     @Override
