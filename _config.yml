@@ -22,8 +22,8 @@ title: Allotment Wiki
 #email: your-email@example.com
 description: >-
   Mod description coming soon
-baseurl: "allotment" # the subpath of your site, e.g. /blog
-url: "https://mixxitteam.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/allotment" # the subpath of your site, e.g. /blog
+url: "https://mixxitteam.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: MixxitTeam
 github_username:  MixxitTeam
 
