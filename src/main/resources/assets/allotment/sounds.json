@@ -1,0 +1,47 @@
+{
+  "block_metal_place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "allotment:block/metal/metal_place_0",
+      "allotment:block/metal/metal_place_1",
+      "allotment:block/metal/metal_place_2"
+    ]
+  },
+  "block_metal_step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "allotment:block/metal/metal_step_0",
+      "allotment:block/metal/metal_step_1",
+      "allotment:block/metal/metal_step_2",
+      "allotment:block/metal/metal_step_3",
+      "allotment:block/metal/metal_step_4"
+    ]
+  },
+  "block_metal_dig": {
+    "subtitle": "allotment.subtitle.metal_dig",
+    "sounds": [
+      "allotment:block/metal/metal_dig_0",
+      "allotment:block/metal/metal_dig_1",
+      "allotment:block/metal/metal_dig_2",
+      "allotment:block/metal/metal_dig_3"
+    ]
+  },
+  "block_metal_break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "allotment:block/metal/metal_break_0",
+      "allotment:block/metal/metal_break_1",
+      "allotment:block/metal/metal_break_2",
+      "allotment:block/metal/metal_break_3"
+    ]
+  },
+  "block_metal_fall": {
+    "sounds": [
+      "allotment:block/metal/metal_step_0",
+      "allotment:block/metal/metal_step_1",
+      "allotment:block/metal/metal_step_2",
+      "allotment:block/metal/metal_step_3",
+      "allotment:block/metal/metal_step_4"
+    ]
+  }
+}

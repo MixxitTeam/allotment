@@ -17,6 +17,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import team.mixxit.allotment.sound.ModSoundTypes;
 
 public class HoseReelBlock extends Block implements IWaterLoggable {
     private static final VoxelShape SHAPE_NORTH_SOUTH = Block.makeCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 15.0D, 14.0D);
@@ -26,7 +27,13 @@ public class HoseReelBlock extends Block implements IWaterLoggable {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
     public HoseReelBlock() {
-        super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(1.0F).harvestLevel(0).sound(SoundType.METAL).notSolid());
+        super(AbstractBlock.Properties.create(Material.IRON)
+                .hardnessAndResistance(1.0F)
+                .harvestLevel(0)
+                //.sound(SoundType.METAL)
+                .sound(ModSoundTypes.METAL.get())
+                .notSolid()
+        );
 
         BlockState defaultState = stateContainer.getBaseState()
                 .with(WATERLOGGED, false)

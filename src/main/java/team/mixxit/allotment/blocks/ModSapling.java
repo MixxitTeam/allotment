@@ -56,20 +56,20 @@ public class ModSapling extends BushBlock implements IGrowable {
      * Whether this IGrowable can grow
      */
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        //return true;
+        return true;
         // Until the tree issue is resolved, we return false
-        return false;
+        //return false;
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        //return (double)worldIn.rand.nextFloat() < 0.45D;
+        return (double)worldIn.rand.nextFloat() < 0.45D;
         // Until the tree issue is resolved, we return false
-        return false;
+        //return false;
     }
 
     public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-        //this.placeTree(worldIn, pos, state, rand);
-        LOGGER.warn("Saplings currently do not work in this version of Allotment!");
+        this.placeTree(worldIn, pos, state, rand);
+        //LOGGER.warn("Saplings currently do not work in this version of Allotment!");
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

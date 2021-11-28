@@ -70,23 +70,47 @@ public class GutterBlock extends HorizontalFaceBlock implements IWaterLoggable {
         return null;
     }
 
+    static final int PART_LEFT = 0;
+    static final int PART_MIDDLE = 1;
+    static final int PART_RIGHT = 2;
+
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockState blockstate = this.getDefaultState();
         FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
         Direction direction = context.getFace();
+        final double xpos = context.getHitVec().x - (double) context.getPos().getX();
+        final double ypos = context.getHitVec().y - (double) context.getPos().getY();
+        final double zpos = context.getHitVec().z - (double) context.getPos().getZ();
         if (!context.replacingClickedOnBlock() && direction.getAxis().isHorizontal()) {
-            final double ypos = context.getHitVec().y - (double) context.getPos().getY();
-            blockstate = blockstate
-                    .with(FACE,
-                            ypos > 0.75D ? AttachFace.CEILING : (
-                                    ypos < 0.25D ? AttachFace.FLOOR : AttachFace.WALL
-                            )
-                    )
-                    .with(HORIZONTAL_FACING, direction);
-        }  else {
-            final double xpos = context.getHitVec().x - (double) context.getPos().getX();
-            final double zpos = context.getHitVec().z - (double) context.getPos().getZ();
+            double hpos = 0.5D;
 
+            if (direction.equals(Direction.SOUTH))
+                hpos = xpos;
+            else if (direction.equals(Direction.WEST))
+                hpos = zpos;
+            else if (direction.equals(Direction.NORTH))
+                hpos = 1 - xpos;
+            else if (direction.equals(Direction.EAST))
+                hpos = 1 - zpos;
+
+            int part = PART_MIDDLE;
+
+            if (hpos < 0.25D)
+                part = PART_LEFT;
+            else if (hpos > 0.75D)
+                part = PART_RIGHT;
+
+            if (part == PART_MIDDLE && ypos > 0.75D)
+                blockstate = blockstate.with(FACE, AttachFace.CEILING).with(HORIZONTAL_FACING, direction);
+            else if (part == PART_MIDDLE && ypos < 0.25D)
+                blockstate = blockstate.with(FACE, AttachFace.FLOOR).with(HORIZONTAL_FACING, direction);
+            else if (part == PART_LEFT && ypos >= 0.25D && ypos <= 0.75D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, direction.rotateYCCW());
+            else if (part == PART_RIGHT && ypos >= 0.25D && ypos <= 0.75D)
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, direction.rotateY());
+            else
+                blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, direction);
+        }  else {
             if (xpos >= 0.25D && xpos <= 0.75D && zpos < 0.25D)
                 blockstate = blockstate.with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, Direction.SOUTH);
             else if (xpos >= 0.25D && xpos <= 0.75D && zpos > 0.75D)

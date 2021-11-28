@@ -46,6 +46,13 @@ public class ModFeatures {
                     .withPlacement(Placements.ELDER_TREE_PLACEMENT)
     );
 
+    /*public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> ELDER_TREE = register("elder_tree", () ->
+            Feature.TREE
+                    .withConfiguration(Configs.ELDER_TREE_CONFIG)
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                    .withPlacement(Placements.ELDER_TREE_PLACEMENT)
+    );*/
+
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> OVERWORLD_FLOWERS = register("overworld_flowers", () ->
             Feature.FLOWER
                     .withConfiguration(Configs.NORMAL_FLOWER_CONFIG)
@@ -61,16 +68,14 @@ public class ModFeatures {
     );
 
     public static final class States {
-        //protected static final BlockState ELDER_TREE_LOG = ModBlocks.ELDER_LOG.get().getDefaultState();
-        //protected static final BlockState ELDER_TREE_LEAVES = ModBlocks.ELDER_LEAVES.get().getDefaultState();
+        protected static final BlockState ELDER_TREE_LOG = ModBlocks.ELDER_LOG.get().getDefaultState();
+        protected static final BlockState ELDER_TREE_LEAVES = ModBlocks.ELDER_LEAVES.get().getDefaultState();
     }
 
     public static final class Placements {
         public static ConfiguredPlacement<?> ELDER_TREE_PLACEMENT =
                 Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.1f, 1));
     }
-
-    //private static final Logger LOGGER = LogManager.getLogger();
 
     public static final class Configs {
         public static final BaseTreeFeatureConfig ELDER_TREE_CONFIG;
@@ -163,6 +168,7 @@ public class ModFeatures {
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.DESERT_FLOWERS.get());
         }
 
+        // FIXME
         /*
         // Elder Trees
         if (
@@ -172,8 +178,7 @@ public class ModFeatures {
             LOGGER.debug("Biome is of expected type ('{}'), registering features: ELDER_TREE", event.getCategory().getName());
             event.getGeneration()
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.ELDER_TREE.get());
-        }
-        */
+        }*/
     }
 
     public static void register(){}
