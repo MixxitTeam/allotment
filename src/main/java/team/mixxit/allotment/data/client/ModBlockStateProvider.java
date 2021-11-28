@@ -118,7 +118,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         woodBlock(ModBlocks.ELDER_WOOD.get(), ModBlocks.ELDER_LOG.get());
         woodBlock(ModBlocks.STRIPPED_ELDER_WOOD.get(), ModBlocks.STRIPPED_ELDER_LOG.get());
         simpleBlock(ModBlocks.ELDER_PLANKS.get());
-        floweringLeaves(ModBlocks.ELDER_LEAVES.get());
+        leaves(ModBlocks.ELDER_LEAVES.get(), "elder_leaves");
+        floweringLeaves(ModBlocks.ELDER_LEAVES_FLOWERING.get(), "elder_leaves");
 
         axisBlock(ModBlocks.BAMBOO_BLOCK.get(), modLoc("block/bamboo_block"));
         axisBlock(ModBlocks.DRIED_BAMBOO_BLOCK.get(), modLoc("block/dried_bamboo_block"));
@@ -151,6 +152,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         orientableFlower(ModBlocks.TEST_FLOWER.get(), "guzmania");
 
         sapling(ModBlocks.ELDER_SAPLING.get());
+
+        doorBlock(ModBlocks.ELDER_DOOR.get(), modLoc("block/elder_door_bottom"), modLoc("block/elder_door_top"));
     }
 
     private ModelFile simpleCross(Block block) {
@@ -772,17 +775,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void floweringLeaves(Block block) {
+        floweringLeaves(block, block.getRegistryName().getPath());
+    }
+
+    private void floweringLeaves(Block block, String textureName) {
         ModelFile base = models().getExistingFile(modLoc("block/flowering_leaves"));
         BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
-                .texture("all", modLoc("block/" + block.getRegistryName().getPath()))
-                .texture("overlay", modLoc("block/" + block.getRegistryName().getPath() + "_overlay"));
+                .texture("all", modLoc("block/" + textureName))
+                .texture("overlay", modLoc("block/" + textureName + "_overlay"));
         simpleBlock(block, builder);
     }
 
     private void leaves(Block block) {
+        leaves(block, block.getRegistryName().getPath());
+    }
+
+    private void leaves(Block block, String textureName) {
         ModelFile base = models().getExistingFile(mcLoc("block/leaves"));
         BlockModelBuilder builder = models().getBuilder(block.getRegistryName().getPath()).parent(base)
-                .texture("all", modLoc("block/" + block.getRegistryName().getPath()));
+                .texture("all", modLoc("block/" + textureName));
         simpleBlock(block, builder);
     }
 

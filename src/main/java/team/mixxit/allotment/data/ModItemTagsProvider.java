@@ -37,5 +37,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
+        copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
+        copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+        copy(BlockTags.DOORS, ItemTags.DOORS);
+        copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ss",
+    "gg"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:sand"
+    },
+    "g": {
+      "item": "minecraft:gravel"
+    }
+  },
+  "result": {
+    "item": "allotment:zen_gravel",
+    "count": 4
+  }
+}

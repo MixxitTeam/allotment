@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ibi",
+    "bib"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "b": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "result": {
+    "item": "allotment:corrugated_iron"
+  }
+}

@@ -1,7 +1,6 @@
 {
-  "parent": "allotment:block/flowering_leaves",
+  "parent": "minecraft:block/leaves",
   "textures": {
-    "all": "allotment:block/elder_leaves",
-    "overlay": "allotment:block/elder_leaves_overlay"
+    "all": "allotment:block/elder_leaves"
   }
 }

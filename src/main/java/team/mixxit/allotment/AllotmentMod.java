@@ -120,6 +120,7 @@ public class AllotmentMod
                     ModBlocks.PAMPAS_GRASS.get(),
                     ModBlocks.PAMPAS_GRASS_PINK.get(),
                     ModBlocks.ELDER_LEAVES.get(),
+                    ModBlocks.ELDER_LEAVES_FLOWERING.get(),
             };
 
             for (Block block : blocks) {
@@ -180,6 +181,7 @@ public class AllotmentMod
             final Block[] blocks = {
                     ModBlocks.LAWN_BLOCK.get(),
                     ModBlocks.ELDER_LEAVES.get(),
+                    ModBlocks.ELDER_LEAVES_FLOWERING.get(),
             };
 
             for (Block block : blocks) {

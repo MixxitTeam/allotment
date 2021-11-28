@@ -5,13 +5,16 @@ import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import team.mixxit.allotment.interf.IFlowerDyeProvider;
 import team.mixxit.allotment.setup.ModDamageSources;
 
-public class TallThistleBlock extends TallFlowerBlock {
+public class TallThistleBlock extends TallFlowerBlock implements IFlowerDyeProvider {
     public TallThistleBlock(Properties properties) {
         super(properties);
     }
@@ -29,5 +32,10 @@ public class TallThistleBlock extends TallFlowerBlock {
             }
 
         }
+    }
+
+    @Override
+    public DyeItem getDye() {
+        return (DyeItem) Items.PINK_DYE;
     }
 }

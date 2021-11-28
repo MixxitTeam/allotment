@@ -11,9 +11,8 @@ import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.common.util.Lazy;
@@ -33,63 +32,65 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = AllotmentMod.MOD_ID)
 public class ModFeatures {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static boolean configuredFeaturesRegistered = false;
-    private static final Map<ResourceLocation, Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>>> CONFIGURED_FEATURES = new LinkedHashMap<>();
+
+    private static final Map<ResourceLocation, Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>>> CONFIGURED_FEATURES =
+            new LinkedHashMap<>();
 
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> ELDER_TREE = register("elder_tree", () ->
-            Feature.TREE.withConfiguration(
-                    (new BaseTreeFeatureConfig.Builder(
-                            new SimpleBlockStateProvider(ModBlocks.ELDER_LOG.get().getDefaultState()),
-                            new SimpleBlockStateProvider(ModBlocks.ELDER_LEAVES.get().getDefaultState()),
-                            //                                            Radius                         | Offset       | Height
-                            new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
-                            //new DarkOakFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1)),
-                            //new BushFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(0), 3),
-                            //new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 4),
-
-                            //                      Base height | Height Rand A | Height Rand B
-                            new StraightTrunkPlacer(4, 2, 0),
-
-
-                            new TwoLayerFeature(1, 0, 1))
-                    )
-                            .setIgnoreVines()
-                            .build()
-            )
+            Feature.TREE
+                    .withConfiguration(Configs.ELDER_TREE_CONFIG)
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.1f, 1)))
+                    .withPlacement(Placements.ELDER_TREE_PLACEMENT)
     );
 
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> OVERWORLD_FLOWERS = register("overworld_flowers", () ->
             Feature.FLOWER
                     .withConfiguration(Configs.NORMAL_FLOWER_CONFIG)
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2)
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2)
     );
 
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> DESERT_FLOWERS = register("desert_flowers", () ->
             Feature.FLOWER
                     .withConfiguration(Configs.DESERT_FLOWER_CONFIG)
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2)
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2)
     );
 
     public static final class States {
-        protected static final BlockState ELDER_TREE_LOG = ModBlocks.ELDER_LOG.get().getDefaultState();
-        protected static final BlockState ELDER_TREE_LEAVES = ModBlocks.ELDER_LEAVES.get().getDefaultState();
+        //protected static final BlockState ELDER_TREE_LOG = ModBlocks.ELDER_LOG.get().getDefaultState();
+        //protected static final BlockState ELDER_TREE_LEAVES = ModBlocks.ELDER_LEAVES.get().getDefaultState();
     }
 
     public static final class Placements {
-
+        public static ConfiguredPlacement<?> ELDER_TREE_PLACEMENT =
+                Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.1f, 1));
     }
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    //private static final Logger LOGGER = LogManager.getLogger();
 
     public static final class Configs {
+        public static final BaseTreeFeatureConfig ELDER_TREE_CONFIG;
         public static final BlockClusterFeatureConfig NORMAL_FLOWER_CONFIG;
         public static final BlockClusterFeatureConfig DESERT_FLOWER_CONFIG;
 
         static {
+            {
+                ELDER_TREE_CONFIG = new BaseTreeFeatureConfig.Builder(
+                        new SimpleBlockStateProvider(ModBlocks.ELDER_LOG.get().getDefaultState()),
+                        new SimpleBlockStateProvider(ModBlocks.ELDER_LEAVES.get().getDefaultState()),
+                        //                                       Radius             | Offset    | Height
+                        new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
+                        //                      Base height | Height Rand A | Height Rand B
+                        new StraightTrunkPlacer(4, 2, 0),
+                        new TwoLayerFeature(1, 0, 1)
+                )
+                        .setIgnoreVines()
+                        .build();
+            }
             {
                 WeightedBlockStateProvider normalFlowerWeightedBlockStateProvider = new WeightedBlockStateProvider();
 
@@ -129,8 +130,10 @@ public class ModFeatures {
         CONFIGURED_FEATURES.forEach((name, lazy) -> registerConfiguredFeature(name, lazy.get()));
     }
 
-    private static void registerConfiguredFeature(ResourceLocation name, ConfiguredFeature<?, ?> configuredFeature) {
+    private static <FC extends IFeatureConfig> void registerConfiguredFeature(ResourceLocation name, ConfiguredFeature<FC, ?> configuredFeature) {
         LOGGER.debug("Register configured feature '{}'", name);
+        LOGGER.debug("  \\--> Config is {}", configuredFeature.config.getClass().getName());
+        LOGGER.debug("  \\--> Is config BaseTreeFeatureConfig? {}", configuredFeature.config instanceof BaseTreeFeatureConfig);
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, configuredFeature);
     }
 
@@ -146,7 +149,7 @@ public class ModFeatures {
                 event.getCategory() == Biome.Category.FOREST ||
                 event.getCategory() == Biome.Category.EXTREME_HILLS
         ) {
-            LOGGER.debug("Biome is of expected type, registering features: OVERWORLD_FLOWERS");
+            LOGGER.debug("Biome is of expected type ('{}'), registering features: OVERWORLD_FLOWERS", event.getCategory().getName());
             event.getGeneration()
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.OVERWORLD_FLOWERS.get());
         }
@@ -155,20 +158,22 @@ public class ModFeatures {
         if (
                 event.getCategory() == Biome.Category.DESERT
         ) {
-            LOGGER.debug("Biome is of expected type, registering features: DESERT_FLOWERS");
+            LOGGER.debug("Biome is of expected type ('{}'), registering features: DESERT_FLOWERS", event.getCategory().getName());
             event.getGeneration()
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.DESERT_FLOWERS.get());
         }
 
+        /*
         // Elder Trees
         if (
                 event.getCategory() == Biome.Category.FOREST ||
                 event.getCategory() == Biome.Category.EXTREME_HILLS
         ) {
-            LOGGER.debug("Biome is of expected type, registering features: ELDER_TREE");
+            LOGGER.debug("Biome is of expected type ('{}'), registering features: ELDER_TREE", event.getCategory().getName());
             event.getGeneration()
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.ELDER_TREE.get());
         }
+        */
     }
 
     public static void register(){}
@@ -179,7 +184,21 @@ public class ModFeatures {
     }
 
     private static Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> register(String name, Supplier<ConfiguredFeature<?, ?>> configuredFeature) {
+        if (LOGGER == null)
+            throw new NullPointerException("Failed to get logger");
+
+        if (name == null)
+            LOGGER.error("Parameter 'name' is null!");
+
+        if (configuredFeature == null)
+            LOGGER.error("Parameter 'configuredFeature' is null!");
+
+        LOGGER.debug("Queuing configured feature '" + (
+                name == null ? "<NULL>" : name
+        )+ "' for registration");
+        //LOGGER.debug("  \\--> Config (supplier) is " + configuredFeature.get().config.getClass().getName());
         Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> lazy = Lazy.of(configuredFeature);
+        //LOGGER.debug("  \\--> Config (lazy) is " + lazy.get().config.getClass().getName());
         CONFIGURED_FEATURES.put(AllotmentMod.getId(name), lazy);
         return lazy;
     }

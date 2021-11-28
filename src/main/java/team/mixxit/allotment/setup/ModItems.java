@@ -2,6 +2,7 @@ package team.mixxit.allotment.setup;
 
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.TallBlockItem;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.ModVineBlock;
@@ -20,6 +21,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> STRAW = Registration.ITEMS.register("straw", () ->
             new Item(new Item.Properties().group(AllotmentMod.MAIN_GROUP)));
+
+    public static final RegistryObject<TallBlockItem> ELDER_DOOR = Registration.ITEMS.register("elder_door", () ->
+            new TallBlockItem(ModBlocks.ELDER_DOOR.get(), new Item.Properties().group(AllotmentMod.MAIN_GROUP)));
 
     public static final ArrayList<RegistryObject<Item>> _COLLECTION_TINTED_OVERLAY_VINES = new ArrayList<>();
 

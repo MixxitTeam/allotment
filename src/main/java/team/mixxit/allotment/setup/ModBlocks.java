@@ -91,6 +91,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves",
             () -> ModBlocks.createLeavesBlock(12));
 
+    public static final RegistryObject<Block> ELDER_LEAVES_FLOWERING = register("flowering_elder_leaves",
+            () -> ModBlocks.createLeavesBlock(12));
+
     public static final RegistryObject<Block> FIREWOOD_SPRUCE = register("spruce_firewood_bundle",
             FirewoodBundleBlock::new);
 
@@ -140,7 +143,10 @@ public class ModBlocks {
             new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<ModSapling> ELDER_SAPLING = register("elder_sapling", () ->
-            new ModSapling(() -> new ElderTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
+            new ModSapling(ElderTree::new, AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
+
+    public static final RegistryObject<DoorBlock> ELDER_DOOR = registerNoItem("elder_door", () ->
+            new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
 //endregion
 
 //region Lists (arrays)
@@ -202,12 +208,12 @@ public class ModBlocks {
     };
 
     public static final RegistryObject<? extends TallFlowerBlock>[] _COLLECTION_TALL_FLOWERS = new RegistryObject[]{
-            doublePlant("crown_imperial"),
-            doublePlant("orange_gladioli"),
+            doublePlantWithDye("crown_imperial", (DyeItem) Items.ORANGE_DYE),
+            doublePlantWithDye("orange_gladioli", (DyeItem) Items.ORANGE_DYE),
+            doublePlantWithDye("purple_loosestrife", (DyeItem) Items.PURPLE_DYE),
+            doublePlantWithDye("tall_desert_rose", (DyeItem) Items.RED_DYE),
             doublePlant("purple_fountain_grass"),
-            doublePlant("purple_loosestrife"),
             doublePlant("reed"),
-            doublePlant("tall_desert_rose"),
             tallThistle("tall_thistle")
     };
 
@@ -495,6 +501,7 @@ public class ModBlocks {
         setRenderLayer(GUTTER.get(), RenderType.getCutout());
         setRenderLayer(TEST_FLOWER.get(), RenderType.getCutout());
         setRenderLayer(ELDER_SAPLING.get(), RenderType.getCutout());
+        setRenderLayer(ELDER_DOOR.get(), RenderType.getCutout());
     }
 
 //region Helper methods
@@ -601,6 +608,10 @@ public class ModBlocks {
 
     private static RegistryObject<TallFlowerBlock> doublePlant(String name) {
         return register(name, () -> new TallFlowerBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
+    }
+
+    private static RegistryObject<ModTallFlowerBlockWithDye> doublePlantWithDye(String name, DyeItem dye) {
+        return register(name, () -> new ModTallFlowerBlockWithDye(AbstractBlock.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT), dye));
     }
 
     private static RotatedPillarBlock createRotatableBlock(AbstractBlock.Properties properties) {

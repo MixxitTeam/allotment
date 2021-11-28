@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:tall_desert_rose"
+    }
+  ],
+  "result": {
+    "item": "minecraft:red_dye"
+  }
+}

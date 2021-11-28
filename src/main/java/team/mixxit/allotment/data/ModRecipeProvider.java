@@ -2,6 +2,7 @@ package team.mixxit.allotment.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.data.*;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ import team.mixxit.allotment.blocks.MadeFromBlock;
 import team.mixxit.allotment.blocks.ModFlowerBlock;
 import team.mixxit.allotment.blocks.TallWallBlock;
 import team.mixxit.allotment.crafting.ToolUsageRecipeBuilder;
+import team.mixxit.allotment.interf.IFlowerDyeProvider;
 import team.mixxit.allotment.setup.ModBlocks;
 import team.mixxit.allotment.setup.ModItems;
 import team.mixxit.allotment.setup.Registration;
@@ -41,6 +43,18 @@ public class ModRecipeProvider extends RecipeProvider {
                     .addIngredient(flower)
                     .addCriterion("has_item", hasItem(flower))
                     .build(consumer, modLoc(dyeItem.getRegistryName().getPath() + "_from_" + flower.getRegistryName().getPath()));
+        }
+
+        for (RegistryObject<? extends TallFlowerBlock> _tallFlower : ModBlocks._COLLECTION_TALL_FLOWERS) {
+            TallFlowerBlock flower = _tallFlower.get();
+            if (flower instanceof IFlowerDyeProvider) {
+                IFlowerDyeProvider dyeProvider = (IFlowerDyeProvider)flower;
+                DyeItem dyeItem = dyeProvider.getDye();
+                ShapelessRecipeBuilder.shapelessRecipe(dyeItem, 1)
+                        .addIngredient(flower)
+                        .addCriterion("has_item", hasItem(flower))
+                        .build(consumer, modLoc(dyeItem.getRegistryName().getPath() + "_from_" + flower.getRegistryName().getPath()));
+            }
         }
 
         ShapedRecipeBuilder.shapedRecipe(ModBlocks.HOSE_REEL.get())
@@ -278,6 +292,87 @@ public class ModRecipeProvider extends RecipeProvider {
                 .patternLine("xxx")
                 .addCriterion("has_item", hasItem(ModBlocks.DRIED_BAMBOO_BLOCK.get()))
                 .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.STRAW_BLOCK.get())
+                .key('x', ModItems.STRAW.get())
+                .patternLine("xxx")
+                .patternLine("xxx")
+                .patternLine("xxx")
+                .addCriterion("has_item", hasItem(ModItems.STRAW.get()))
+                .build(consumer);
+
+        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Items.GRASS), ModItems.STRAW.get(), 0.1f, 200)
+                .addCriterion("has_item", hasItem(Items.GRASS))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.CORRUGATED_IRON.get())
+                .key('i', Items.IRON_INGOT)
+                .key('b', Blocks.IRON_BLOCK)
+                .patternLine("ibi")
+                .patternLine("bib")
+                .addCriterion("has_ingot", hasItem(Items.IRON_INGOT))
+                .addCriterion("has_block", hasItem(Blocks.IRON_BLOCK))
+                .build(consumer);
+
+        //region Zen Gravel
+        //region Zen Gravel (Normal)
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ZEN_GRAVEL_NORMAL.get(), 4)
+                .key('s', Blocks.SAND)
+                .key('g', Blocks.GRAVEL)
+                .patternLine("sg")
+                .patternLine("sg")
+                .addCriterion("has_sand", hasItem(Blocks.SAND))
+                .addCriterion("has_gravel", hasItem(Blocks.GRAVEL))
+                .build(consumer, modLoc("zen_gravel_1"));
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ZEN_GRAVEL_NORMAL.get(), 4)
+                .key('s', Blocks.SAND)
+                .key('g', Blocks.GRAVEL)
+                .patternLine("ss")
+                .patternLine("gg")
+                .addCriterion("has_sand", hasItem(Blocks.SAND))
+                .addCriterion("has_gravel", hasItem(Blocks.GRAVEL))
+                .build(consumer, modLoc("zen_gravel_2"));
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ZEN_GRAVEL_NORMAL.get(), 4)
+                .key('s', Blocks.SAND)
+                .key('g', Blocks.GRAVEL)
+                .patternLine("gg")
+                .patternLine("ss")
+                .addCriterion("has_sand", hasItem(Blocks.SAND))
+                .addCriterion("has_gravel", hasItem(Blocks.GRAVEL))
+                .build(consumer, modLoc("zen_gravel_3"));
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.ZEN_GRAVEL_NORMAL.get(), 4)
+                .key('s', Blocks.SAND)
+                .key('g', Blocks.GRAVEL)
+                .patternLine("sg")
+                .patternLine("gs")
+                .addCriterion("has_sand", hasItem(Blocks.SAND))
+                .addCriterion("has_gravel", hasItem(Blocks.GRAVEL))
+                .build(consumer, modLoc("zen_gravel_4"));
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ZEN_GRAVEL_NORMAL.get())
+                .addIngredient(ModBlocks.ZEN_GRAVEL_END.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ZEN_GRAVEL_END.get()))
+                .build(consumer, modLoc("zen_gravel_5"));
+        //endregion
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ZEN_GRAVEL_STRAIGHT.get())
+                .addIngredient(ModBlocks.ZEN_GRAVEL_NORMAL.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ZEN_GRAVEL_NORMAL.get()))
+                .build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ZEN_GRAVEL_CORNER.get())
+                .addIngredient(ModBlocks.ZEN_GRAVEL_STRAIGHT.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ZEN_GRAVEL_STRAIGHT.get()))
+                .build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ZEN_GRAVEL_END.get())
+                .addIngredient(ModBlocks.ZEN_GRAVEL_CORNER.get())
+                .addCriterion("has_item", hasItem(ModBlocks.ZEN_GRAVEL_CORNER.get()))
+                .build(consumer);
+        //endregion
     }
 
     private ResourceLocation modLoc(String name) {

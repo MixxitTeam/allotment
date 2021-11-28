@@ -35,6 +35,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         block("stripped_elder_wood");
         block("elder_planks");
         block("elder_leaves");
+        block("flowering_elder_leaves");
         block("bamboo_block");
         block("dried_bamboo_block");
         block("straw_block");
@@ -131,6 +132,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         String elderSaplingPath = ModBlocks.ELDER_SAPLING.getId().getPath();
         builderWithBlockTexture(itemGenerated, elderSaplingPath, elderSaplingPath);
+
+        builder(itemGenerated, "elder_door");
     }
 
     public void tallWall(String name, ResourceLocation texture) {

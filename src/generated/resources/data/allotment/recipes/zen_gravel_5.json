@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:zen_gravel_end"
+    }
+  ],
+  "result": {
+    "item": "allotment:zen_gravel"
+  }
+}

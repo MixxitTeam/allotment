@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "allotment:orange_gladioli"
+    }
+  ],
+  "result": {
+    "item": "minecraft:orange_dye"
+  }
+}

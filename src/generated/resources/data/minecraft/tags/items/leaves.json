@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "allotment:elder_leaves"
+    "allotment:elder_leaves",
+    "allotment:flowering_elder_leaves"
   ]
 }

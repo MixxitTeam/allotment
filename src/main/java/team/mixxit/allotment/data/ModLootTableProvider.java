@@ -3,20 +3,27 @@ package team.mixxit.allotment.data;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.functions.SetCount;
+import net.minecraft.state.Property;
 import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import team.mixxit.allotment.blocks.*;
 import team.mixxit.allotment.setup.ModBlocks;
+import team.mixxit.allotment.setup.ModItems;
 import team.mixxit.allotment.setup.Registration;
 
 import java.util.List;
@@ -132,12 +139,15 @@ public class ModLootTableProvider extends LootTableProvider {
             registerLootTable(ModBlocks.LAWN_BLOCK.get(), (_b) -> droppingWithSilkTouch(_b, Blocks.DIRT));
 
             registerLootTable(ModBlocks.ELDER_LEAVES.get(), (leaves) -> droppingWithChancesAndSticks(leaves, ModBlocks.ELDER_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
+            registerLootTable(ModBlocks.ELDER_LEAVES_FLOWERING.get(), (leaves) -> droppingWithChancesAndSticks(leaves, ModBlocks.ELDER_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
 
             registerNoDropLootTable(ModBlocks.ALLOTMENT_LOGO_1.get());
             registerNoDropLootTable(ModBlocks.ALLOTMENT_LOGO_2.get());
             registerNoDropLootTable(ModBlocks.DEBUG_BLOCK.get());
             registerNoDropLootTable(ModBlocks.DEBUG_TINT_BLOCK.get());
             registerNoDropLootTable(ModBlocks.DEBUG_FOLIAGE_BLOCK.get());
+
+            registerLootTable(ModBlocks.ELDER_DOOR.get(), (_b) -> droppingWhenWithItem(_b, ModItems.ELDER_DOOR.get(), DoorBlock.HALF, DoubleBlockHalf.LOWER));
         }
 
         public void registerNoDropLootTable(Block block) {
@@ -157,6 +167,39 @@ public class ModLootTableProvider extends LootTableProvider {
 
         protected static LootTable.Builder droppingSheared(Block sheared, int count) {
             return LootTable.builder().addLootPool(LootPool.builder().acceptCondition(SHEARS).addEntry(ItemLootEntry.builder(sheared).acceptFunction(SetCount.builder(ConstantRange.of(count)))));
+        }
+
+        protected static <T extends Comparable<T> & IStringSerializable> LootTable.Builder droppingWhenWithItem(Block block, IItemProvider itemToDrop, Property<T> property, T value) {
+            return LootTable
+                    .builder()
+                    .addLootPool(
+                            withSurvivesExplosion(
+                                    block,
+                                    LootPool
+                                            .builder()
+                                            .rolls(
+                                                    ConstantRange
+                                                            .of(1)
+                                            )
+                                            .addEntry(
+                                                    ItemLootEntry
+                                                            .builder(itemToDrop)
+                                                            .acceptCondition(
+                                                                    BlockStateProperty
+                                                                            .builder(block)
+                                                                            .fromProperties(
+                                                                                    StatePropertiesPredicate
+                                                                                            .Builder
+                                                                                            .newBuilder()
+                                                                                            .withProp(
+                                                                                                    property,
+                                                                                                    value
+                                                                                            )
+                                                                            )
+                                                            )
+                                            )
+                            )
+                    );
         }
     }
 }
