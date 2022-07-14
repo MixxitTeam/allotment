@@ -42,8 +42,8 @@ public class ModFeatures {
     public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> ELDER_TREE = register("elder_tree", () ->
             Feature.TREE
                     .withConfiguration(Configs.ELDER_TREE_CONFIG)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placements.ELDER_TREE_PLACEMENT)
+                    //.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                    //.withPlacement(Placements.ELDER_TREE_PLACEMENT)
     );
 
     /*public static final Lazy<ConfiguredFeature<? extends IFeatureConfig, ?>> ELDER_TREE = register("elder_tree", () ->
@@ -92,6 +92,7 @@ public class ModFeatures {
                         //                      Base height | Height Rand A | Height Rand B
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1)
+
                 )
                         .setIgnoreVines()
                         .build();
@@ -169,7 +170,7 @@ public class ModFeatures {
         }
 
         // FIXME
-        /*
+
         // Elder Trees
         if (
                 event.getCategory() == Biome.Category.FOREST ||
@@ -178,7 +179,7 @@ public class ModFeatures {
             LOGGER.debug("Biome is of expected type ('{}'), registering features: ELDER_TREE", event.getCategory().getName());
             event.getGeneration()
                     .withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.ELDER_TREE.get());
-        }*/
+        }
     }
 
     public static void register(){}

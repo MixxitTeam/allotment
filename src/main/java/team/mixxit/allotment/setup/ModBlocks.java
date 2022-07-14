@@ -22,6 +22,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import team.mixxit.allotment.AllotmentMod;
 import team.mixxit.allotment.blocks.*;
+import team.mixxit.allotment.util.HarvestLevel;
 import team.mixxit.allotment.worldgen.ElderTree;
 
 import java.rmi.registry.Registry;
@@ -86,7 +87,7 @@ public class ModBlocks {
             new StrippableLogBlock(MaterialColor.LIGHT_GRAY, MaterialColor.LIGHT_GRAY, STRIPPED_ELDER_WOOD));
 
     public static final RegistryObject<Block> ELDER_PLANKS = register("elder_planks", () ->
-            new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+            new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).harvestTool(ToolType.AXE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> ELDER_LEAVES = register("elder_leaves",
             () -> ModBlocks.createLeavesBlock(12));
@@ -110,7 +111,7 @@ public class ModBlocks {
             new StrawBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).hardnessAndResistance(0.5F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
     public static final RegistryObject<Block> CRACKED_CLAY = register("cracked_clay", () ->
-            new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)));
+            new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN).hardnessAndResistance(0.9F, 2.0F).harvestTool(ToolType.PICKAXE).setRequiresTool().harvestLevel(HarvestLevel.WOOD).sound(SoundType.STONE)));
 
     public static final RegistryObject<SoilBlock> HUMUS = register("humus", () ->
             new SoilBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN).hardnessAndResistance(0.5F).harvestTool(ToolType.SHOVEL).sound(SoundType.GROUND)));
@@ -134,10 +135,10 @@ public class ModBlocks {
             new Block(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.GREEN).hardnessAndResistance(0.7F).harvestTool(ToolType.HOE).sound(SoundType.PLANT)));
 
     public static final RegistryObject<RotatableBlock> CORRUGATED_IRON = register("corrugated_iron", () ->
-            new RotatableBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+            new RotatableBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(HarvestLevel.WOOD).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
     public static final RegistryObject<GutterBlock> GUTTER = register("gutter", () ->
-            new GutterBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().notSolid().setAllowsSpawn((a, b, c, d) -> Boolean.FALSE).hardnessAndResistance(1.5F, 2.0F)));
+            new GutterBlock(AbstractBlock.Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).harvestLevel(HarvestLevel.WOOD).setRequiresTool().notSolid().setAllowsSpawn((a, b, c, d) -> Boolean.FALSE).hardnessAndResistance(1.5F, 2.0F)));
 
     public static final RegistryObject<WoodButtonBlock> ELDER_BUTTON = register("elder_button", () ->
             new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
@@ -220,7 +221,9 @@ public class ModBlocks {
     public static final RegistryObject<ThinFenceBlock>[] _COLLECTION_THIN_FENCES = new RegistryObject[]{
             thinFence("chain_link_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.CHAIN).hardnessAndResistance(2.5F, 4.0F)),
             thinFence("jaktop_criss_cross_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.WOOD).harvestTool(ToolType.AXE).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F)),
-            thinFence("bar_mat_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).hardnessAndResistance(2.5F, 4.0F))
+            thinFence("bar_mat_fence", AbstractBlock.Properties.create(Material.IRON, MaterialColor.EMERALD).harvestTool(ToolType.PICKAXE).sound(SoundType.METAL).hardnessAndResistance(2.5F, 4.0F)),
+            //thinFence("garden_fence", AbstractBlock.Properties.create(Material.WOOD, MaterialColor.LIGHT_GRAY).harvestTool(ToolType.AXE).sound(SoundType.WOOD).hardnessAndResistance(2.0F, 3.0F)),
+            //thinFence("debug_texture", AbstractBlock.Properties.create(Material.ROCK, MaterialColor.PINK).zeroHardnessAndResistance())
     };
 
     public static final RegistryObject<ModFenceBlock>[] _COLLECTION_FENCES = new RegistryObject[]{
@@ -551,7 +554,7 @@ public class ModBlocks {
     private static RegistryObject<TallWallBlock> concreteWall(DyeColor color) {
         String colorName = color.getTranslationKey();
         Block concreteBlock = _MAPPING_CONCRETE.get(color);
-        return tallWallBlock(colorName + "_concrete_wall", concreteBlock, AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().hardnessAndResistance(1.8F));
+        return tallWallBlock(colorName + "_concrete_wall", concreteBlock, AbstractBlock.Properties.create(Material.ROCK, color).setRequiresTool().harvestLevel(HarvestLevel.WOOD).harvestTool(ToolType.PICKAXE).hardnessAndResistance(1.8F));
     }
 
     private static RegistryObject<TallWallBlock> tallWallBlock(String name, Block forBlock, AbstractBlock.Properties properties) {
@@ -594,7 +597,7 @@ public class ModBlocks {
 
     private static RegistryObject<MadeFromBlock> plank(String prefix, String name, Supplier<Block> madeFrom)
     {
-        return register(prefix + "_" + name + "_planks", () -> new MadeFromBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD), madeFrom));
+        return register(prefix + "_" + name + "_planks", () -> new MadeFromBlock(AbstractBlock.Properties.create(Material.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD), madeFrom));
     }
 
     private static RegistryObject<ModMushroomBlock> mushroom(String name)

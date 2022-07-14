@@ -1,19 +1,19 @@
 package team.mixxit.allotment;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -24,12 +24,21 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import team.mixxit.allotment.blocks.ModVineBlock;
+import team.mixxit.allotment.debug.BlockMetadata;
+import team.mixxit.allotment.debug.ItemMetadata;
 import team.mixxit.allotment.interf.IBlockColorProvider;
 import team.mixxit.allotment.interf.IItemColorProvider;
 import team.mixxit.allotment.itemgroups.MainItemGroup;
 import team.mixxit.allotment.setup.ModBlocks;
-import team.mixxit.allotment.setup.ModFeatures;
+import team.mixxit.allotment.setup.ModCommands;
 import team.mixxit.allotment.setup.Registration;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Map;
 
 @Mod(AllotmentMod.MOD_ID)
 public class AllotmentMod
@@ -82,6 +91,7 @@ public class AllotmentMod
     {
         // some preinit code
         //LOGGER.info("team.mixxit.allotment::AllotmentMod.setup");
+        MinecraftForge.EVENT_BUS.register(ModCommands.class);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -106,6 +116,58 @@ public class AllotmentMod
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
 
+    }
+
+    public static void dumpBlocks() {
+        ArrayList<BlockMetadata> metadataList = new ArrayList<>();
+        for (RegistryObject<Block> entry : Registration.BLOCKS.getEntries()) {
+            metadataList.add(BlockMetadata.fromRegistryObject(entry));
+        }
+
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create();
+
+        String blocks = gson.toJson(metadataList);
+
+        try (Writer writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        Files.newOutputStream(Paths.get("allotment.blocks.json")),
+                        StandardCharsets.UTF_8
+                )
+        )) {
+            writer.write(blocks);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void dumpItems() {
+        ArrayList<ItemMetadata> metadataList = new ArrayList<>();
+        for (RegistryObject<Item> entry : Registration.ITEMS.getEntries()) {
+            metadataList.add(ItemMetadata.fromRegistryObject(entry));
+        }
+
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create();
+
+        String items = gson.toJson(metadataList);
+
+        try (Writer writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        Files.newOutputStream(Paths.get("allotment.items.json")),
+                        StandardCharsets.UTF_8
+                )
+        )) {
+            writer.write(items);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)

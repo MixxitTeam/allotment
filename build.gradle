@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'com.google.code.gson:gson:2.9.0'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
