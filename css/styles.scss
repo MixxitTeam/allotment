@@ -19,6 +19,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
 
   $__bg: rgb($background-color...);
   $__kg: rgb($block-color...);
+  $__lg: rgb($link-color...);
 
   color-scheme: light;
   --text-color: #{$text-color};
@@ -30,6 +31,14 @@ $sprite-offset-muliplier: $sprite-size * -1;
 
   @for $i from 1 through 9 {
     --block-color-#{$i}0-solid: #{mix($__bg, $__kg, $weight: (10 - $i) * 10)};
+    --link-color-#{$i}0-solid: #{mix($__bg, $__lg, $weight: (10 - $i) * 10)};
+  }
+
+  nav #links a {
+    &.nav-overview::before { background-image: url({{ "/img/icon_overview_light.png" | relative_url }}); }
+    &.nav-flowers::before { background-image: url({{ "/img/icon_flower_light.png" | relative_url }}); }
+    &.nav-blocks::before { background-image: url({{ "/img/icon_block_light.png" | relative_url }}); }
+    &.nav-items::before { background-image: url({{ "/img/icon_items_light.png" | relative_url }}); }
   }
 }
 
@@ -43,6 +52,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
 
   $__bg: rgb($background-color...);
   $__kg: rgb($block-color...);
+  $__lg: rgb($link-color...);
 
   color-scheme: dark;
   --text-color: #{$text-color};
@@ -54,6 +64,14 @@ $sprite-offset-muliplier: $sprite-size * -1;
 
   @for $i from 1 through 9 {
     --block-color-#{$i}0-solid: #{mix($__bg, $__kg, $weight: (10 - $i) * 10)};
+    --link-color-#{$i}0-solid: #{mix($__bg, $__lg, $weight: (10 - $i) * 10)};
+  }
+
+  nav #links a {
+    &.nav-overview::before { background-image: url({{ "/img/icon_overview_dark.png" | relative_url }}); }
+    &.nav-flowers::before { background-image: url({{ "/img/icon_flower_dark.png" | relative_url }}); }
+    &.nav-blocks::before { background-image: url({{ "/img/icon_block_dark.png" | relative_url }}); }
+    &.nav-items::before { background-image: url({{ "/img/icon_items_dark.png" | relative_url }}); }
   }
 }
 
@@ -79,7 +97,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
 }
 
 @mixin tool-info-light {
-  block-info .tool-info {
+  .block-info .tool-info {
     &.tool-level-0 {
       background-position-x: 1 * $sprite-offset-muliplier;
     }
@@ -93,7 +111,7 @@ $sprite-offset-muliplier: $sprite-size * -1;
 }
 
 @mixin tool-info-dark {
-  block-info .tool-info {
+  .block-info .tool-info {
     &.tool-level-0 {
       background-position-x: 0 * $sprite-offset-muliplier;
     }
@@ -112,6 +130,12 @@ $sprite-offset-muliplier: $sprite-size * -1;
 
 html {
   height: 100%;
+}
+
+.container {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body {
@@ -154,8 +178,10 @@ body {
     font-size: 18pt;
     background-color: RGBA(var(--block-color), 0.3);
 
-    display: flex;
-    align-items: center;
+    >.container {
+      display: flex;
+      align-items: center;
+    }
 
     img {
       width: 32px;
@@ -166,10 +192,13 @@ body {
   }
 
   nav {
-    display: flex;
     grid-area: nav;
-    justify-content: space-between;
     background-color: RGBA(var(--block-color), 0.2);
+
+    >.container {
+      display: flex;
+      justify-content: space-between;
+    }
 
     #links {
       display: flex;
@@ -177,22 +206,38 @@ body {
       flex-shrink: 1;
       
       a {
+        display: flex;
+        align-items: center;
         padding: $padding;
         color: RGB(var(--text-color));
         font-weight: bold;
         text-decoration: none;
         white-space: nowrap;
 
+        &.nav-active {
+          background-color: RGBA(var(--block-color), 0.1);
+        }
+        
         &:hover {
           background-color: RGBA(var(--block-color), 0.2);
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 16px;
+          height: 16px;
+          @extend %pixelated;
+          background-size: 16px;
+          margin-right: 4px;
         }
       }
     }
 
     #search {
+      flex-shrink: 0;
       display: flex;
       position: relative;
-      flex-shrink: 0;
 
       #search-input {
         width: 300px;
@@ -257,11 +302,14 @@ body {
   footer {
     grid-area: footer;
     padding: $padding;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     background-color: RGBA(var(--block-color), 0.1);
+
+    >.container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
 
     .theme-select {
       margin-left: 8px;
@@ -326,11 +374,108 @@ select {
   }
 }
 
-block-info {
-  display: block;
+.crafting-recipe {
+  background: RGB(var(--block-color), 0.1);
+  border-collapse: collapse;
+  margin: 1em 0;
+
+  >tbody>tr>td {
+    padding: 12px;
+  }
+
+  .crafting-grid {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 4px;
+    td {
+      padding: 2px;
+      background: RGB(var(--block-color), 0.25);
+    }
+  }
+
+  .crafting-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    .crafting-ingredient {
+      padding: 2px;
+      background: RGB(var(--block-color), 0.25);
+    }
+
+    >.crafting-ingredient:nth-child(3n) {
+      flex-basis: 100%;
+    }
+  }
+
+  .item {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-size: 32px;
+
+    @extend %pixelated;
+
+    &.item-type-multiple {
+      position: relative;
+      overflow: hidden;
+
+      >.item {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+
+  
+  .result {
+    padding-left: 0;
+    .result-inner {
+      display: flex;
+      align-items: center;
+      &::before {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 32px;
+        background: RGB(var(--block-color), 0.25);
+        margin-right: 12px;
+      }
+    }
+  }
+
+  &.crafting-shaped {
+    .result .result-inner::before {
+      -webkit-mask-image: url("{{ "/img/arrow.svg" | relative_url }}");
+      mask-image: url("{{ "/img/arrow.svg" | relative_url }}");
+    }
+  }
+
+  &.crafting-shapeless {
+    .result .result-inner::before {
+      -webkit-mask-image: url("{{ "/img/shapeless.svg" | relative_url }}");
+      mask-image: url("{{ "/img/shapeless.svg" | relative_url }}");
+    }
+  }
+
+  &.crafting-smelting .result .result-inner::before {
+    -webkit-mask-image: url("{{ "/img/flame.svg" | relative_url }}");
+    mask-image: url("{{ "/img/flame.svg" | relative_url }}");
+  }
+
+  .result-slot {
+    padding: 2px;
+    background: RGB(var(--block-color), 0.25);
+  }
+}
+
+.block-info {
+  // display: block;
   float: right;
   background: RGB(var(--block-color), 0.1);
-  padding: 8px;
+  border-collapse: collapse;
+  // padding: 8px;
 
   img.preview-icon {
     box-sizing: content-box;
@@ -342,6 +487,10 @@ block-info {
     background-color: RGB(var(--block-color), 0.2);
 
     padding: 8px;
+
+    &.item-icon {
+      @extend %pixelated;
+    }
   }
 
   img.inventory-icon {
@@ -413,18 +562,13 @@ block-info {
       background-position-y: 5 * $sprite-offset-muliplier;
     }
   }
+  
+  tbody>tr:nth-child(odd) {
+    background-color: RGBA(var(--block-color), 0.2);
+  }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    
-    tbody>tr:nth-child(odd) {
-      background-color: RGBA(var(--block-color), 0.2);
-    }
-
-    td, th {
-      padding: 4px;
-    }
+  td, th {
+    padding: 4px;
   }
 }
 
@@ -452,8 +596,8 @@ block-info {
 .cookiemsg-root {
   position: fixed;
   bottom: 0;
-  left: 8px;
-  right: 8px;
+  left: 0;
+  right: 0;
   background-color: var(--block-color-30-solid);
   padding: 16px;
   display: flex;
@@ -469,6 +613,29 @@ block-info {
       margin-top: 8px;
       display: flex;
       gap: 8px;
+    }
+  }
+}
+
+button {
+  appearance: none;
+  font: inherit;
+  padding: 4px 8px;
+  background: var(--block-color-10-solid);
+  color: RGB(var(--text-color));
+  border: 2px solid currentColor;
+  cursor: pointer;
+  border-radius: 0;
+
+  &:hover {
+    background: var(--block-color-30-solid);
+  }
+
+  &.cookiemsg-accept {
+    background: var(--link-color-60-solid);
+    
+    &:hover {
+      background: var(--link-color-90-solid);
     }
   }
 }

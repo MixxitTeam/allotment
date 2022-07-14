@@ -4,21 +4,6 @@ layout: default
 
 <h1>{{ page.title | escape }}</h1>
 
-<script>
-{% if page.blockprops != nil %}
-var _blockProps = {{ page.blockprops | jsonify }};
-{% else %}
-var _blockProps = null;
-{% endif %}
-{% if page.category == "item" %}
-var _isItem = true;
-{% else %}
-var _isItem = false;
-{% endif %}
-</script>
-<block-info data-for-id="{{ page.mcid | escape }}"></block-info>
-
 {{ content }}
 
-<script src="{{ "/js/mclang.js" | relative_url | escape }}"></script>
-<script src="{{ "/js/block.js" | relative_url | escape }}"></script>
+<script src="{{ "/js/items.js" | relative_url | escape }}"></script>

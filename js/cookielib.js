@@ -63,7 +63,7 @@
     var cookieMessageAccept = makeElementWithClass("button", "cookiemsg-accept");
     var cookieMessageDecline = makeElementWithClass("button", "cookiemsg-decline");
 
-    cookieMessageText.innerText = "This feature requires cookies to be set. These cookies are soley functional and are NEVER use for tracking, targeting or identification.";
+    cookieMessageText.innerText = "This feature requires cookies to be set. These cookies are solely functional and are NEVER used for tracking, targeting or identification.";
     cookieMessageAccept.innerText = "Accept";
     cookieMessageDecline.innerText = "Decline";
 

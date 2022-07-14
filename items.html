@@ -1,6 +1,7 @@
 ---
 title: "Items index"
 hidefromsearch: true
+nav: items
 ---
 
 {% assign sitepages = site.pages | where_exp: "item", "item.title != nil" | where_exp: "item", "item.category == 'item'" %}

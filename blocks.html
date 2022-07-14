@@ -1,6 +1,7 @@
 ---
 title: Blocks index
 hidefromsearch: true
+nav: blocks
 ---
 
 {% assign sitepages = site.pages | where_exp: "item", "item.title != nil" | where_exp: "item", "item.category == 'block'" %}
