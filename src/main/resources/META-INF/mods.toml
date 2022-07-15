@@ -25,7 +25,7 @@ displayName="Allotment" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://mixxit.team/mods/allotment/" #optional
+displayURL="https://mixxitteam.github.io/allotment/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="mod.png" #optional
 # A text field displayed in the mod UI
@@ -34,7 +34,7 @@ logoFile="mod.png" #optional
 authors="Mixxit Team" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Description coming soon
+A delightful gardening mod for Minecraft Java Edition
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.allotment]] #optional
