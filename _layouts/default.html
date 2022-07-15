@@ -22,6 +22,7 @@
           <a class="{% if page.nav == "flowers" %}nav-active {% endif %}nav-flowers" href="{{ "/flowers.html" | relative_url }}">Flowers &amp; Plants</a>
           <a class="{% if page.nav == "blocks" %}nav-active {% endif %}nav-blocks" href="{{ "/blocks.html" | relative_url }}">Other Blocks</a>
           <a class="{% if page.nav == "items" %}nav-active {% endif %}nav-items" href="{{ "/items.html" | relative_url }}">Items</a>
+          <a class="{% if page.nav == "links" %}nav-active {% endif %}nav-links" href="{{ "/links.html" | relative_url }}">Useful Links</a>
         </div>
         <div id="search">
           <input type="text" accesskey="f" id="search-input" placeholder="Search&hellip; (F)" autocomplete="off">
@@ -31,6 +32,11 @@
     </nav>
     <main>
       <div class="container">
+{% if site.announcement.show %}
+        <div class="announcement{% if site.announcement.classes %} {{ site.announcement.classes | join: " " }}{% endif %}">
+          {{ site.announcement.text | raw }}
+        </div>
+{% endif %}
         {{ content }}
       </div>
     </main>
@@ -39,7 +45,15 @@
         <div class="copyright">
           Copyright &copy; {{ 'now' | date: "%Y" }} <a href="https://mixxitteam.github.io/">Mixxit Team</a>
           &#x25AA;&#xFE0E;
-          {% github_edit_link "Edit this page on GitHub" %}
+          {% if page.sourcefile %}
+            {% if page.sourcefile.exists %}
+              <a href="{{ site.github.repository_url }}/edit/gh-pages/{{ page.sourcefile.fullpath }}">Edit this page on GitHub</a>
+            {% else %}
+              <a href="{{ site.github.repository_url }}/new/gh-pages/{{ page.sourcefile.path }}/new?filename={{ page.sourcefile.name }}&amp;value=.lead%3A%0A%0A%0A%0A.misc%3A%0A%0A">Edit this page on GitHub</a>
+            {% endif %}
+          {% else %}
+            {% github_edit_link "Edit this page on GitHub" %}
+          {% endif %}
         </div>
         <div class="theme-select">
           <label for="theme">Theme: </label>

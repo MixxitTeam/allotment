@@ -39,13 +39,16 @@ $sprite-offset-muliplier: $sprite-size * -1;
     &.nav-flowers::before { background-image: url({{ "/img/icon_flower_light.png" | relative_url }}); }
     &.nav-blocks::before { background-image: url({{ "/img/icon_block_light.png" | relative_url }}); }
     &.nav-items::before { background-image: url({{ "/img/icon_items_light.png" | relative_url }}); }
+    &.nav-links::before { background-image: url({{ "/img/icon_links_light.png" | relative_url }}); }
   }
+
+  .dlbutton::before { background-image: url({{ "/img/icon_download_light.png" | relative_url }}); }
 }
 
 @mixin dark {
   $text-color: 238, 238, 238;
-  $background-color: 51, 51, 51;
-  $link-color: 204, 204, 255;
+  $background-color: 32, 32, 32;
+  $link-color: 204, 255, 204;
   $alink-color: 255, 204, 204;
   $block-color: 255, 255, 255;
   $accent-color: #FFA63D; // TODO Adapt for light mode
@@ -72,7 +75,10 @@ $sprite-offset-muliplier: $sprite-size * -1;
     &.nav-flowers::before { background-image: url({{ "/img/icon_flower_dark.png" | relative_url }}); }
     &.nav-blocks::before { background-image: url({{ "/img/icon_block_dark.png" | relative_url }}); }
     &.nav-items::before { background-image: url({{ "/img/icon_items_dark.png" | relative_url }}); }
+    &.nav-links::before { background-image: url({{ "/img/icon_links_dark.png" | relative_url }}); }
   }
+
+  .dlbutton::before { background-image: url({{ "/img/icon_download_dark.png" | relative_url }}); }
 }
 
 @mixin applytheme($theme) {
@@ -138,6 +144,18 @@ html {
   margin-right: auto;
 }
 
+:root {
+  @include applytheme("light");
+  &.dark {
+    @include applytheme("dark");
+    @include tool-info-dark;
+  }
+  &.light {
+    @include applytheme("light");
+    @include tool-info-light;
+  }
+}
+
 body {
   font-size: 10pt;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
@@ -159,16 +177,6 @@ body {
     &:active {
       color: RGB(var(--alink-color));
     }
-  }
-
-  @include applytheme("light");
-  &.dark {
-    @include applytheme("dark");
-    @include tool-info-dark;
-  }
-  &.light {
-    @include applytheme("light");
-    @include tool-info-light;
   }
 
   header {
@@ -353,14 +361,14 @@ select {
   margin: 0;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 
   li a {
     display: flex;
     align-items: center;
     text-decoration: none;
     padding: $padding;
-    background-color: RGBA(var(--block-color), 0.2);
-    margin: 8px;
+    background-color: RGBA(var(--block-color), 0.1);
 
     img {
       margin-right: 8px;
@@ -475,6 +483,7 @@ select {
   float: right;
   background: RGB(var(--block-color), 0.1);
   border-collapse: collapse;
+  margin: 0 0 12px 12px;
   // padding: 8px;
 
   img.preview-icon {
@@ -484,7 +493,7 @@ select {
     // @extend %pixelated;
     
     // @extend %inventory;
-    background-color: RGB(var(--block-color), 0.2);
+    // background-color: RGB(var(--block-color), 0.2);
 
     padding: 8px;
 
@@ -569,6 +578,10 @@ select {
 
   td, th {
     padding: 4px;
+
+    &.cell-image-big {
+      padding: 12px;
+    }
   }
 }
 
@@ -672,6 +685,157 @@ button {
   }
 }
 
+.allotment-hero {
+  padding: 24px;
+  text-align: center;
+  background: RGBA(var(--block-color), 0.1);
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logo {
+    width: 481px;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  >* {
+    margin: 0;
+  }
+
+  .dllink {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+
+    .dlbutton {
+      appearance: none;
+      border: 0;
+      font: inherit;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      text-decoration: none;
+      background: RGB(var(--link-color));
+      color: RGB(var(--background-color));
+      font-weight: bold;
+
+      &:hover {
+        background-color: RGBA(var(--link-color), 0.75);
+        // box-shadow: 0 -1px 0 RGB(var(--link-color)) inset;
+        // text-shadow: 0 -1px 0 RGB(var(--link-color));
+      }
+
+      &:active {
+        background-color: RGBA(var(--link-color), 0.5);
+        // padding-top: 13px;
+        // padding-bottom: 11px;
+        // box-shadow: 0 1px 0 var(--block-color-10-solid) inset, 0 1px 0 RGBA(var(--link-color), 0.5);
+        // text-shadow: none;
+      }
+
+      &:disabled {
+        background: RGB(var(--link-color));
+        color: RGB(var(--background-color));
+        opacity: 0.333;
+        filter: grayscale(100%);
+        // padding: 12px 24px;
+        // text-shadow: none;
+        // box-shadow: none;
+      }
+
+      &::before {
+        @extend %pixelated;
+
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px;
+      }
+    }
+
+    small {
+      opacity: 0.75;
+    }
+  }
+}
+
+.showcase-image-wrapper {
+  margin: 24px 0;
+
+  img.showcase-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.ul-intro {
+  text-align: center;
+  margin: 0 0 32px;
+}
+
+.useful-links {
+  display: grid;
+  --column-count: 3;
+  grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
+  grid-auto-rows: max-content;
+  gap: 12px;
+
+  a {
+    background-color: RGBA(var(--block-color), 0.1);
+    color: RGB(var(--text-color));
+    text-decoration: none;
+    padding: 12px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+    &:hover {
+      background-color: RGBA(var(--link-color), 0.25);
+    }
+
+    &::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      display: block;
+      background: currentColor;
+      flex-shrink: 0;
+      -webkit-mask-image: var(--mask);
+      mask-image: var(--mask);
+    }
+
+    &.link-modrinth { --mask: url({{ "/img/mask_modrinth.svg" | relative_url }}); }
+    &.link-curseforge { --mask: url({{ "/img/mask_curseforge.svg" | relative_url }}); }
+    &.link-github { --mask: url({{ "/img/mask_github.svg" | relative_url }}); }
+    &.link-issue { --mask: url({{ "/img/mask_issue.svg" | relative_url }}); }
+    &.link-discussion { --mask: url({{ "/img/mask_discussion.svg" | relative_url }}); }
+    &.link-discord { --mask: url({{ "/img/mask_discord.svg" | relative_url }}); }
+  }
+}
+
+.announcement {
+  padding: 12px;
+  background: RGB(var(--link-color));
+  color: RGB(var(--background-color));
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+  
+  a {
+    color: inherit;
+  }
+}
+
+
 @keyframes missingno-1 {
   0%, 100% { transform: translate(0%, 0%); }
   25% { transform: translate(100%, 0%); }
@@ -696,7 +860,7 @@ button {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  :root {
     @include applytheme("dark");
 
     @include tool-info-dark;
@@ -707,5 +871,17 @@ button {
   body nav #search:not(:focus-within) #search-input {
     width: 40px;
     background-position: center center;
+  }
+}
+
+@media (max-width: 900px) {
+  .useful-links {
+    --column-count: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .useful-links {
+    --column-count: 1;
   }
 }

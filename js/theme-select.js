@@ -51,16 +51,16 @@
   function applyTheme(val) {
     switch (val) {
       case -1: // system default
-      document.body.classList.remove("light");
-      document.body.classList.remove("dark");
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.remove("dark");
         break;
       case 0: // light
-      document.body.classList.add("light");
-      document.body.classList.remove("dark");
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
         break;
       case 1: // dark
-        document.body.classList.remove("light");
-        document.body.classList.add("dark");
+        document.documentElement.classList.remove("light");
+        document.documentElement.classList.add("dark");
         break;
       default:
         console.warn("Invalid value for theme: ", val);

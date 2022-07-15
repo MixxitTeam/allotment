@@ -27,6 +27,11 @@ url: "https://mixxitteam.github.io" # the base hostname & protocol for your site
 twitter_username: MixxitTeam
 github_username:  MixxitTeam
 
+announcement:
+  show: false
+  text: null #"A new version released! <a href='links.html'>Learn more</a>"
+  classes: null
+
 host: 0.0.0.0
 
 # Build settings
