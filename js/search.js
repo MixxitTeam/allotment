@@ -9,6 +9,11 @@ var sjs = (function() {
   var _sjs = SimpleJekyllSearch({
     searchInput: searchInput,
     resultsContainer: resultsContainer,
+    templateMiddleware: function(prop, value, template) {
+      if (prop === 'desc') {
+        return "";
+      }
+    },
     json: {{ "/search.json" | relative_url | jsonify }},
     fuzzy: true,
     onSearch: onSearchSuccess,
