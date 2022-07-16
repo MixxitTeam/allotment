@@ -14,11 +14,18 @@ nav: overview
     <button class="dlbutton" onclick="downloadMod(this);return false">Download now!</button>
     <small>Alternative download <a href="https://modrinth.com/mod/allotment/versions">1</a>, <a href="https://github.com/MixxitTeam/allotment/releases/latest">2</a> &amp; <a href="https://www.curseforge.com/minecraft/mc-mods/allotment/download">3</a></small>
   </div>
+  <div class="badges">
+    <div class="badges-wrapper">
+      <a href="https://github.com/MixxitTeam/allotment/actions/workflows/gradle.yml" target="_blank"><img src="https://img.shields.io/github/workflow/status/MixxitTeam/allotment/Java%20CI%20with%20Gradle?style=for-the-badge" alt="GitHub Workflow Status"></a>
+      <a href="https://modrinth.com/mod/allotment/versions" target="_blank"><img src="https://img.shields.io/badge/dynamic/json?color=FFA63D&amp;label=Allotment&amp;prefix=Version%20&amp;query=version_number&amp;url=https://mixxitteam.jonaskohl.de/service/allotment/version_info.php&amp;style=for-the-badge" alt="Version"></a>
+      <a href="https://modrinth.com/mod/allotment" target="_blank"><img src="https://img.shields.io/badge/dynamic/json?color=1bd96a&amp;label=downloads&amp;query=downloads&amp;url=https://api.modrinth.com/v2/project/allotment&amp;style=for-the-badge" alt="Downloads"></a>
+    </div>
+  </div>
 </div>
 
 <div class="showcase-image-wrapper">
   <picture>
-    <source srcset="{{ "/img/screenshot/garden.avif" | relative_url }}" type="image/avif">
+    <source srcset="{{ "/img/screenshot/garden.avif" | relative_url }}" type="image/a">
     <source srcset="{{ "/img/screenshot/garden.webp" | relative_url }}" type="image/webp">
     <source srcset="{{ "/img/screenshot/garden.jpg" | relative_url }}" type="image/jpeg">
     <img src="{{ "/img/screenshot/garden.jpg" | relative_url }}" alt="Screenshot" width="1366" height="768" class="showcase-image">
