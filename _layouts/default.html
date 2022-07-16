@@ -9,6 +9,7 @@
     {% seo %}
   </head>
   <body>
+    <a href="#main" class="skip-to-content">Skip to content</a>
     <header>
       <div class="container">
         <img src="{{ "/img/book.png" | relative_url }}" alt="Book icon" width="16" height="16">
@@ -30,7 +31,7 @@
         </div>
       </div>
     </nav>
-    <main>
+    <main id="main">
       <div class="container">
 {% if site.announcement.show %}
         <div class="announcement{% if site.announcement.classes %} {{ site.announcement.classes | join: " " }}{% endif %}">
@@ -65,11 +66,6 @@
         </div>
       </div>
     </footer>
-    <script src="{{ "/js/cookielib.js" | relative_url }}"></script>
-    <script src="{{ "/js/modernizr.js" | relative_url }}"></script>
-    <script src="{{ "/js/theme-select.js" | relative_url }}"></script>
-    <script src="{{ "/js/feature-detect.js" | relative_url }}"></script>
-    <script src="{{ "/js/simple-jekyll-search.min.js" | relative_url }}"></script>
-    <script src="{{ "/js/search.js" | relative_url }}"></script>
+    <script src="{{ "/js/bundle.js" | relative_url }}"></script>
   </body>
 </html>

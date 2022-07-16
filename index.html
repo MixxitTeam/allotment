@@ -17,5 +17,10 @@ nav: overview
 </div>
 
 <div class="showcase-image-wrapper">
-  <img src="{{ "/img/screenshot/garden.webp" | relative_url }}" alt="Screenshot" width="1366" height="768" class="showcase-image">
+  <picture>
+    <source srcset="{{ "/img/screenshot/garden.avif" | relative_url }}" type="image/avif">
+    <source srcset="{{ "/img/screenshot/garden.webp" | relative_url }}" type="image/webp">
+    <source srcset="{{ "/img/screenshot/garden.jpg" | relative_url }}" type="image/jpeg">
+    <img src="{{ "/img/screenshot/garden.jpg" | relative_url }}" alt="Screenshot" width="1366" height="768" class="showcase-image">
+  </picture>
 </div>

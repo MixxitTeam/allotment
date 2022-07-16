@@ -1,15 +1,19 @@
-from ast import parse
-import collections
 import configparser
 import json
 import math
 import os
-from unicodedata import category
+import re
 
+"""
+Reads JSON from a file
+"""
 def getjson(name):
     with open(name, "r", encoding="utf-8") as f:
         return json.load(f)
 
+"""
+Get item from recipe result
+"""
 def getresult(r):
     if "result" in r:
         if "item" in r["result"]:
@@ -19,6 +23,9 @@ def getresult(r):
     else:
         raise Exception("No result in recipe " + json.dumps(r))
 
+"""
+Try to get the translated name of a block id
+"""
 def getLocalizedName(id):
     global lang, mclang, fallbacklang
     key = id.replace(":", ".")
@@ -39,12 +46,21 @@ def getLocalizedName(id):
     else:
         return id
 
+"""
+Check if id is in minecraft: namespace
+"""
 def resultisminecraft(r):
     return getresult(r)[:10] == "minecraft:"
 
+"""
+Get id from resource location
+"""
 def getidpath(n):
     return n.split(":")[1]
 
+"""
+Check if value is truthy
+"""
 def truthy(v):
     if isinstance(v, str):
         return len(v) > 0
@@ -53,6 +69,9 @@ def truthy(v):
     else:
         return False
 
+"""
+Get harvest tool icon
+"""
 def getHarvestToolIcon(block):
     names = {
         "none": "no tool",
@@ -92,12 +111,25 @@ def getHarvestToolIcon(block):
 
     return '<span class="tool-info tool-{tool} tool-level-{level}" title="{tip}"></span>'.format(tool=tool, level=level, tip=toolTip)
 
+"""
+Replace variables in multi-markdown (MMD) string
+"""
 def mmdReplaceVars(ln, ctx):
     for k in ctx:
         ln = ln.replace("%{" + k + "}", ctx[k])
     return ln
 
+"""
+Parses a multi-markdown (MMD) string, expanding variables as needed
+"""
 def parseMmd(contents, ctx = {}):
+    contents = re.sub(
+        r"\[\[#(.*?)\]\]",
+        "",
+        contents,
+        flags=re.DOTALL
+    )
+
     sections = {}
     lines = contents.split("\n")
     
@@ -115,6 +147,9 @@ def parseMmd(contents, ctx = {}):
 
     return sections
 
+"""
+Renders a crafting recipe as HTML table
+"""
 def htmlFormatRecipe(recipe):
     buf = []
     if recipe["type"] == "minecraft:crafting_shaped":
@@ -355,8 +390,8 @@ for block in blocks:
     buf.append('<table class="block-info"><thead><tr>\n')
     buf.append('<th colspan=2>{}</th>\n'.format(blockName))
     buf.append('</tr></thead><tbody>\n')
-    buf.append('<tr><td colspan=2 class="cell-image-big" style="text-align:center"><img src="/allotment/img/textures/allotment/{}.png" width="256" height="256" alt="" class="preview-icon"></td></tr>\n'.format(blockBaseName))
-    buf.append('<tr><td colspan=2 class="cell-image-small" style="text-align:center"><img src="/allotment/img/inventory_textures/allotment/{}.png" width="32" height="32" alt="" class="inventory-icon"></td></tr>\n'.format(blockBaseName))
+    buf.append('<tr><td colspan=2 class="cell-image-big" style="text-align:center"><img onerror="this.src={{{{ "/img/missing_lg.png" | relative_url | jsonify | escape }}}}" src="/allotment/img/textures/allotment/{}.png" width="256" height="256" alt="" class="preview-icon"></td></tr>\n'.format(blockBaseName))
+    buf.append('<tr><td colspan=2 class="cell-image-small" style="text-align:center"><img onerror="this.src={{{{ "/img/missing.png" | relative_url | jsonify | escape }}}}" src="/allotment/img/inventory_textures/allotment/{}.png" width="32" height="32" alt="" class="inventory-icon"></td></tr>\n'.format(blockBaseName))
     buf.append('<tr><td colspan=2 style="text-align:center">{}</td></tr>\n'.format(getHarvestToolIcon(block)))
     buf.append('<tr><td>Hardness:</td><td>{}</td></tr>\n'.format(block["hardness"]))
     buf.append('<tr><td>Blast resistance:</td><td>{}</td></tr>\n'.format(block["blastResistance"]))
@@ -435,8 +470,8 @@ for item in items:
     buf.append('<table class="block-info"><thead><tr>\n')
     buf.append('<th colspan=2>{}</th>\n'.format(itemName))
     buf.append('</tr></thead><tbody>\n')
-    buf.append('<tr><td colspan=2 class="cell-image-big" style="text-align:center"><img src="/allotment/img/inventory_textures/allotment/{}.png" width="256" height="256" alt="" class="preview-icon item-icon"></td></tr>\n'.format(itemBaseName))
-    buf.append('<tr><td colspan=2 class="cell-image-small" style="text-align:center"><img src="/allotment/img/inventory_textures/allotment/{}.png" width="32" height="32" alt="" class="inventory-icon"></td></tr>\n'.format(itemBaseName))
+    buf.append('<tr><td colspan=2 class="cell-image-big" style="text-align:center"><img onerror="this.src={{{{ "/img/missing_lg.png" | relative_url | jsonify | escape }}}}" src="/allotment/img/inventory_textures/allotment/{}.png" width="256" height="256" alt="" class="preview-icon item-icon"></td></tr>\n'.format(itemBaseName))
+    buf.append('<tr><td colspan=2 class="cell-image-small" style="text-align:center"><img onerror="this.src={{{{ "/img/missing.png" | relative_url | jsonify | escape }}}}" src="/allotment/img/inventory_textures/allotment/{}.png" width="32" height="32" alt="" class="inventory-icon"></td></tr>\n'.format(itemBaseName))
     buf.append('<tr><td>Rarity:</td><td><span class="rarity-{RARITY}">{RARNAME}</span></td></tr>\n'.format(RARITY=item["rarity"].lower(), RARNAME=rarities[item["rarity"]]))
     buf.append('<tr><td>Stackable:</td><td>{}</td></tr>\n'.format("No" if item["maxStackSize"] < 2 else "Yes ({})".format(item["maxStackSize"])))
     buf.append('</tbody></table>\n\n')

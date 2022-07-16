@@ -1,6 +1,3 @@
----
-layout: none
----
 
 var sjs = (function() {
   var USE_CTRL_F = false;

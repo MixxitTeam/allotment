@@ -17,6 +17,8 @@
       const versionInfo = await versionInfoRes.json();
 
       location.href = versionInfo.files[0].url;
+    } catch (e) {
+      alert(`An error occurred:\n\n${e.message}`);
     } finally {
       if (button)
         button.disabled = false;

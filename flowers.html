@@ -14,7 +14,9 @@ nav: flowers
         <li>
       {% endif %}
           <a href="{{ site.baseurl | append: page.url | escape }}">
-            <img onerror="this.src={{ "/img/missing.png" | relative_url | jsonify | escape }}" src="{{ "/img/inventory_textures/allotment/" | append: page.mcid | append: ".png" | relative_url | escape }}" alt="" width="16" height="16">
+            <div class="icon">
+              <img onerror="this.src={{ "/img/missing.png" | relative_url | jsonify | escape }}" src="{{ "/img/inventory_textures/allotment/" | append: page.mcid | append: ".png" | relative_url | escape }}" loading="lazy" alt="" width="16" height="16">
+            </div>
             <span>{{ page.title | escape }}</span>
           </a>
         </li>

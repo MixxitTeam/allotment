@@ -144,6 +144,21 @@ html {
   margin-right: auto;
 }
 
+.skip-to-content {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  padding: 6px 12px;
+  background: var(--block-color-10-solid);
+  color: var(--text-color);
+  text-decoration: none;
+  transform: translate(-50%, -100%);
+
+  &:focus {
+    transform: translate(-50%, 0%);
+  }
+}
+
 :root {
   @include applytheme("light");
   &.dark {
@@ -230,6 +245,11 @@ body {
           background-color: RGBA(var(--block-color), 0.2);
         }
 
+        &:focus-visible {
+          outline: 2px solid RGB(var(--link-color));
+          outline-offset: -2px;
+        }
+
         &::before {
           content: "";
           display: block;
@@ -264,6 +284,12 @@ body {
 
         &::placeholder {
           color: RGBA(var(--text-color), 0.5);
+        }
+
+        &:focus {
+          outline: 2px solid RGB(var(--link-color));
+          outline-offset: -2px;
+          background-color: RGBA(var(--link-color), 0.25);
         }
       }
 
@@ -369,15 +395,32 @@ select {
     text-decoration: none;
     padding: $padding;
     background-color: RGBA(var(--block-color), 0.1);
+    gap: 12px;
 
-    img {
-      margin-right: 8px;
-      width: 32px;
-      height: auto;
+    .icon {
+      padding: 2px;
+      background-color: RGBA(var(--block-color), 0.25);
 
-      @extend %pixelated;
+      img {
+        display: block;
+        width: 32px;
+        height: auto;
+
+        @extend %pixelated;
+      
+        // @extend %inventory;
+      }
+    }
     
-      @extend %inventory;
+    &:hover {
+      &, .icon {
+        background-color: RGBA(var(--link-color), 0.25);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid RGB(var(--link-color));
+      outline-offset: -2px;
     }
   }
 }
@@ -740,6 +783,11 @@ button {
         // text-shadow: none;
       }
 
+      &:focus-visible {
+        outline: 2px solid RGB(var(--link-color));
+        outline-offset: 2px;
+      }
+
       &:disabled {
         background: RGB(var(--link-color));
         color: RGB(var(--background-color));
@@ -791,7 +839,7 @@ button {
 
   a {
     background-color: RGBA(var(--block-color), 0.1);
-    color: RGB(var(--text-color));
+    // color: RGB(var(--text-color));
     text-decoration: none;
     padding: 12px;
     display: flex;
@@ -883,5 +931,12 @@ button {
 @media (max-width: 640px) {
   .useful-links {
     --column-count: 1;
+  }
+  :root nav #links a {
+    font-size: 0;
+    
+    &::before {
+      margin-right: 0;
+    }
   }
 }
