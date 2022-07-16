@@ -146,16 +146,32 @@ html {
 
 .skip-to-content {
   position: absolute;
-  left: 50%;
   top: 0;
-  padding: 6px 12px;
+  left: 0;
+  padding: 12px 24px;
   background: var(--block-color-10-solid);
   color: var(--text-color);
   text-decoration: none;
-  transform: translate(-50%, -100%);
 
   &:focus {
-    transform: translate(-50%, 0%);
+    left: 50%;
+    top: 8px;
+    transform: translateX(-50%);
+    background-color: var(--link-color-30-solid);
+    outline: 2px solid RGB(var(--link-color));
+    outline-offset: -2px;
+    box-shadow: 0 6px 12px rgba(#000, $alpha: 0.2);
+  }
+
+  &:not(:focus) {
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
   }
 }
 
@@ -191,6 +207,11 @@ body {
 
     &:active {
       color: RGB(var(--alink-color));
+    }
+
+    &:focus-visible {
+      outline: 2px solid RGB(var(--link-color));
+      outline-offset: 2px;
     }
   }
 
@@ -311,7 +332,12 @@ body {
           padding: 4px;
 
           &:hover, &:focus {
-            background-color: RGB(var(--block-color), 0.2);
+            background-color: RGB(var(--link-color), 0.25);
+          }
+          
+          &:focus-visible {
+            outline: 2px solid RGB(var(--link-color));
+            outline-offset: -2px;
           }
         }
       }
@@ -352,6 +378,11 @@ body {
 
       label {
         margin-right: 4px;
+      }
+
+      select:focus-visible {
+        outline: 2px solid RGB(var(--link-color));
+        outline-offset: 0;
       }
     }
   }
@@ -551,7 +582,10 @@ select {
     height: auto;
     margin: 0 auto;
 
-    @extend %inventory;
+    background: RGB(var(--block-color), 0.25);
+    box-shadow: 0 0 0 2px RGB(var(--block-color), 0.25);
+
+    // @extend %inventory;
     @extend %pixelated;
   }
 
@@ -624,6 +658,10 @@ select {
 
     &.cell-image-big {
       padding: 12px;
+    }
+
+    &.cell-image-small {
+      padding: 6px;
     }
   }
 }
@@ -813,6 +851,28 @@ button {
       opacity: 0.75;
     }
   }
+
+  .badges {
+    &::before {
+      content: "";
+      display: block;
+      height: 1px;
+      background: RGB(var(--block-color), 0.5);
+      max-width: 300px;
+      margin: 24px auto;
+      flex-basis: 100%;
+    }
+
+    .badges-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      img {
+        display: block;
+      }
+    }
+  }
 }
 
 .showcase-image-wrapper {
@@ -859,6 +919,11 @@ button {
       flex-shrink: 0;
       -webkit-mask-image: var(--mask);
       mask-image: var(--mask);
+    }
+
+    &:focus-visible {
+      outline: 2px solid RGB(var(--link-color));
+      outline-offset: -2px;
     }
 
     &.link-modrinth { --mask: url({{ "/img/mask_modrinth.svg" | relative_url }}); }
