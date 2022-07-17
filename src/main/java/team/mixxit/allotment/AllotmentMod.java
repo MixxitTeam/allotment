@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import team.mixxit.allotment.blocks.ModVineBlock;
 import team.mixxit.allotment.debug.BlockMetadata;
 import team.mixxit.allotment.debug.ItemMetadata;
+import team.mixxit.allotment.events.ToolEvents;
 import team.mixxit.allotment.interf.IBlockColorProvider;
 import team.mixxit.allotment.interf.IItemColorProvider;
 import team.mixxit.allotment.itemgroups.MainItemGroup;
@@ -77,6 +78,7 @@ public class AllotmentMod
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new ToolEvents());
     }
 
     public static ResourceLocation getId(String path) {

@@ -1,3 +1,6 @@
 {
-  "parent": "allotment:block/debug_tint_block"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "allotment:block/debug_tint_block"
+  }
 }
